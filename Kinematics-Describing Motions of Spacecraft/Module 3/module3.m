@@ -21,5 +21,26 @@ FB = [1,0,0;
     0,-1,0];
 BN = FB;
 FN = FB*BN;
-[e,phi] = prvCalc(FN)
+[e,phi] = prvCalc(FN);
+
+%% Concept check 5/6 - Euler Parameter Relationship to DCM
+
+% Question 1
+beta = [0.235702, 0.471405, -0.471405, 0.707107];
+DCM = betaToDCM(beta);
+
+% Question 3
+BN = [-0.529403, -0.467056, 0.708231;
+    -0.474115, -0.529403, -0.703525;
+    0.703525, -0.708231, 0.0588291];
+
+beta = DCMToBeta(BN);
+
+%Question 4
+theta1 = 20*pi/180;
+theta2 = 10*pi/180;
+theta3 = -10*pi/180;
+euler321 = M1(theta3)*M2(theta2)*M3(theta1);
+
+beta = DCMToBeta(euler321);
 
