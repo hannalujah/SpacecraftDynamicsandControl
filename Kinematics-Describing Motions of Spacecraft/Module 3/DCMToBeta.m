@@ -32,7 +32,7 @@ function beta = DCMToBeta(DCM)
         beta1 = maxBetaI;
         beta0 = beta0beta1 / beta1;
         beta2 = beta1beta2 / beta1;
-        beta3 = beta3bata1 / beta1;
+        beta3 = beta3beta1 / beta1;
         
     elseif (maxI == 3)
         beta2 = maxBetaI;

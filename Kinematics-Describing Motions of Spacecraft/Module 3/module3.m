@@ -44,3 +44,25 @@ euler321 = M1(theta3)*M2(theta2)*M3(theta1);
 
 beta = DCMToBeta(euler321);
 
+%% Concept Check 7 - Euler Parameter Addition
+
+%Question 1
+beta_BN = [0.774597, 0.258199, 0.516398, 0.258199];
+beta_FB = [0.359211, 0.898027, 0.179605, 0.179605];
+
+beta_FN = betaAddition(beta_BN, beta_FN, 0)
+
+% Question 2
+beta_FN = [0.359211, 0.898027, 0.179605, 0.179605];
+beta_BN = [-0.3777964, 0.755929, 0.377964, 0.377964];
+
+BN = betaToDCM(beta_BN);
+beta_NB = DCMToBeta(transpose(BN));
+beta_FB = betaAddition(beta_NB, beta_FN, 0)
+
+
+FB = FN * transpose(BN);
+beta_FB = DCMToBeta(FB);
+
+FB_prime = betaToDCM(beta_FB);
+
