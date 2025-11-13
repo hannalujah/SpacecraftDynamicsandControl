@@ -50,7 +50,7 @@ beta = DCMToBeta(euler321);
 beta_BN = [0.774597, 0.258199, 0.516398, 0.258199];
 beta_FB = [0.359211, 0.898027, 0.179605, 0.179605];
 
-beta_FN = betaAddition(beta_BN, beta_FN, 0)
+beta_FN = betaAddition(beta_BN, beta_FB, 0);
 
 % Question 2
 beta_FN = [0.359211, 0.898027, 0.179605, 0.179605];
@@ -58,7 +58,7 @@ beta_BN = [-0.3777964, 0.755929, 0.377964, 0.377964];
 
 BN = betaToDCM(beta_BN);
 beta_NB = DCMToBeta(transpose(BN));
-beta_FB = betaAddition(beta_NB, beta_FN, 0)
+beta_FB = betaAddition(beta_NB, beta_FN, 0);
 
 
 FB = FN * transpose(BN);
@@ -66,3 +66,17 @@ beta_FB = DCMToBeta(FB);
 
 FB_prime = betaToDCM(beta_FB);
 
+
+%% Concept Check 8 - EP Differential Kinematic Equation
+
+beta_0 = [0.408248, 0, 0.408248, 0.816497];
+t = 0:0.01:42;
+beta_i = beta_0;
+
+for i = t
+   omega_i = (20*pi/180)*[0; sin(0.1*i); 0.01; cos(0.1*i)];
+   dBeta_i = 0.5*B_beta(beta_i)*omega_i;
+   beta_i = beta_i + dBeta_i*0.01; 
+end
+
+norm = sqrt((beta_i(2)^2)+(beta_i(3)^2)+(beta_i(4)^2));
