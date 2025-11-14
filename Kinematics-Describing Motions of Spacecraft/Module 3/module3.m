@@ -80,3 +80,23 @@ for i = t
 end
 
 norm = sqrt((beta_i(2)^2)+(beta_i(3)^2)+(beta_i(4)^2));
+
+%% Concept Check 11/12
+
+% Question 1
+q = [0.1, 0.2, 0.3];
+C = qToDCM(q);
+
+% Question 2
+BN = [0.333333, -0.666667, 0.666667;
+    0.871795, 0.487179, 0.0512821;
+    -0.358974, 0.564103, 0.74359];
+beta = DCMToBeta(BN);
+q = [beta(2), beta(3), beta(4)] / beta(1);
+
+% Question 4
+q_FN = [0.1, 0.2, 0.3];
+q_BN = [-0.3, 0.3, 0.1];
+
+q_FB = (1/(1+dot(q_FN, q_BN))) * (q_FN - q_BN + cross(q_FN, q_BN));
+q_BN = -q_FB;
