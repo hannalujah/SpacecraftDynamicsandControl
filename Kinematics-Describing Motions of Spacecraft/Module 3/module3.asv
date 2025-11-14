@@ -102,15 +102,4 @@ q_FB = (1/(1+dot(q_FN, q_BN))) * (q_FN - q_BN + cross(q_FN, q_BN));
 q_BN = -q_FB;
 
 %% Concept Check 13
-q_0 = [0.4,0.2, -0.1]';
-q_i = q_0;
-t = 0:0.01:42;
-
-for i = t
-   omega_i = (3*pi/180)*[sin(0.1*i), 0.01, cos(0.1*i)];
-   omega_i = transpose(omega_i);
-   
-   q_i = (diffQ(q_i)*omega_i) * 0.01 + q_i;
-end
-
-norm = sqrt(q_i(1)^2+q_i(2)^2+q_i(3)^2)
+q_0 = 
