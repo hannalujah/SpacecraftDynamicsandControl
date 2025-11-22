@@ -113,4 +113,17 @@ for i = t
    q_i = (diffQ(q_i)*omega_i) * 0.01 + q_i;
 end
 
-norm = sqrt(q_i(1)^2+q_i(2)^2+q_i(3)^2)
+norm = sqrt(q_i(1)^2+q_i(2)^2+q_i(3)^2);
+
+%% Concept Check 18
+
+% Question 1
+sigma = [0.1,0.2,0.3];
+C = sigmaToDCM(sigma)
+
+% Question 2
+DCM = [0.763314, 0.0946746, -0.639053;
+    -0.568047, -0.372781, -0.733728;
+    -0.307692, 0.923077, -0.230769];
+beta = DCMToBeta(DCM);
+sigma = betaToSigma(beta);
