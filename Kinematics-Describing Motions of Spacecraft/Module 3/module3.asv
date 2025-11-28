@@ -153,16 +153,11 @@ end
 
 sigma_0 = [0.4,0.2,-0.1];
 t = 0:0.1:42;
-sigma_i = transpose(sigma_0);
 
 for i = t
    omega_i = [sin(0.1*i), 0.01, cos(0.1*i)] * 20 * pi/180;
-   dSigma = 0.25 * B_sigma(sigma_i) * transpose(omega_i);
-   sigma_i = dSigma*0.1 + sigma_i; 
-   
-   if (norm(sigma_i) > 1)
-      sigma_i = sigmaToSigmaS(sigma_i); 
-   end
+   dSigma = 
+    
+    
 end
 
-normSigma = norm(sigma_i)
