@@ -119,7 +119,7 @@ norm = sqrt(q_i(1)^2+q_i(2)^2+q_i(3)^2);
 
 % Question 1
 sigma = [0.1,0.2,0.3];
-C = sigmaToDCM(sigma)
+C = sigmaToDCM(sigma);
 
 % Question 2
 DCM = [0.763314, 0.0946746, -0.639053;
@@ -127,3 +127,24 @@ DCM = [0.763314, 0.0946746, -0.639053;
     -0.307692, 0.923077, -0.230769];
 beta = DCMToBeta(DCM);
 sigma = betaToSigma(beta);
+
+%% Concept Check 19
+% Question 2
+sigma1 = [0.1,0.2,0.3];
+sigma2 = [-0.1,0.3,0.1];
+
+sigmaTotal = sigmaAddition(sigma1,sigma2);
+if (norm(sigmaTotal) > 1)
+    sigmaTotal = sigmaToSigmaS(sigmaTotal);
+end
+
+% Question 3
+sigma_BN = [0.1,0.2,0.3];
+sigma_RN = [0.5,0.3,0.1];
+
+sigma_NR = -sigma_RN;
+
+sigma_BR = sigmaAddition(sigma_NR,sigma_BN);
+if (norm(sigma_BR) > 1)
+    sigma_BR = sigmaToSigmaS(sigma_BR);
+end
