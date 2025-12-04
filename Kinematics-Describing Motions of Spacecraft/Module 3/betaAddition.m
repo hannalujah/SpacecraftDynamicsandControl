@@ -13,7 +13,6 @@ function beta = betaAddition(betaP, betaZ, M)
            betaP(3), betaP(4), betaP(1), -betaP(2);
            betaP(4), betaP(3), betaP(2), betaP(1)];
        beta = C*transpose(betaZ);      
-        
     end
 
 end

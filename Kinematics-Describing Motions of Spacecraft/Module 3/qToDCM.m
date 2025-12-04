@@ -5,6 +5,6 @@ q = transpose(q);
         -q(2), q(1), 0];
     qNorm = transpose(q)*q;
       
-    DCM = (1/(1+qNorm))*[(1-qNorm)*eye(3) + 2*q*transpose(q) - 2*q_tilda];
+    DCM = (1/(1+qNorm))*((1-qNorm)*eye(3) + 2*q*transpose(q) - 2*q_tilda);
 
 end

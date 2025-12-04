@@ -1,50 +1,60 @@
-function beta = DCMToBeta(DCM)
+function beta = DCMToBeta(C)
 
-    C = DCM;
-    beta0i = sqrt(0.25*(1+trace(C)));
-    beta1i = sqrt(0.25*(1+2*C(1,1)-trace(C)));
-    beta2i = sqrt(0.25*(1+2*C(2,2)-trace(C)));
-    beta3i = sqrt(0.25*(1+2*C(3,3)-trace(C)));
+    % Step 1: compute β_i^2 candidates
+    b0_sq = 0.25 * (1 + trace(C));
+    b1_sq = 0.25 * (1 + 2*C(1,1) - trace(C));
+    b2_sq = 0.25 * (1 + 2*C(2,2) - trace(C));
+    b3_sq = 0.25 * (1 + 2*C(3,3) - trace(C));
 
-    betai = [beta0i, beta1i, beta2i, beta3i];
-    maxBetaI = 0;
-    maxI = 0;
-    for i = 1:4
-        if (betai(i) > maxBetaI) 
-            maxBetaI = betai(i);
-            maxI = i;
-        end
+    b_sq = [b0_sq, b1_sq, b2_sq, b3_sq];
+
+    % Find the index of the largest β_i
+    [~, iMax] = max(b_sq);
+    bMax = sqrt(b_sq(iMax));
+
+    % Step 2: cross-product terms (exactly as slide)
+    b0b1 = (C(2,3) - C(3,2)) * 0.25;
+    b0b2 = (C(3,1) - C(1,3)) * 0.25;
+    b0b3 = (C(1,2) - C(2,1)) * 0.25;
+
+    b1b2 = (C(1,2) + C(2,1)) * 0.25;
+    b3b1 = (C(3,1) + C(1,3)) * 0.25;
+    b2b3 = (C(2,3) + C(3,2)) * 0.25;
+
+    % Step 3: reconstruct the quaternion based on which β is largest
+    switch iMax
+        case 1        % β0 is largest
+            beta0 = bMax;
+            beta1 = b0b1 / beta0;
+            beta2 = b0b2 / beta0;
+            beta3 = b0b3 / beta0;
+
+        case 2        % β1 is largest
+            beta1 = bMax;
+            beta0 = b0b1 / beta1;
+            beta2 = b1b2 / beta1;
+            beta3 = b3b1 / beta1;
+
+        case 3        % β2 is largest
+            beta2 = bMax;
+            beta0 = b0b2 / beta2;
+            beta1 = b1b2 / beta2;
+            beta3 = b2b3 / beta2;
+
+        case 4        % β3 is largest
+            beta3 = bMax;
+            beta0 = b0b3 / beta3;
+            beta1 = b3b1 / beta3;
+            beta2 = b2b3 / beta3;
     end
-    
-    beta0beta1 = (C(2,3) - C(3,2)) * 0.25;
-    beta0beta2 = (C(3,1) - C(1,3)) * .25;
-    beta0beta3 = (C(1,2) - C(2,1)) * 0.25;
-    beta2beta3 = (C(2,3) + C(3,2)) * .25;
-    beta3beta1 = (C(3,1) + C(1,3)) * .25;
-    beta1beta2 = (C(1,2) + C(2,1)) * .25;
-    
-    if (maxI == 1) 
-        beta0 = maxBetaI;
-        beta1 = beta0beta1 / beta0;
-        beta2 = beta0beta2 / beta0;
-        beta3 = beta0beta3 / beta0;
-    elseif (maxI == 2)
-        beta1 = maxBetaI;
-        beta0 = beta0beta1 / beta1;
-        beta2 = beta1beta2 / beta1;
-        beta3 = beta3beta1 / beta1;
-        
-    elseif (maxI == 3)
-        beta2 = maxBetaI;
-        beta0 = beta0beta2 / beta2;
-        beta1 = beta1beta2 / beta2;
-        beta3 = beta2beta3 / beta2;
-    else
-        beta3 = maxBetaI;
-        beta0 = beta0beta3 / beta3;
-        beta1 = beta3beta1 / beta3;
-        beta2 = beta2beta3 / beta3; 
+
+    beta = [beta0, beta1, beta2, beta3];
+
+    % Normalize (protects against numerical drift)
+    beta = beta / norm(beta);
+
+    % Ensure short rotation (β₀ ≥ 0)
+    if beta(1) < 0
+        beta = -beta;
     end
-    
-    beta = [beta0,beta1,beta2,beta3];
 end

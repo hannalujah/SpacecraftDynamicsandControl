@@ -50,21 +50,30 @@ beta = DCMToBeta(euler321);
 beta_BN = [0.774597, 0.258199, 0.516398, 0.258199];
 beta_FB = [0.359211, 0.898027, 0.179605, 0.179605];
 
-beta_FN = betaAddition(beta_BN, beta_FB, 0);
+beta_FN = betaAddition(beta_BN, beta_FB, 0)
+if beta_FN(1) < 0
+    beta_FN = -beta_FN
+end
 
-% Question 2
+% Question 2 / DeepSeek Help
 beta_FN = [0.359211, 0.898027, 0.179605, 0.179605];
-beta_BN = [-0.3777964, 0.755929, 0.377964, 0.377964];
+beta_BN = [-0.377964, 0.755929, 0.377964, 0.377964];
 
+% Convert to DCMs
+FN = betaToDCM(beta_FN);
 BN = betaToDCM(beta_BN);
-beta_NB = DCMToBeta(transpose(BN));
-beta_FB = betaAddition(beta_NB, beta_FN, 0);
 
-
+% C_F/B = C_F/N * C_N/B = C_F/N * transpose(C_B/N)
 FB = FN * transpose(BN);
+
+% Convert back to Euler parameters
 beta_FB = DCMToBeta(FB);
 
-FB_prime = betaToDCM(beta_FB);
+% Ensure short rotation
+if beta_FB(1) < 0
+    beta_FB = -beta_FB;
+end
+
 
 
 %% Concept Check 8 - EP Differential Kinematic Equation
