@@ -50,31 +50,41 @@ beta = DCMToBeta(euler321);
 beta_BN = [0.774597, 0.258199, 0.516398, 0.258199];
 beta_FB = [0.359211, 0.898027, 0.179605, 0.179605];
 
-beta_FN = betaAddition(beta_BN, beta_FB, 0)
+beta_FN = betaAddition(beta_BN, beta_FB, 0);
 if beta_FN(1) < 0
-    beta_FN = -beta_FN
+    beta_FN = -beta_FN;
 end
 
-% Question 2 / DeepSeek Help
-beta_FN = [0.359211, 0.898027, 0.179605, 0.179605];
-beta_BN = [-0.377964, 0.755929, 0.377964, 0.377964];
+% Question 2 / GPT Help
+beta_F_N = [0.359211, 0.898027, 0.179605, 0.179605];  % [eta, eps1, eps2, eps3]
+beta_B_N = [-0.377964, 0.755929, 0.377964, 0.377964];
 
-% Convert to DCMs
-FN = betaToDCM(beta_FN);
-BN = betaToDCM(beta_BN);
+% Inverse (conjugate for unit quaternion)
+beta_B_N_inv = [beta_B_N(1), -beta_B_N(2), -beta_B_N(3), -beta_B_N(4)];
 
-% C_F/B = C_F/N * C_N/B = C_F/N * transpose(C_B/N)
-FB = FN * transpose(BN);
+% Quaternion parts
+eta1 = beta_B_N_inv(1); eps1 = beta_B_N_inv(2:4);
+eta2 = beta_F_N(1); eps2 = beta_F_N(2:4);
 
-% Convert back to Euler parameters
-beta_FB = DCMToBeta(FB);
+% Multiply: beta_F_B = beta_B_N_inv ⊗ beta_F_N  
+eta = eta1*eta2 - dot(eps1, eps2);
+eps = eta1*eps2 + eta2*eps1 + cross(eps1, eps2);
 
-% Ensure short rotation
-if beta_FB(1) < 0
-    beta_FB = -beta_FB;
+beta_F_B = [eta, eps];
+
+% Normalize (safety)
+beta_F_B = beta_F_B / norm(beta_F_B);
+
+disp('beta_F_B = ');
+disp(beta_F_B);
+
+% Optional: short-rotation (make scalar non-negative)
+if beta_F_B(1) < 0
+    beta_F_B = -beta_F_B;
 end
 
-
+disp('beta_F_B (short rotation) = ');
+disp(beta_F_B);
 
 %% Concept Check 8 - EP Differential Kinematic Equation
 
