@@ -1,4 +1,24 @@
 %% Concept Check 2 - Kinetic Energy
+m1 = 1; m2 = 1; 
+m3 = 2; m4 = 2;
+M = m1 + m2 + m3 + m4;
+
+R1 = [1;-1;2]; R2 = [-1;-3;2];
+R3 = [2;-1;-1]; R4 = [3;-1;-2];
+
+R1_dot = [2;1;1]; R2_dot = [0;-1;1];
+R3_dot = [3;2;-1]; R4_dot = [0;0;1];
+
+Rc = (1/M)*(m1*R1 + m2*R2 + m3*R3 + m4*R4);
+Rc_dot = (1/M)*(m1*R1_dot + m2*R2_dot + m3*R3_dot + m4*R4_dot);
+
+r1 = R1 - Rc; r2 = R2 - Rc; 
+r3 = R3 - Rc; r4 = R4 - Rc;
+r1_dot = R1_dot - Rc_dot; r2_dot = R2_dot - Rc_dot; 
+r3_dot = R3_dot - Rc_dot; r4_dot = R4_dot - Rc_dot;
+
+transEnergy = 0.5*M*dot(Rc_dot,Rc_dot);
+rotEnergy = 0.5*(m1*dot(r1_dot,r1_dot) + m2*dot(r2_dot,r2_dot) + m3*dot(r3_dot,r3_dot) + m4*dot(r4_dot,r4_dot));
 
 
 %% Concept Check 4 - Angular Momentum
@@ -63,6 +83,14 @@ Rc_P_B_Frame = BN*Rc_P_N_Frame;
 Ip_B_Frame = Ic_B_Frame + M*tilda(Rc_P_B_Frame)*transpose(tilda(Rc_P_B_Frame));
 
 %% Concept Check 6.1 
+sigma_DB = [0.1;0.2;0.3];
+DB = sigmaToDCM(sigma_DB);
+
+Ic_B = [10 1 -1; 1 5 1; -1 1 8];
+
+Ic_D = DB*Ic_B*transpose(DB);
+
+[V,D] = eig(Ic_B);
 
 
 %% Concept Check 7 - Kinetic Energy
