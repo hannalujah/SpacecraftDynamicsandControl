@@ -113,7 +113,6 @@ for ti = t
   end
 end
 
-
 fprintf('Norm of sigma at t = 40s is : %.6f\n', sigmaNorm40);
 
 function s12 = mrpAddition(s1, s2)

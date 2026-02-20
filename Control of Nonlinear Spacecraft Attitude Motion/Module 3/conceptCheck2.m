@@ -1,49 +1,13 @@
-%% Concept Check 1 - General 3-Axis Attitude Control
-
-% Question 3
-I = diag([100;75;80]); % Intertia in kg.m^2
-
-sigma_BN_0 = [0.1;0.2;-0.1]; % Initial MRP
-omega_BN_0 = [30;10;-20] * pi/180; % Initial Angular Velocity
-
-K = 5; % N.m
-P = diag([10;10;10]);
-L = 0; % External torque
-
-% With the reference frame being the same as the inertial frame we have
-% [I]w_dot = -K.sigma - [P]w
-dt = 0.1;
-t = 0:dt:120;
-sigma_i = sigma_BN_0;
-omega_i = omega_BN_0;
-
-normSigma30 = 0;
-
-for i = t
-    sigma_dot = (1/4)*B_sigma(sigma_i)*omega_i;
-    omega_dot = I\(-K*sigma_i - P*omega_i);
-    
-    sigma_i = sigma_i + sigma_dot*dt;
-    if (norm(sigma_i) > 1)
-       sigma_i = sigmaToSigmaS(sigma_i); 
-    end
-    
-    omega_i = omega_i + omega_dot*dt;
-    
-    if(i == 30) 
-        normSigma30 = norm(sigma_i);
-    end
-end
-
-% Question 4
+% Question 5,6,7
 sigma_BN_0 = [0.1;0.2;-0.1];
 w_BN_0 = [30;10;-20] * pi/180;
 f = 0.05;
 
-tf = 43;
-dt = 0.03;
+tf = 100;
+dt = 0.1;
 
 t = 0:dt:tf;
+
 sigma_BN_i = sigma_BN_0;
 w_BN_i = w_BN_0;
 sigma_BR_i = 0;
@@ -52,9 +16,17 @@ P = 10*eye(3);
 L = 0;
 I = diag([100;75;80]);
 
-k40 = round(40/dt) + 1;
+k20 = round(20/dt) + 1;
+k80 = round(80/dt) + 1;
+k70 = round(70/dt) + 1;
 k = 0;
 w_RN_prev = [];     % in R-frame
+
+sigmaNorm20_q5 = 0;
+sigmaNorm80_q6 = 0;
+sigmaNorm70_q7 = 0;
+
+L6_7 = [0.5;-0.3;0.2];
 
 for ti = t
   k = k + 1;
@@ -91,18 +63,16 @@ for ti = t
   w_dot_RN_B = C_BR * w_dot_RN_i + cross(delta_w_i, w_RN_B);
 
   % Control (all in B frame now)
-  u = -P*delta_w_i - K*sigma_BR_i ...
-      + I*(w_dot_RN_B - cross(w_BN_i, w_RN_B)) ...
-      + cross(w_BN_i, I*w_BN_i) - L;
-
+  u5 = -P*delta_w_i - K*sigma_BR_i;
+ 
   % Save norm at 40 s
-  if k == k40
-    sigmaNorm40 = norm(sigma_BR_i);
+  if k == k20
+    sigmaNorm20_q5 = norm(sigma_BR_i);
   end
 
   % Plant propagation
   sigma_dot_BN_i = 0.25 * B(sigma_BN_i) * w_BN_i;
-  w_dot_BN_i = I \ (-cross(w_BN_i, I*w_BN_i) + u + L);
+  w_dot_BN_i = I \ (-cross(w_BN_i, I*w_BN_i) + u5 + L);
 
   sigma_BN_i = sigma_BN_i + sigma_dot_BN_i * dt;
   w_BN_i     = w_BN_i     + w_dot_BN_i     * dt;
@@ -113,8 +83,15 @@ for ti = t
   end
 end
 
+fprintf('Norm of sigma at t = 20s is : %.6f\n', sigmaNorm20_q5);
 
-fprintf('Norm of sigma at t = 40s is : %.6f\n', sigmaNorm40);
+L = [0.5; -0.3; 0.2];
+
+sigmaNorm80_q6 = simulate_with_L(false, 80, L); % Q6
+sigmaNorm70_q7 = simulate_with_L(true,  70, L); % Q7
+
+fprintf('Q6: ||sigma_BR(80)|| = %.6f\n', sigmaNorm80_q6);
+fprintf('Q7: ||sigma_BR(70)|| = %.6f\n', sigmaNorm70_q7);
 
 function s12 = mrpAddition(s1, s2)
   s1_2 = dot(s1,s1);
