@@ -87,7 +87,7 @@ for ti = t
     % Plant loop update
     sigma_dot_BN = 0.25 * B(sigma_BN_i) * w_BN_i;
     w_dot_BN     = I \ (-cross(w_BN_i, I*w_BN_i) + u + delta_L);
-
+       
     sigma_BN_i = sigma_BN_i + sigma_dot_BN*dt;
     w_BN_i     = w_BN_i     + w_dot_BN*dt;
 
