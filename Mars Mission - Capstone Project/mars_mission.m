@@ -24,7 +24,9 @@ i_mc = 0;
 theta_mc_0 = 250 * pi/180; % MC initial angle
 
 
-%% Module 2 - Orbits
+%% Module 2 - Orbit Simulation
+fprintf("Task 1 - Orbit Simulation \n");
+
 theta_dc_450 = rem(theta_dot_LMO*450 + theta_dc_0, 2*pi);
 [r_dc_450, r_dot_dc_450] = orbit_state(r_LMO, RA_dc, i_dc, theta_dc_450, theta_dot_LMO);
 
@@ -39,5 +41,7 @@ fprintf("Mother craft, t = 1150s \n");
 fprintf("r = [%.3f, %.3f, %.3f] km\n", r_mc_1150(1)/1000, r_mc_1150(2)/1000, r_mc_1150(3)/1000);
 fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_mc_1150(1)/1000, r_dot_mc_1150(2)/1000, r_dot_mc_1150(3)/1000);
 
-
+%% Module 2 - Orbit Frame Orientation
+fprintf("Task 2 - Orbit Frame Orientation \n");
+HN = orbit_frame_dcm(300);
 

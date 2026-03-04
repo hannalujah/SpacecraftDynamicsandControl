@@ -8,7 +8,6 @@ r_dot_B = [0;r*theta_dot;0];
 
 NB = M3(theta)*M1(i)*M3(Omega);
 BN = transpose(NB);
-
 % Taking the B frame vectors to the N frame
 r = BN*r_B;
 r_dot = BN*r_dot_B;
