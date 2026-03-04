@@ -17,6 +17,8 @@ w_BN_i = w_BN_0;
 
 sigma_BN = sigma_BN_0;
 w_BN = w_BN_0;
+
+sigma50 = 0;
 for i = t
    %u = ;
    w_dot_BN_i = -P*w_BN_i - ...
@@ -32,6 +34,10 @@ for i = t
        
     sigma_BN = [sigma_BN, sigma_BN_i];
     w_BN = [w_BN, w_BN_i];
+    
+    if (i == 50)
+        sigma50 = norm(sigma_BN_i);
+    end
 end
 
 figure
