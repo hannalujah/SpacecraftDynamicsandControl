@@ -24,7 +24,9 @@ i_mc = 0;
 theta_mc_0 = 250 * pi/180; % MC initial angle
 
 
-%% Module 2 - Orbit Simulation
+%% Module 2 - Orbits
+
+% Task 1 - Orbit Simulation
 fprintf("Task 1 - Orbit Simulation \n");
 
 theta_dc_450 = rem(theta_dot_LMO*450 + theta_dc_0, 2*pi);
@@ -41,7 +43,38 @@ fprintf("Mother craft, t = 1150s \n");
 fprintf("r = [%.3f, %.3f, %.3f] km\n", r_mc_1150(1)/1000, r_mc_1150(2)/1000, r_mc_1150(3)/1000);
 fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_mc_1150(1)/1000, r_dot_mc_1150(2)/1000, r_dot_mc_1150(3)/1000);
 
-%% Module 2 - Orbit Frame Orientation
+% Task 2 - Orbit Frame Orientation
 fprintf("Task 2 - Orbit Frame Orientation \n");
 HN = orbit_frame_dcm(300);
 
+%% Module 3 - Reference Frame Orientation
+
+% Task 3 - Sun-pointing Reference Frame Orientation
+fprintf("Task 3 - Sun-pointing Reference Frame Orientation \n");
+RsN = RsN_DCM();
+w_RsN = 0;
+fprintf("Sun Pointing RFO\n");
+fprintf("[RsN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RsN(1,1), RsN(1,2), RsN(1,3), RsN(2,1), RsN(2,2), RsN(2,3), RsN(3,1), RsN(3,2), RsN(3,3));
+
+% Task 4 - Nadir-pointing Reference Frame Orientation
+fprintf("Task 4 - Nadir-pointing Reference Frame Orientation \n");
+RnN = RnN_DCM(330);
+w_RnN_Rn = [0;0;-theta_dot_LMO];
+NRn = transpose(RnN);
+w_RnN = NRn*w_RnN_Rn;
+
+fprintf("Nadir Pointing RFO\n");
+fprintf("[RnN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RnN(1,1), RnN(1,2), RnN(1,3), RnN(2,1), RnN(2,2), RnN(2,3), RnN(3,1), RnN(3,2), RnN(3,3));
+fprintf("W_RnN = [%.6f %.6f %.6f]\n", w_RnN(1), w_RnN(2), w_RnN(3));
+
+% Task 5 - GMO-pointing Reference Frame Orientation
+fprintf("Task 5 - GMO-pointing Reference Frame Orientation \n");
+
+RcN = RcN_DCM(330);
+fprintf("GMO Pointing RFO\n");
+fprintf("[RcN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RcN(1,1), RcN(1,2), RcN(1,3), RcN(2,1), RcN(2,2), RcN(2,3), RcN(3,1), RcN(3,2), RcN(3,3));
+
+w_RcN = RcN_omega(330);
+fprintf("W_RcN = [%.6f %.6f %.6f]\n", w_RcN(1), w_RcN(2), w_RcN(3));
+
+% Needs serious revision on the w_RcN - the answer is not correct
