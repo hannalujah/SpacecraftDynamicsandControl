@@ -59,13 +59,13 @@ fprintf("[RsN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RsN(1,1), Rs
 % Task 4 - Nadir-pointing Reference Frame Orientation
 fprintf("Task 4 - Nadir-pointing Reference Frame Orientation \n");
 RnN = RnN_DCM(330);
-w_RnN_Rn = [0;0;-theta_dot_LMO];
-NRn = transpose(RnN);
-w_RnN = NRn*w_RnN_Rn;
+w_RnN_H = [0;0;theta_dot_LMO];
+w_RnN = transpose(HN)*w_RnN_H;
 
 fprintf("Nadir Pointing RFO\n");
 fprintf("[RnN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RnN(1,1), RnN(1,2), RnN(1,3), RnN(2,1), RnN(2,2), RnN(2,3), RnN(3,1), RnN(3,2), RnN(3,3));
-fprintf("W_RnN = [%.6f %.6f %.6f]\n", w_RnN(1), w_RnN(2), w_RnN(3));
+fprintf("W_RnN = [%.9f %.9f %.9f]\n", w_RnN(1), w_RnN(2), w_RnN(3));
+% The 
 
 % Task 5 - GMO-pointing Reference Frame Orientation
 fprintf("Task 5 - GMO-pointing Reference Frame Orientation \n");
@@ -75,6 +75,6 @@ fprintf("GMO Pointing RFO\n");
 fprintf("[RcN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RcN(1,1), RcN(1,2), RcN(1,3), RcN(2,1), RcN(2,2), RcN(2,3), RcN(3,1), RcN(3,2), RcN(3,3));
 
 w_RcN = RcN_omega(330);
-fprintf("W_RcN = [%.6f %.6f %.6f]\n", w_RcN(1), w_RcN(2), w_RcN(3));
+fprintf("W_RcN = [%.9f %.9f %.9f]\n", w_RcN(1), w_RcN(2), w_RcN(3));
 
 % Needs serious revision on the w_RcN - the answer is not correct
