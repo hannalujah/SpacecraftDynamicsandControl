@@ -6,9 +6,11 @@ function [r,r_dot] = orbit_state(r,Omega,i,theta,theta_dot)
 r_B = [r;0;0];
 r_dot_B = [0;r*theta_dot;0];
 
-NB = M3(theta)*M1(i)*M3(Omega);
-BN = transpose(NB);
+BN = M3(theta)*M1(i)*M3(Omega);
+NB = transpose(BN);
+
 % Taking the B frame vectors to the N frame
-r = BN*r_B;
-r_dot = BN*r_dot_B;
+r = NB*r_B;
+r_dot = NB*r_dot_B;
+
 end

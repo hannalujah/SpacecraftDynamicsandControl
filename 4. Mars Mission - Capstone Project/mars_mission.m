@@ -1,53 +1,57 @@
 %% Project Constants
-% Daughter-Craft
-h_dc = 400*1000; % m
-R_mars = 3396.19*1000; % m
-r_LMO = R_mars + h_dc; % m
 
-mio_mars = 42828.3*10^9; % m^3/s^2
+% Daughter-Craft - LMO
+h_dc = 400*1000;                             % m
+R_mars = 3396.19*1000;                       % m
+r_LMO = R_mars + h_dc;                       % m
+
+mio_mars = 42828.3*10^9;                     % m^3/s^2
 theta_dot_LMO = sqrt(mio_mars / (r_LMO^3));  % rad/s
 
 sigma_BN_0 = [0.3;-0.4;0.5];
-w_BN_0 = [1.00;1.75;-2.20] * pi/180; % rad/s
+w_BN_0 = [1.00;1.75;-2.20] * pi/180;         % rad/s
 
-I_dc = diag([10;5;7.5]); % kg.m^2
+I_dc = diag([10;5;7.5]);                     % kg.m^2
 
-RA_dc = 20 * pi/180; % DC right ascention
-i_dc = 30 * pi/180;  % DC Inclination
-theta_dc_0 = 60 * pi/180; % DC initial angle
+RA_dc = 20 * pi/180;                         % DC right ascention
+i_dc = 30 * pi/180;                          % DC Inclination
+theta_dc_0 = 60 * pi/180;                    % DC initial angle
 
-% Mother-Craft
-T_mc = (1*24*60 + 37)*60; % sec
-r_GMO = 20424.2*1000; % m
+% Mother-Craft - GMO
+
+T_mc = (1*24*60 + 37)*60;                    % sec
+r_GMO = 20424.2*1000;                        % m
 theta_dot_GMO = sqrt(mio_mars / (r_GMO^3));  % rad/s
 
 RA_mc = 0;
 i_mc = 0;
-theta_mc_0 = 250 * pi/180; % MC initial angle
+theta_mc_0 = 250 * pi/180;                   % MC initial angle
 
 
 %% Module 2 - Orbits
 
 % Task 1 - Orbit Simulation
 fprintf("Task 1 - Orbit Simulation \n");
+t = 450;
+theta_t = orbitTheta(t, theta_dot_LMO, theta_dc_0);
+[r_dc_t, r_dot_dc_t] = orbit_state(r_LMO, RA_dc, i_dc, theta_t, theta_dot_LMO);
 
-theta_dc_450 = rem(theta_dot_LMO*450 + theta_dc_0, 2*pi);
-[r_dc_450, r_dot_dc_450] = orbit_state(r_LMO, RA_dc, i_dc, theta_dc_450, theta_dot_LMO);
+fprintf("Daughter craft, t = %d s \n", t);
+fprintf("r = [%.3f, %.3f, %.3f] km\n", r_dc_t(1)/1000, r_dc_t(2)/1000, r_dc_t(3)/1000);
+fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_dc_t(1)/1000, r_dot_dc_t(2)/1000, r_dot_dc_t(3)/1000);
 
-fprintf("Daughter craft, t = 450s \n");
-fprintf("r = [%.3f, %.3f, %.3f] km\n", r_dc_450(1)/1000, r_dc_450(2)/1000, r_dc_450(3)/1000);
-fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_dc_450(1)/1000, r_dot_dc_450(2)/1000, r_dot_dc_450(3)/1000);
+t = 1150;
+theta_t = orbitTheta(t, theta_dot_GMO, theta_mc_0);
+[r_mc_t, r_dot_mc_t] = orbit_state(r_GMO, RA_mc, i_mc, theta_t, theta_dot_GMO);
 
-theta_mc_1150 = rem(theta_dot_GMO*1150 + theta_mc_0, 2*pi);
-[r_mc_1150, r_dot_mc_1150] = orbit_state(r_GMO, RA_mc, i_mc, theta_mc_1150, theta_dot_GMO);
-
-fprintf("Mother craft, t = 1150s \n");
-fprintf("r = [%.3f, %.3f, %.3f] km\n", r_mc_1150(1)/1000, r_mc_1150(2)/1000, r_mc_1150(3)/1000);
-fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_mc_1150(1)/1000, r_dot_mc_1150(2)/1000, r_dot_mc_1150(3)/1000);
+fprintf("Mother craft, t = %d s \n", t);
+fprintf("r = [%.3f, %.3f, %.3f] km\n", r_mc_t(1)/1000, r_mc_t(2)/1000, r_mc_t(3)/1000);
+fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_mc_t(1)/1000, r_dot_mc_t(2)/1000, r_dot_mc_t(3)/1000);
 
 % Task 2 - Orbit Frame Orientation
 fprintf("Task 2 - Orbit Frame Orientation \n");
-HN = orbit_frame_dcm(300);
+t = 300;
+HN = orbit_frame_dcm(t);
 
 %% Module 3 - Reference Frame Orientation
 
@@ -227,3 +231,90 @@ fprintf("Sigma_BN at t = 2100s: [%.6f %.6f %.6f]\n", sigma11(1,idx2100), sigma11
 fprintf("Sigma_BN at t = 3400s: [%.6f %.6f %.6f]\n", sigma11(1,idx3400), sigma11(2,idx3400), sigma11(3,idx3400));
 fprintf("Sigma_BN at t = 4400s: [%.6f %.6f %.6f]\n", sigma11(1,idx4400), sigma11(2,idx4400), sigma11(3,idx4400));
 fprintf("Sigma_BN at t = 5600s: [%.6f %.6f %.6f]\n", sigma11(1,idx5600), sigma11(2,idx5600), sigma11(3,idx5600));
+
+
+%% Exporting matlab files
+% Task 11
+
+N = length(t11);
+
+r_lmo_hist = zeros(N,3);
+v_lmo_hist = zeros(N,3);
+
+r_gmo_hist = zeros(N,3);
+v_gmo_hist = zeros(N,3);
+
+for k = 1:N
+    t = t11(k);
+
+    % LMO
+    theta_lmo = rem(theta_dot_LMO*t + theta_dc_0, 2*pi);
+    [r_lmo, v_lmo] = orbit_state(r_LMO, RA_dc, i_dc, theta_lmo, theta_dot_LMO);
+
+    % GMO
+    theta_gmo = rem(theta_dot_GMO*t + theta_mc_0, 2*pi);
+    [r_gmo, v_gmo] = orbit_state(r_GMO, RA_mc, i_mc, theta_gmo, theta_dot_GMO);
+
+    r_lmo_hist(k,:) = r_lmo';
+    v_lmo_hist(k,:) = v_lmo';
+
+    r_gmo_hist(k,:) = r_gmo';
+    v_gmo_hist(k,:) = v_gmo';
+end
+
+
+% LMO ephemeris export
+fid = fopen('LMO.e','w');
+fprintf(fid,'stk.v.11.0\nBEGIN Ephemeris\n');
+fprintf(fid,'NumberOfEphemerisPoints %d\n', length(t11));
+fprintf(fid,'ScenarioEpoch 1 Jan 2025 00:00:00\n');
+fprintf(fid,'InterpolationMethod Lagrange\nInterpolationOrder 5\n');
+fprintf(fid,'CentralBody Mars\nCoordinateSystem J2000\n');
+fprintf(fid,'EphemerisTimePosVel\n');
+
+for k = 1:length(t11)
+    fprintf(fid,'%f %f %f %f %f %f %f\n', t11(k), ...
+        r_lmo_hist(k,1), r_lmo_hist(k,2), r_lmo_hist(k,3), ...
+        v_lmo_hist(k,1), v_lmo_hist(k,2), v_lmo_hist(k,3));
+end
+
+fprintf(fid,'END Ephemeris\n');
+fclose(fid);
+
+% GMO ephemeris export
+fid = fopen('GMO.e','w');
+fprintf(fid,'stk.v.11.0\nBEGIN Ephemeris\n');
+fprintf(fid,'NumberOfEphemerisPoints %d\n', length(t11));
+fprintf(fid,'ScenarioEpoch 1 Jan 2025 00:00:00\n');
+fprintf(fid,'InterpolationMethod Lagrange\nInterpolationOrder 5\n');
+fprintf(fid,'CentralBody Mars\nCoordinateSystem J2000\n');
+fprintf(fid,'EphemerisTimePosVel\n');
+
+for k = 1:length(t11)
+    fprintf(fid,'%f %f %f %f %f %f %f\n', t11(k), ...
+        r_gmo_hist(k,1), r_gmo_hist(k,2), r_gmo_hist(k,3), ...
+        v_gmo_hist(k,1), v_gmo_hist(k,2), v_gmo_hist(k,3));
+end
+
+fprintf(fid,'END Ephemeris\n');
+fclose(fid);
+
+%% Attitude file
+step = 10;
+tSecRed = t11(1:step:end);
+sigmaRed = sigma11(:,1:step:end);
+
+fid = fopen('LMO_attitude.a','w');
+fprintf(fid,'stk.v.11.0\nBEGIN Attitude\n');
+fprintf(fid,'NumberOfAttitudePoints %d\n', length(tSecRed));
+fprintf(fid,'ScenarioEpoch 1 Jan 2025 00:00:00\n');
+fprintf(fid,'InterpolationOrder 1\nCoordinateAxes J2000\n');
+fprintf(fid,'AttitudeTimeQuat\n');
+
+for k = 1:length(tSecRed)
+    q = mrp2quat(sigmaRed(:,k));
+    fprintf(fid,'%f %f %f %f %f\n', tSecRed(k), q(1), q(2), q(3), q(4));
+end
+
+fprintf(fid,'END Attitude\n');
+fclose(fid);
