@@ -31,34 +31,35 @@ theta_mc_0 = 250 * pi/180;                   % MC initial angle
 %% Module 2 - Orbits
 
 % Task 1 - Orbit Simulation
-fprintf("Task 1 - Orbit Simulation \n");
+fprintf("\nTask 1 - Orbit Simulation \n");
 t = 450;
 theta_t = orbitTheta(t, theta_dot_LMO, theta_dc_0);
 [r_dc_t, r_dot_dc_t] = orbit_state(r_LMO, RA_dc, i_dc, theta_t, theta_dot_LMO);
 
-fprintf("Daughter craft, t = %d s \n", t);
-fprintf("r = [%.3f, %.3f, %.3f] km\n", r_dc_t(1)/1000, r_dc_t(2)/1000, r_dc_t(3)/1000);
-fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_dc_t(1)/1000, r_dot_dc_t(2)/1000, r_dot_dc_t(3)/1000);
+fprintf("\nDaughter craft, t = %d s \n", t);
+fprintf("r = [%.3f, %.3f, %.3f] km\n", r_dc_t(1), r_dc_t(2), r_dc_t(3));
+fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_dc_t(1), r_dot_dc_t(2), r_dot_dc_t(3));
 
 t = 1150;
 theta_t = orbitTheta(t, theta_dot_GMO, theta_mc_0);
 [r_mc_t, r_dot_mc_t] = orbit_state(r_GMO, RA_mc, i_mc, theta_t, theta_dot_GMO);
 
-fprintf("Mother craft, t = %d s \n", t);
-fprintf("r = [%.3f, %.3f, %.3f] km\n", r_mc_t(1)/1000, r_mc_t(2)/1000, r_mc_t(3)/1000);
-fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_mc_t(1)/1000, r_dot_mc_t(2)/1000, r_dot_mc_t(3)/1000);
+fprintf("\nMother craft, t = %d s \n", t);
+fprintf("r = [%.3f, %.3f, %.3f] km\n", r_mc_t(1), r_mc_t(2), r_mc_t(3));
+fprintf("r_dot = [%.3f, %.3f, %.3f] km/s\n", r_dot_mc_t(1), r_dot_mc_t(2), r_dot_mc_t(3));
 
 % Task 2 - Orbit Frame Orientation
-fprintf("Task 2 - Orbit Frame Orientation \n");
+fprintf("\nTask 2 - Orbit Frame Orientation \n");
 t = 300;
 HN = orbit_frame_dcm(t);
+fprintf("[HN] in t = %d s\n", t);
+fprintf("%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f\n", HN(1,1), HN(1,2), HN(1,3), HN(2,1), HN(2,2), HN(2,3), HN(3,1), HN(3,2), HN(3,3));
 
 %% Module 3 - Reference Frame Orientation
 
 % Task 3 - Sun-pointing Reference Frame Orientation
 fprintf("Task 3 - Sun-pointing Reference Frame Orientation \n");
 RsN = RsN_DCM();
-w_RsN = [0;0;0];
 
 fprintf("Sun Pointing RFO\n");
 fprintf("[RsN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RsN(1,1), RsN(1,2), RsN(1,3), RsN(2,1), RsN(2,2), RsN(2,3), RsN(3,1), RsN(3,2), RsN(3,3));

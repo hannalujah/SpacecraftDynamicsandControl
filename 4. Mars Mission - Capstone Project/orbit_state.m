@@ -10,7 +10,10 @@ BN = M3(theta)*M1(i)*M3(Omega);
 NB = transpose(BN);
 
 % Taking the B frame vectors to the N frame
-r = NB*r_B;
-r_dot = NB*r_dot_B;
+r = (NB*r_B) / 1000;    
+r_dot = (NB*r_dot_B) / 1000;
+
+% r parameters are expressed in "km"
+% r_dot parameters are expressed in "km/s"
 
 end
