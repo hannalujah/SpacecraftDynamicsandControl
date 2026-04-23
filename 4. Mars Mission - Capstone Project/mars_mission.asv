@@ -197,8 +197,7 @@ plot(t, T);
 
 figure
 plot(t,sigmaBN);
-figure
-plot(t,wBN);
+
 
 %% Module 5 - Complete the Mission
 
@@ -226,10 +225,6 @@ fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma8(1,idx15), sigma8(2,idx
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma8(1,idx100), sigma8(2,idx100), sigma8(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma8(1,idx200), sigma8(2,idx200), sigma8(3,idx200));
 fprintf("Sigma_BN at t = 400s: [%.6f %.6f %.6f]\n", sigma8(1,idx400), sigma8(2,idx400), sigma8(3,idx400));
-figure
-plot(t8, sigma8);
-figure
-plot(t8,w8);
 
 % Task 9 - Nadir Pointing Control
 fprintf("Task 9 - Nadir Pointing Control \n");
@@ -238,10 +233,6 @@ fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma9(1,idx15), sigma9(2,idx
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma9(1,idx100), sigma9(2,idx100), sigma9(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma9(1,idx200), sigma9(2,idx200), sigma9(3,idx200));
 fprintf("Sigma_BN at t = 400s: [%.6f %.6f %.6f]\n", sigma9(1,idx400), sigma9(2,idx400), sigma9(3,idx400));
-figure
-plot(t9, sigma9);
-figure
-plot(t9,w9);
 
 % Task 10 - GMO Pointing Control
 fprintf("Task 10 - GMO Pointing Control \n");
@@ -250,11 +241,6 @@ fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma10(1,idx15), sigma10(2,i
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma10(1,idx100), sigma10(2,idx100), sigma10(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma10(1,idx200), sigma10(2,idx200), sigma10(3,idx200));
 fprintf("Sigma_BN at t = 400s: [%.6f %.6f %.6f]\n", sigma10(1,idx400), sigma10(2,idx400), sigma10(3,idx400));
-
-figure
-plot(t10, sigma10);
-figure
-plot(t10,w10);
 
 idx300 = round(300/dt);
 idx2100 = round(2100/dt);
@@ -272,7 +258,89 @@ fprintf("Sigma_BN at t = 3400s: [%.6f %.6f %.6f]\n", sigma11(1,idx3400), sigma11
 fprintf("Sigma_BN at t = 4400s: [%.6f %.6f %.6f]\n", sigma11(1,idx4400), sigma11(2,idx4400), sigma11(3,idx4400));
 fprintf("Sigma_BN at t = 5600s: [%.6f %.6f %.6f]\n", sigma11(1,idx5600), sigma11(2,idx5600), sigma11(3,idx5600));
 
-figure
-plot(t11, sigma11);
-figure
-plot(t11,w11);
+
+%% Exporting matlab files
+% Task 11
+
+N = length(t11);
+
+r_lmo_hist = zeros(N,3);
+v_lmo_hist = zeros(N,3);
+
+r_gmo_hist = zeros(N,3);
+v_gmo_hist = zeros(N,3);
+
+for k = 1:N
+    t = t11(k);
+
+    % LMO
+    theta_lmo = rem(theta_dot_LMO*t + theta_dc_0, 2*pi);
+    [r_lmo, v_lmo] = orbit_state(r_LMO, RA_dc, i_dc, theta_lmo, theta_dot_LMO);
+
+    % GMO
+    theta_gmo = rem(theta_dot_GMO*t + theta_mc_0, 2*pi);
+    [r_gmo, v_gmo] = orbit_state(r_GMO, RA_mc, i_mc, theta_gmo, theta_dot_GMO);
+
+    r_lmo_hist(k,:) = r_lmo';
+    v_lmo_hist(k,:) = v_lmo';
+
+    r_gmo_hist(k,:) = r_gmo';
+    v_gmo_hist(k,:) = v_gmo';
+end
+
+
+% LMO ephemeris export
+fid = fopen('LMO.e','w');
+fprintf(fid,'stk.v.11.0\nBEGIN Ephemeris\n');
+fprintf(fid,'NumberOfEphemerisPoints %d\n', length(t11));
+fprintf(fid,'ScenarioEpoch 1 Jan 2025 00:00:00\n');
+fprintf(fid,'InterpolationMethod Lagrange\nInterpolationOrder 5\n');
+fprintf(fid,'CentralBody Mars\nCoordinateSystem J2000\n');
+fprintf(fid,'EphemerisTimePosVel\n');
+
+for k = 1:length(t11)
+    fprintf(fid,'%f %f %f %f %f %f %f\n', t11(k), ...
+        r_lmo_hist(k,1), r_lmo_hist(k,2), r_lmo_hist(k,3), ...
+        v_lmo_hist(k,1), v_lmo_hist(k,2), v_lmo_hist(k,3));
+end
+
+fprintf(fid,'END Ephemeris\n');
+fclose(fid);
+
+% GMO ephemeris export
+fid = fopen('GMO.e','w');
+fprintf(fid,'stk.v.11.0\nBEGIN Ephemeris\n');
+fprintf(fid,'NumberOfEphemerisPoints %d\n', length(t11));
+fprintf(fid,'ScenarioEpoch 1 Jan 2025 00:00:00\n');
+fprintf(fid,'InterpolationMethod Lagrange\nInterpolationOrder 5\n');
+fprintf(fid,'CentralBody Mars\nCoordinateSystem J2000\n');
+fprintf(fid,'EphemerisTimePosVel\n');
+
+for k = 1:length(t11)
+    fprintf(fid,'%f %f %f %f %f %f %f\n', t11(k), ...
+        r_gmo_hist(k,1), r_gmo_hist(k,2), r_gmo_hist(k,3), ...
+        v_gmo_hist(k,1), v_gmo_hist(k,2), v_gmo_hist(k,3));
+end
+
+fprintf(fid,'END Ephemeris\n');
+fclose(fid);
+
+%% Attitude file
+step = 10;
+tSecRed = t11(1:step:end);
+sigmaRed = sigma11(:,1:step:end);
+
+fid = fopen('LMO_attitude.a','w');
+fprintf(fid,'stk.v.11.0\nBEGIN Attitude\n');
+fprintf(fid,'NumberOfAttitudePoints %d\n', length(tSecRed));
+fprintf(fid,'ScenarioEpoch 1 Jan 2025 00:00:00\n');
+fprintf(fid,'InterpolationOrder 1\nCoordinateAxes J2000\n');
+fprintf(fid,'AttitudeTimeQuat\n');
+
+for k = 1:length(tSecRed)
+    q = mrp2quat(sigmaRed(:,k));
+    fprintf(fid,'%f %f %f %f %f\n', tSecRed(k), q(1), q(2), q(3), q(4));
+end
+
+fprintf(fid,'END Attitude\n');
+fclose(fid);
