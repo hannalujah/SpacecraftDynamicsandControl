@@ -58,14 +58,14 @@ fprintf("%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f\n", HN(1,1), HN(1,2), HN(1
 %% Module 3 - Reference Frame Orientation
 
 % Task 3 - Sun-pointing Reference Frame Orientation
-fprintf("Task 3 - Sun-pointing Reference Frame Orientation \n");
+fprintf("\nTask 3 - Sun-pointing Reference Frame Orientation \n");
 RsN = RsN_DCM();
 
 fprintf("Sun Pointing RFO\n");
 fprintf("[RsN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RsN(1,1), RsN(1,2), RsN(1,3), RsN(2,1), RsN(2,2), RsN(2,3), RsN(3,1), RsN(3,2), RsN(3,3));
 
 % Task 4 - Nadir-pointing Reference Frame Orientation
-fprintf("Task 4 - Nadir-pointing Reference Frame Orientation \n");
+fprintf("\nTask 4 - Nadir-pointing Reference Frame Orientation \n");
 RnN = RnN_DCM(330);
 w_RnN_H = [0;0;theta_dot_LMO];
 w_RnN = transpose(HN)*w_RnN_H;
@@ -75,7 +75,7 @@ fprintf("[RnN] = [%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]\n", RnN(1,1), Rn
 fprintf("W_RnN = [%.9f %.9f %.9f]\n", w_RnN(1), w_RnN(2), w_RnN(3));
 
 % Task 5 - GMO-pointing Reference Frame Orientation
-fprintf("Task 5 - GMO-pointing Reference Frame Orientation \n");
+fprintf("\nTask 5 - GMO-pointing Reference Frame Orientation \n");
 
 RcN = RcN_DCM(330);
 fprintf("GMO Pointing RFO\n");
@@ -87,7 +87,7 @@ fprintf("W_RcN = [%.9f %.9f %.9f]\n", w_RcN(1), w_RcN(2), w_RcN(3));
 %% Module 4 - Attitude Evaluation and Simulator
 
 % Task 6 - Attitude Error Evaluation
-fprintf("Task 6 - Attitude Error Evaluation \n");
+fprintf("\nTask 6 - Attitude Error Evaluation \n");
 t0 = 0;
 % Sun pointing attitude errors
 fprintf("Sun Pointing Attitude Error\n");
@@ -118,7 +118,7 @@ fprintf("Omega BR: [%.6f %.6f %.6f]\n\n", w_BR_GP_0(1), w_BR_GP_0(2), w_BR_GP_0(
 
 
 % Task 7 - Numerical Attitude Simulator
-fprintf("Task 7 - Numerical Attitude Simulator \n");
+fprintf("\nTask 7 - Numerical Attitude Simulator \n");
 sigma_BN = sigma_BN_0;
 w_BN = w_BN_0;
 
@@ -129,12 +129,17 @@ dt = 0.001;
 t = t0:dt:tf;
 u1 = [0;0;0];
 u2 = [0.01;-0.01;0.02];
+
+% Initializing the data arrays to save the sequence in
 len_t = length(t);
 T = zeros(1,len_t);
 j = 1;
+sigmaBN = zeros(3,len_t);
+wBN = zeros(3,len_t);
+
+% Applying zero control torque u1
 for i = t
    T(j) = 0.5*transpose(w_BN)*I_dc*w_BN;
-   j = j + 1;
    if (i == 500)
       H = I_dc*w_BN;
     
@@ -156,20 +161,42 @@ for i = t
        sigma_BN = sigmaToSigmaS(sigma_BN);
    end
    w_BN = w_dot_BN*dt + w_BN;
+
+   sigmaBN(:,j) = sigma_BN;
+   wBN(:,j) = w_BN; 
+   j = j + 1;
 end
 
+% Uncontrolled vehicle plot series
+figure
+plot(t, T*1000);
+title('Uncontrolled Vehicle: Kinetic Energy');
+xlabel('time (s)');
+ylabel('Kinetic Energy T (mJ)');
+
+figure
+plot(t,sigmaBN);
+title('Uncontrolled Vehicle: MRP');
+xlabel('time (s)');
+ylabel('\sigma_t');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
+figure
+plot(t,wBN);
+title('Uncontrolled Vehicle: Angular Velocity');
+xlabel('time (s)');
+ylabel('\omega_t (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
+
+% Resetting
 sigma_BN = sigma_BN_0;
 w_BN = w_BN_0;
-
-% Plotting Kinetic Energy
-% plot(t, T*1000);
-
 T = zeros(1,len_t);
 j = 1;
-
 sigmaBN = zeros(3,len_t);
 wBN = zeros(3,len_t);
 
+% Applying the fixed control torque u2
 for i = t
    T(j) = 0.5*transpose(w_BN)*I_dc*w_BN;
    if (i == 100)      
@@ -192,13 +219,26 @@ for i = t
 
 end
 
-% Plotting Kinetic Energy
+% Controlled vehicle plot series
+figure
 plot(t, T);
+title('Controlled Vehicle: Kinetic Energy');
+xlabel('time (s)');
+ylabel('Kinetic Energy T (J)');
 
 figure
 plot(t,sigmaBN);
+title('Controlled Vehicle: MRP');
+xlabel('time (s)');
+ylabel('\sigma_t');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
 figure
 plot(t,wBN);
+title('Controlled Vehicle: Angular Velocity');
+xlabel('time (s)');
+ylabel('\omega_t (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
 
 %% Module 5 - Complete the Mission
 
@@ -213,38 +253,57 @@ fprintf("K = %.9f, P = %.9f\n", K, P);
 
 dt = 0.1;
 tf = 400;
-
 idx15 = round(15/dt);
 idx100 = round(100/dt);
 idx200 = round(200/dt);
 idx400 = round(400/dt);
 
 % Task 8 - Sun Pointing Control
-fprintf("Task 8 - Sun Pointing Control \n");
+fprintf("\nTask 8 - Sun Pointing Control \n");
 [t8, sigma8, w8, u8] = simulate_mode("sun",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma8(1,idx15), sigma8(2,idx15), sigma8(3,idx15));
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma8(1,idx100), sigma8(2,idx100), sigma8(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma8(1,idx200), sigma8(2,idx200), sigma8(3,idx200));
 fprintf("Sigma_BN at t = 400s: [%.6f %.6f %.6f]\n", sigma8(1,idx400), sigma8(2,idx400), sigma8(3,idx400));
+
 figure
-plot(t8, sigma8);
+plot(t8,sigma8);
+title('Sun Pointing Control: MRP');
+xlabel('time (s)');
+ylabel('\sigma_t');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
 figure
 plot(t8,w8);
+title('Sun Pointing Control: Angular Velocity');
+xlabel('time (s)');
+ylabel('\omega_t (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
 
 % Task 9 - Nadir Pointing Control
-fprintf("Task 9 - Nadir Pointing Control \n");
+fprintf("\nTask 9 - Nadir Pointing Control \n");
 [t9, sigma9, w9, u9] = simulate_mode("nadir",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma9(1,idx15), sigma9(2,idx15), sigma9(3,idx15));
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma9(1,idx100), sigma9(2,idx100), sigma9(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma9(1,idx200), sigma9(2,idx200), sigma9(3,idx200));
 fprintf("Sigma_BN at t = 400s: [%.6f %.6f %.6f]\n", sigma9(1,idx400), sigma9(2,idx400), sigma9(3,idx400));
 figure
-plot(t9, sigma9);
+plot(t9,sigma9);
+title('Nadir Pointing Control: MRP');
+xlabel('time (s)');
+ylabel('\sigma_t');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
 figure
 plot(t9,w9);
+title('Nadir Pointing Control: Angular Velocity');
+xlabel('time (s)');
+ylabel('\omega_t (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
+
 
 % Task 10 - GMO Pointing Control
-fprintf("Task 10 - GMO Pointing Control \n");
+fprintf("\nTask 10 - GMO Pointing Control \n");
 [t10, sigma10, w10, u10] = simulate_mode("gmo",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma10(1,idx15), sigma10(2,idx15), sigma10(3,idx15));
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma10(1,idx100), sigma10(2,idx100), sigma10(3,idx100));
@@ -252,19 +311,28 @@ fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma10(1,idx200), sigma10(2
 fprintf("Sigma_BN at t = 400s: [%.6f %.6f %.6f]\n", sigma10(1,idx400), sigma10(2,idx400), sigma10(3,idx400));
 
 figure
-plot(t10, sigma10);
+plot(t10,sigma10);
+title('GMO Pointing Control: MRP');
+xlabel('time (s)');
+ylabel('\sigma_t');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
 figure
 plot(t10,w10);
+title('GMO Pointing Control: Angular Velocity');
+xlabel('time (s)');
+ylabel('\omega_t (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
 
+% Task 11 - Mission Scenario Simulation
+tf = 6500;
 idx300 = round(300/dt);
 idx2100 = round(2100/dt);
 idx3400 = round(3400/dt);
 idx4400 = round(4400/dt);
 idx5600 = round(5600/dt);
 
-tf = 6500;
-% Task 11 - Mission Scenario Simulation
-fprintf("Task 11 - Mission Scenario Simulation \n");
+fprintf("\nTask 11 - Mission Scenario Simulation \n");
 [t11, sigma11, w11, u11] = final_simulation(0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 300s: [%.6f %.6f %.6f]\n", sigma11(1,idx300), sigma11(2,idx300), sigma11(3,idx300));
 fprintf("Sigma_BN at t = 2100s: [%.6f %.6f %.6f]\n", sigma11(1,idx2100), sigma11(2,idx2100), sigma11(3,idx2100));
@@ -273,6 +341,15 @@ fprintf("Sigma_BN at t = 4400s: [%.6f %.6f %.6f]\n", sigma11(1,idx4400), sigma11
 fprintf("Sigma_BN at t = 5600s: [%.6f %.6f %.6f]\n", sigma11(1,idx5600), sigma11(2,idx5600), sigma11(3,idx5600));
 
 figure
-plot(t11, sigma11);
+plot(t11,sigma11);
+title('Mission Scenario Simulation: MRP');
+xlabel('time (s)');
+ylabel('\sigma_t');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
 figure
 plot(t11,w11);
+title('Mission Scenario Simulation: Angular Velocity');
+xlabel('time (s)');
+ylabel('\omega_t (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
