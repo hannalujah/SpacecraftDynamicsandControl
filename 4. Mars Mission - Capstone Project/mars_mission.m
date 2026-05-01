@@ -353,3 +353,42 @@ title('Mission Scenario Simulation: Angular Velocity');
 xlabel('time (s)');
 ylabel('\omega_t (rad/s)');
 legend('\omega_1', '\omega_2', '\omega_3')
+
+
+%% Exporting attitude for STK
+beta11 = sigma2beta(sigma11);
+Q = beta11;
+filename = 'attitude_from_matlab.a';
+
+N = length(t11);
+
+% ensure Nx4
+if size(Q,1) == 4
+    Q = Q.';   % 4xN → Nx4
+end
+
+fid = fopen(filename,'w');
+
+% ===== Header (match STK style) =====
+fprintf(fid,'stk.v.11.0\n\n');
+fprintf(fid,'BEGIN Attitude\n\n');
+
+fprintf(fid,'NumberOfAttitudePoints\t\t%d\n\n', N);
+fprintf(fid,'BlockingFactor\t\t20\n');
+fprintf(fid,'InterpolationOrder\t\t1\n\n');
+
+fprintf(fid,'ScenarioEpoch\t\t1 Jan 2025 00:00:00.000000\n\n');
+fprintf(fid,'CoordinateAxes\t\tFixed\n\n');
+
+fprintf(fid,'AttitudeTimeQuaternions\n');
+
+% ===== Data =====
+for i = 1:N
+    fprintf(fid,'%.10f %.15f %.15f %.15f %.15f\n', ...
+        t11(i), Q(i,1), Q(i,2), Q(i,3), Q(i,4));
+end
+
+% ===== Footer =====
+fprintf(fid,'\nEND Attitude\n');
+
+fclose(fid);
