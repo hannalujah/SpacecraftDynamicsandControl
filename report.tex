@@ -1,0 +1,960 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\setstretch{1.25}
+
+\titleformat{\chapter}[display]
+{\normalfont\bfseries\Large}
+{\chaptertitlename\ \thechapter}{12pt}{\Large}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		
+		{\Large \textsc{CU Boulder / Coursera} \par}
+		\vspace{2cm}
+		
+		{\Huge \textbf{Spacecraft Dynamics Capstone Project} \par}
+		\vspace{1cm}
+		
+		{\LARGE Attitude Dynamics and Control of a Nano-Satellite Orbiting Mars \par}
+		\vspace{2cm}
+		
+		{\Large Course Report \par}
+		\vfill
+		
+		\begin{flushleft}
+			\large
+			\textbf{Student:} Haniyeh Zahra Budaqi \\
+			\textbf{Instructor:} Prof. Dr. Hanspeter Schaub
+		\end{flushleft}
+		
+		\vspace{2cm}
+		
+		{\large May 2026 \par}
+		
+	\end{titlepage}
+	
+	\tableofcontents
+	\newpage
+	
+	\chapter*{Abstract}
+	\addcontentsline{toc}{chapter}{Abstract}
+	
+	In this project, the knowledge acquired from the Spacecraft Dynamics and Control specialization is applied to perform attitude control of a nano-satellite orbiting Mars while operating as a daughter-craft to a mother spacecraft in a geostationary Mars orbit (GMO). Through the completion and analysis of eleven project tasks, an attitude control architecture is developed and validated. The resulting simulation enables three operational modes based on the spacecraft mission requirements and relative orbital geometry:
+	
+	\begin{enumerate}[label=\arabic*)]
+		\item Science mode: pointing the spacecraft sensor toward the Martian surface,
+		\item Power mode: orienting the solar panels toward the Sun,
+		\item Communication mode: pointing the communication antenna toward the mother spacecraft.
+	\end{enumerate}
+	
+	The spacecraft dynamics, reference-frame generation, attitude error evaluation, and closed-loop control simulations are implemented in MATLAB, while mission visualization is performed using AGI Systems Tool Kit (STK).
+	
+	\chapter{Introduction}
+	
+	This project considers a small science satellite orbiting Mars in a Low Mars Orbit (LMO), tasked with collecting scientific data from the Martian surface and relaying the acquired information to a larger mother spacecraft orbiting in a Geostationary Mars Orbit (GMO). In addition to science and communication operations, the spacecraft must periodically orient its solar panels toward the Sun to maintain sufficient onboard power.
+	
+	Accordingly, the spacecraft mission is divided into three operational modes:
+	
+	\begin{enumerate}[label=\arabic*)]
+		\item \textbf{Science Mode:} pointing the sensor toward the Martian surface,
+		\item \textbf{Power Mode:} orienting the solar panels toward the Sun,
+		\item \textbf{Communication Mode:} pointing the communication antenna toward the GMO spacecraft.
+	\end{enumerate}
+	
+	Both the LMO and GMO spacecraft are assumed to follow known circular orbits whose orientations are described using Hill reference frames generated through a 3-1-3 Euler-angle sequence.
+	
+	The LMO spacecraft is equipped with:
+	
+	\begin{itemize}
+		\item A science sensor aligned with the $+b_1$ body axis,
+		\item Solar panels whose normal vector aligns with the $b_3$ axis,
+		\item A communication antenna aligned with the $-b_1$ axis.
+	\end{itemize}
+	
+	The objective of this project is to design and validate an attitude determination and control framework capable of autonomously switching between the required operational pointing modes.
+	
+	\chapter{Mission Scenario Definitions}
+	
+	\section{Mission Orbit Overview}
+	
+	The LMO and GMO spacecraft are both assumed to follow circular orbits around Mars. The initial orbital orientation angles are summarized in Table~\ref{tab:orbitangles}.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Initial Orbit Frame Orientation Angles}
+		\label{tab:orbitangles}
+		\begin{tabular}{cccc}
+			\toprule
+			Spacecraft & $\Omega$ (deg) & $i$ (deg) & $\theta(t_0)$ (deg) \\
+			\midrule
+			LMO & 20 & 30 & 60 \\
+			GMO & 0 & 0 & 250 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	
+	\section{Mission Pointing Scenarios}
+	
+	Three operational spacecraft pointing modes are defined according to mission requirements.
+	
+	The Sun is assumed to be located at an effectively infinite distance and aligned with the inertial $n_2$ axis. Therefore, during Sun-pointing operation, the spacecraft solar-panel axis $b_3$ must align with the inertial $n_2$ direction.
+	
+	The spacecraft operational modes are summarized as follows:
+	
+	\begin{itemize}
+		\item \textbf{Power Mode:} active whenever the spacecraft is on the sunlit side of Mars,
+		\item \textbf{Science Mode:} active during eclipse when GMO communication is unavailable,
+		\item \textbf{Communication Mode:} active whenever the GMO spacecraft lies within the communication visibility constraint.
+	\end{itemize}
+	
+	The communication mode is activated when the angular separation between the LMO and GMO position vectors is less than $35^{\circ}$.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Mission Pointing Scenario Summary}
+		\begin{tabular}{ll}
+			\toprule
+			Orbital Situation & Primary Pointing Goal \\
+			\midrule
+			Spacecraft on sunlit Mars side & Power Mode \\
+			Spacecraft in eclipse and GMO visible & Communication Mode \\
+			Spacecraft in eclipse and GMO not visible & Science Mode \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\section{Spacecraft Attitude States}
+	
+	The spacecraft initial attitude is represented using Modified Rodrigues Parameters (MRPs), while the initial angular velocity is expressed in the spacecraft body frame.
+	
+	The spacecraft inertia tensor is denoted by:
+	
+	\[
+	[I]_B
+	\]
+	
+	The spacecraft is assumed to be capable of generating arbitrary three-axis control torques through an onboard actuator system.
+	
+	\section{Attitude Control Law Overview}
+	
+	A proportional-derivative (PD) control law is used throughout this project to regulate spacecraft attitude motion:
+	
+	\[
+	\mathbf{u} = -K\boldsymbol{\sigma}_{BR} - P\boldsymbol{\omega}_{BR}
+	\]
+	
+	where:
+	
+	\begin{itemize}
+		\item $\boldsymbol{\sigma}_{BR}$ is the attitude tracking error,
+		\item $\boldsymbol{\omega}_{BR}$ is the angular velocity tracking error,
+		\item $K$ and $P$ are controller gain matrices.
+	\end{itemize}
+	
+	\section{Implementation Methods}
+	
+	All orbital and attitude simulations were implemented in MATLAB. Numerical propagation of spacecraft rotational dynamics was performed using a fixed-step fourth-order Runge--Kutta (RK4) integrator.
+	
+	Mission visualization and orbit verification were performed using AGI Systems Tool Kit (STK), enabling graphical validation of spacecraft orbital motion and pointing behavior.
+	
+	\chapter{Task Descriptions and Solutions}
+	
+	\section{Orbits}
+	
+	\subsection{Task 1: Orbit Simulation}
+	
+	A circular spacecraft orbit was modeled using the Hill reference frame. The spacecraft position vector in the orbit frame is defined as:
+	
+	\[
+	\mathbf{r}_{HN} = r
+	\begin{bmatrix}
+		1 \\
+		0 \\
+		0
+	\end{bmatrix}
+	\]
+	
+	For circular motion, the orbital radius remains constant, and the spacecraft velocity is obtained from:
+	
+	\[
+	\mathbf{v}_{HN} = r\dot{\theta}
+	\begin{bmatrix}
+		0 \\
+		1 \\
+		0
+	\end{bmatrix}
+	\]
+	
+	The orbital frame orientation relative to the inertial frame was computed using a 3-1-3 Euler-angle sequence.
+	
+	The inertial spacecraft position and velocity vectors were then evaluated through coordinate transformation using the orbit-frame direction cosine matrix (DCM).
+	
+	A MATLAB function named \texttt{orbit\_state()} was developed to compute spacecraft inertial states from the orbital parameters.
+	
+	Simulation results verified correct circular orbital motion, with velocity vectors remaining perpendicular to the corresponding position vectors.
+	
+	\subsection{Task 2: Orbit Frame Orientation}
+	
+	The Hill-frame basis vectors were constructed directly from the inertial position and velocity vectors:
+	
+	\[
+	\hat{i}_r = \frac{\mathbf{r}}{\|\mathbf{r}\|}
+	\]
+	
+	\[
+	\hat{i}_h = \frac{\mathbf{r} \times \mathbf{v}}{\|\mathbf{r} \times \mathbf{v}\|}
+	\]
+	
+	\[
+	\hat{i}_\theta = \hat{i}_h \times \hat{i}_r
+	\]
+	
+	The inertial-to-Hill DCM was assembled from these orthonormal basis vectors.
+	
+	A MATLAB function named \texttt{orbit\_frame\_dcm(t)} was implemented to evaluate the time-varying Hill-frame orientation.
+	
+	The resulting DCM satisfied orthogonality and normalization conditions expected from a valid rotation matrix.
+	
+	\section{Reference Frame Orientation}
+	
+	\subsection{Task 3: Sun-Pointing Reference Frame Orientation}
+	
+	The Sun-pointing reference frame was defined such that the spacecraft solar-panel axis aligns with the inertial Sun direction.
+	
+	The resulting reference-frame DCM remained constant because the Sun direction was assumed fixed in inertial space.
+	
+	The reference-frame angular velocity therefore becomes:
+	
+	\[
+	\boldsymbol{\omega}_{RN} = \mathbf{0}
+	\]
+	
+	\subsection{Task 4: Nadir-Pointing Reference Frame Orientation}
+	
+	The nadir-pointing reference frame was defined such that the spacecraft sensor continuously points toward the center of Mars.
+	
+	The nadir direction was defined as:
+	
+	\[
+	\hat{r}_1 = -\hat{i}_r
+	\]
+	
+	while the along-track direction aligned with the orbital velocity vector.
+	
+	The reference-frame DCM was constructed relative to the Hill frame, and the reference-frame angular velocity was obtained from the orbital angular rate.
+	
+	\subsection{Task 5: GMO-Pointing Reference Frame Orientation}
+	
+	The communication reference frame was defined such that the spacecraft communication axis continuously points toward the GMO spacecraft.
+	
+	The relative position vector between the spacecraft was defined as:
+	
+	\[
+	\boldsymbol{\rho} = \mathbf{r}_{GMO} - \mathbf{r}_{LMO}
+	\]
+	
+	The communication-frame DCM was constructed from the normalized relative-position vector and orthogonal basis vectors.
+	
+	Since the reference-frame motion is time varying, the reference angular velocity was obtained numerically using finite-difference differentiation of the DCM.
+	
+	\section{Attitude Evaluation and Simulator}
+	
+	\subsection{Task 6: Attitude Error Evaluation}
+	
+	The spacecraft attitude tracking error was computed relative to a desired reference frame.
+	
+	The body-to-reference DCM is given by:
+	
+	\[
+	[C_{BR}] = [C_{BN}][C_{RN}]^T
+	\]
+	
+	The corresponding MRP attitude tracking error was extracted from the body-to-reference DCM.
+	
+	The angular velocity tracking error was computed from:
+	
+	\[
+	\boldsymbol{\omega}_{BR} = \boldsymbol{\omega}_{BN} - [C_{BR}]\boldsymbol{\omega}_{RN}
+	\]
+	
+	A MATLAB function named \texttt{attitudeErrorEval()} was implemented to evaluate both attitude and angular velocity tracking errors.
+	
+	\subsection{Task 7: Numerical Attitude Simulator}
+	
+	The spacecraft rotational dynamics were propagated using Euler's rigid-body rotational equation:
+	
+	\[
+	[I]\dot{\boldsymbol{\omega}} + \boldsymbol{\omega} \times ([I]\boldsymbol{\omega}) = \mathbf{u}
+	\]
+	
+	The spacecraft MRP kinematics were propagated according to:
+	
+	\[
+	\dot{\boldsymbol{\sigma}} = \frac{1}{4}B(\boldsymbol{\sigma})\boldsymbol{\omega}
+	\]
+	
+	A fixed-step RK4 numerical integrator was implemented to propagate spacecraft rotational motion.
+	
+	To avoid MRP singularities, shadow-set switching was performed whenever:
+	
+	\[
+	\|\boldsymbol{\sigma}\| > 1
+	\]
+	
+	The numerical simulator was validated under both uncontrolled and controlled torque conditions.
+	
+	\section{Completing the Mission}
+	
+	\subsection{Task 8: Sun Pointing Control}
+	
+	A PD attitude controller was implemented to drive the spacecraft toward the Sun-pointing reference frame.
+	
+	The control torque is defined as:
+	
+	\[
+	\mathbf{u} = -K\boldsymbol{\sigma}_{BR} - P\boldsymbol{\omega}_{BR}
+	\]
+	
+	The controller gains were selected using linearized closed-loop dynamics to satisfy desired transient-response requirements.
+	
+	Simulation results demonstrated stable convergence toward the desired Sun-pointing orientation.
+	
+	\subsection{Task 9: Nadir Pointing Control}
+	
+	The nadir-pointing control mode used the same PD control architecture while continuously updating the rotating reference frame.
+	
+	The controller successfully tracked the time-varying nadir reference orientation while maintaining stable spacecraft rotational dynamics.
+	
+	\subsection{Task 10: GMO Pointing Control}
+	
+	The GMO-pointing control mode continuously oriented the spacecraft communication platform toward the GMO spacecraft.
+	
+	The communication reference frame and corresponding angular velocity were updated dynamically throughout the simulation.
+	
+	Simulation results demonstrated stable closed-loop tracking of the moving communication reference frame.
+	
+	\subsection{Task 11: Mission Scenario Simulation}
+	
+	A complete mission simulation was developed to automatically switch between spacecraft operational modes according to mission conditions.
+	
+	The mission logic was implemented as follows:
+	
+	\begin{itemize}
+		\item If the spacecraft was illuminated by the Sun, Sun-pointing mode was activated,
+		\item If the spacecraft was in eclipse and the GMO spacecraft was visible, communication mode was activated,
+		\item Otherwise, nadir-pointing science mode was selected.
+	\end{itemize}
+	
+	At every simulation step:
+	
+	\begin{enumerate}
+		\item The active reference frame was selected,
+		\item The reference angular velocity was evaluated,
+		\item The attitude tracking errors were computed,
+		\item The PD control torque was generated,
+		\item The spacecraft rotational dynamics were propagated using RK4 integration.
+	\end{enumerate}
+	
+	The complete mission simulation demonstrated stable closed-loop attitude behavior and smooth transitions between operational spacecraft modes.
+	
+	\section{Detailed Mathematical Formulation}
+	
+	\subsection{Orbital Angular Velocity}
+	
+	For a circular orbit, the orbital angular rate is defined as:
+	
+	\[
+	\dot{\theta} = \sqrt{\frac{\mu}{r^3}}
+	\]
+	
+	where:
+	
+	\begin{itemize}
+		\item $\mu$ is the gravitational parameter of Mars,
+		\item $r$ is the orbital radius.
+	\end{itemize}
+	
+	The orbital angle evolution is then computed through:
+	
+	\[
+	\theta(t) = \theta_0 + \dot{\theta}t
+	\]
+	
+	\subsection{Modified Rodrigues Parameters}
+	
+	The spacecraft attitude is represented using Modified Rodrigues Parameters (MRPs):
+	
+	\[
+	\boldsymbol{\sigma} = \hat{e}\tan\left(\frac{\Phi}{4}\right)
+	\]
+	
+	The corresponding MRP kinematic differential equation becomes:
+	
+	\[
+	\dot{\boldsymbol{\sigma}} = \frac{1}{4}B(\boldsymbol{\sigma})\boldsymbol{\omega}
+	\]
+	
+	\subsection{Shadow Set Transformation}
+	
+	To avoid singularity when:
+	
+	\[
+	\|\boldsymbol{\sigma}\| > 1
+	\]
+	
+	The shadow-set transformation is applied:
+	
+	\[
+	\boldsymbol{\sigma}^S = -\frac{\boldsymbol{\sigma}}{\|\boldsymbol{\sigma}\|^2}
+	\]
+	
+	\section{Simulation Results and Discussion}
+	
+	Simulation results demonstrated stable spacecraft attitude behavior under all operational modes. The implemented proportional-derivative controller successfully reduced both attitude and angular velocity tracking errors while maintaining smooth spacecraft rotational motion.
+	
+	The complete mission simulation validated the autonomous switching architecture between spacecraft operational modes.
+	
+	\section{STK Visualization}
+	
+	To validate the MATLAB simulations visually, spacecraft orbit propagation and attitude motion were reconstructed using AGI Systems Tool Kit (STK).
+	
+	The generated visualization confirmed:
+	
+	\begin{enumerate}
+		\item Correct orbital motion of both spacecraft,
+		\item Proper nadir and Sun-pointing orientations,
+		\item Communication alignment during GMO visibility windows,
+		\item Stable attitude transitions throughout mission operation.
+	\end{enumerate}
+	
+	\section{Appendix: MATLAB Function Overview}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Main MATLAB Functions Used in the Project}
+		\begin{tabular}{lp{9cm}}
+			\toprule
+			Function Name & Description \\
+			\midrule
+			\texttt{orbit\_state()} & Computes spacecraft inertial position and velocity vectors \\
+			\texttt{orbitTheta()} & Computes orbital angle evolution \\
+			\texttt{orbit\_frame\_dcm()} & Generates Hill-frame DCM \\
+			\texttt{RsN\_DCM()} & Returns Sun-pointing reference-frame DCM \\
+			\texttt{RnN\_DCM()} & Returns nadir-pointing reference-frame DCM \\
+			\texttt{RcN\_DCM()} & Returns GMO-pointing reference-frame DCM \\
+			\texttt{attitudeErrorEval()} & Computes tracking errors \\
+			\texttt{simulate\_mode()} & Simulates spacecraft attitude dynamics \\
+			\texttt{getReferenceFrame()} & Performs automatic mission-mode selection \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\chapter*{Conclusion}
+	\addcontentsline{toc}{chapter}{Conclusion}
+	
+	This project presented the complete development and implementation of an attitude dynamics and control framework for a nano-satellite orbiting Mars. Multiple mission pointing modes were developed, including Sun-pointing, nadir-pointing, and GMO communication-pointing configurations.
+	
+	The spacecraft dynamics, reference-frame generation, attitude tracking evaluation, and closed-loop control architecture were successfully implemented in MATLAB and validated through numerical simulation.
+	
+	The final integrated mission simulation demonstrated stable spacecraft attitude behavior while autonomously switching between operational mission modes according to orbital conditions.
+	
+	Future improvements may include higher-fidelity environmental disturbance modeling, actuator limitations, sensor-noise modeling, and advanced nonlinear control strategies.
+	
+\end{document}
+```
+```latex
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\setstretch{1.25}
+
+\titleformat{\chapter}[display]
+{\normalfont\bfseries\Large}
+{\chaptertitlename\ \thechapter}{12pt}{\Large}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		
+		{\Large CU Boulder / Coursera \par}
+		\vspace{2cm}
+		
+		{\Huge \textbf{Spacecraft Dynamics Capstone Project} \par}
+		\vspace{1cm}
+		
+		{\LARGE Attitude Dynamics and Control of a Nano-Satellite Orbiting Mars \par}
+		\vspace{2cm}
+		
+		{\Large Course Report \par}
+		\vfill
+		
+		\begin{flushleft}
+			\large
+			\textbf{Student:} Haniyeh Zahra Budaqi \\
+			\textbf{Instructor:} Prof. Dr. Hanspeter Schaub
+		\end{flushleft}
+		
+		\vspace{2cm}
+		
+		{\large May 2026 \par}
+		
+	\end{titlepage}
+	
+	\tableofcontents
+	\newpage
+	
+	\chapter*{Abstract}
+	\addcontentsline{toc}{chapter}{Abstract}
+	
+	In this project, the knowledge acquired from the Spacecraft Dynamics and Control specialization is applied to perform attitude control of a nano-satellite orbiting Mars while operating as a daughter-craft to a mother spacecraft in a geostationary Mars orbit (GMO). Through the completion and analysis of eleven project tasks, an attitude control architecture is developed and validated. The resulting simulation enables three operational modes based on the spacecraft mission requirements and relative orbital geometry:
+	
+	\begin{enumerate}[label=\arabic*)]
+		\item Science mode: pointing the spacecraft sensor toward the Martian surface,
+		\item Power mode: orienting the solar panels toward the Sun,
+		\item Communication mode: pointing the communication antenna toward the mother spacecraft.
+	\end{enumerate}
+	
+	The spacecraft dynamics, reference-frame generation, attitude error evaluation, and closed-loop control simulations are implemented in MATLAB, while mission visualization is performed using AGI Systems Tool Kit (STK).
+	
+	\chapter{Introduction}
+	
+	This project considers a small science satellite orbiting Mars in a Low Mars Orbit (LMO), tasked with collecting scientific data from the Martian surface and relaying the acquired information to a larger mother spacecraft orbiting in a Geostationary Mars Orbit (GMO). In addition to science and communication operations, the spacecraft must periodically orient its solar panels toward the Sun to maintain sufficient onboard power.
+	
+	Accordingly, the spacecraft mission is divided into three operational modes:
+	
+	\begin{enumerate}[label=\arabic*)]
+		\item \textbf{Science Mode:} pointing the sensor toward the Martian surface,
+		\item \textbf{Power Mode:} orienting the solar panels toward the Sun,
+		\item \textbf{Communication Mode:} pointing the communication antenna toward the GMO spacecraft.
+	\end{enumerate}
+	
+	Both the LMO and GMO spacecraft are assumed to follow known circular orbits whose orientations are described using Hill reference frames generated through a 3-1-3 Euler-angle sequence.
+	
+	The LMO spacecraft is equipped with:
+	
+	\begin{itemize}
+		\item A science sensor aligned with the $+b_1$ body axis,
+		\item Solar panels whose normal vector aligns with the $b_3$ axis,
+		\item A communication antenna aligned with the $-b_1$ axis.
+	\end{itemize}
+	
+	The objective of this project is to design and validate an attitude determination and control framework capable of autonomously switching between the required operational pointing modes.
+	
+	\chapter{Mission Scenario Definitions}
+	
+	\section{Mission Orbit Overview}
+	
+	The LMO and GMO spacecraft are both assumed to follow circular orbits around Mars. The initial orbital orientation angles are summarized in Table~\ref{tab:orbitangles}.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Initial Orbit Frame Orientation Angles}
+		\label{tab:orbitangles}
+		\begin{tabular}{cccc}
+			\toprule
+			Spacecraft & $\Omega$ (deg) & $i$ (deg) & $\theta(t_0)$ (deg) \\
+			\midrule
+			LMO & 20 & 30 & 60 \\
+			GMO & 0 & 0 & 250 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	The corresponding orbit geometries and spacecraft initial positions were verified using both MATLAB simulations and AGI Systems Tool Kit (STK) visualizations.
+	
+	\section{Mission Pointing Scenarios}
+	
+	Three operational spacecraft pointing modes are defined according to mission requirements.
+	
+	The Sun is assumed to be located at an effectively infinite distance and aligned with the inertial $n_2$ axis. Therefore, during Sun-pointing operation, the spacecraft solar-panel axis $b_3$ must align with the inertial $n_2$ direction.
+	
+	The spacecraft operational modes are summarized as follows:
+	
+	\begin{itemize}
+		\item \textbf{Power Mode:} active whenever the spacecraft is on the sunlit side of Mars,
+		\item \textbf{Science Mode:} active during eclipse when GMO communication is unavailable,
+		\item \textbf{Communication Mode:} active whenever the GMO spacecraft lies within the communication visibility constraint.
+	\end{itemize}
+	
+	The communication mode is activated when the angular separation between the LMO and GMO position vectors is less than $35^{\circ}$.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Mission Pointing Scenario Summary}
+		\begin{tabular}{ll}
+			\toprule
+			Orbital Situation & Primary Pointing Goal \\
+			\midrule
+			Spacecraft on sunlit Mars side & Power Mode \\
+			Spacecraft in eclipse and GMO visible & Communication Mode \\
+			Spacecraft in eclipse and GMO not visible & Science Mode \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\section{Spacecraft Attitude States}
+	
+	The spacecraft initial attitude is represented using Modified Rodrigues Parameters (MRPs), while the initial angular velocity is expressed in the spacecraft body frame.
+	
+	The spacecraft inertia tensor is denoted by:
+	
+	\[
+	[I]_B
+	\]
+	
+	The spacecraft is assumed to be capable of generating arbitrary three-axis control torques through an onboard actuator system.
+	
+	\section{Attitude Control Law Overview}
+	
+	A proportional-derivative (PD) control law is used throughout this project to regulate spacecraft attitude motion:
+	
+	\[
+	\mathbf{u} = -K\boldsymbol{\sigma}_{BR} - P\boldsymbol{\omega}_{BR}
+	\]
+	
+	where:
+	
+	\begin{itemize}
+		\item $\boldsymbol{\sigma}_{BR}$ is the attitude tracking error,
+		\item $\boldsymbol{\omega}_{BR}$ is the angular velocity tracking error,
+		\item $K$ and $P$ are controller gain matrices.
+	\end{itemize}
+	
+	\section{Implementation Methods}
+	
+	All orbital and attitude simulations were implemented in MATLAB. Numerical propagation of spacecraft rotational dynamics was performed using a fixed-step fourth-order Runge--Kutta (RK4) integrator.
+	
+	Mission visualization and orbit verification were performed using AGI Systems Tool Kit (STK), enabling graphical validation of spacecraft orbital motion and pointing behavior.
+	
+	\chapter{Task Descriptions and Solutions}
+	
+	\section{Orbits}
+	
+	\subsection{Task 1: Orbit Simulation}
+	
+	A circular spacecraft orbit was modeled using the Hill reference frame. The spacecraft position vector in the orbit frame is defined as:
+	
+	\[
+	\mathbf{r}_{HN} = r
+	\begin{bmatrix}
+		1 \\
+		0 \\
+		0
+	\end{bmatrix}
+	\]
+	
+	For circular motion, the orbital radius remains constant, and the spacecraft velocity is obtained from:
+	
+	\[
+	\mathbf{v}_{HN} = r\dot{\theta}
+	\begin{bmatrix}
+		0 \\
+		1 \\
+		0
+	\end{bmatrix}
+	\]
+	
+	The orbital frame orientation relative to the inertial frame was computed using a 3-1-3 Euler-angle sequence.
+	
+	The inertial spacecraft position and velocity vectors were then evaluated through coordinate transformation using the orbit-frame direction cosine matrix (DCM).
+	
+	A MATLAB function named \texttt{orbit\_state()} was developed to compute spacecraft inertial states from the orbital parameters.
+	
+	Simulation results verified correct circular orbital motion, with velocity vectors remaining perpendicular to the corresponding position vectors.
+	
+	\subsection{Task 2: Orbit Frame Orientation}
+	
+	The Hill-frame basis vectors were constructed directly from the inertial position and velocity vectors:
+	
+	\[
+	\hat{i}_r = \frac{\mathbf{r}}{\|\mathbf{r}\|}
+	\]
+	
+	\[
+	\hat{i}_h = \frac{\mathbf{r} \times \mathbf{v}}{\|\mathbf{r} \times \mathbf{v}\|}
+	\]
+	
+	\[
+	\hat{i}_\theta = \hat{i}_h \times \hat{i}_r
+	\]
+	
+	The inertial-to-Hill DCM was assembled from these orthonormal basis vectors.
+	
+	A MATLAB function named \texttt{orbit\_frame\_dcm(t)} was implemented to evaluate the time-varying Hill-frame orientation.
+	
+	The resulting DCM satisfied orthogonality and normalization conditions expected from a valid rotation matrix.
+	
+	\section{Reference Frame Orientation}
+	
+	\subsection{Task 3: Sun-Pointing Reference Frame Orientation}
+	
+	The Sun-pointing reference frame was defined such that the spacecraft solar-panel axis aligns with the inertial Sun direction.
+	
+	The resulting reference-frame DCM remained constant because the Sun direction was assumed fixed in inertial space.
+	
+	The reference-frame angular velocity therefore becomes:
+	
+	\[
+	\boldsymbol{\omega}_{RN} = \mathbf{0}
+	\]
+	
+	\subsection{Task 4: Nadir-Pointing Reference Frame Orientation}
+	
+	The nadir-pointing reference frame was defined such that the spacecraft sensor continuously points toward the center of Mars.
+	
+	The nadir direction was defined as:
+	
+	\[
+	\hat{r}_1 = -\hat{i}_r
+	\]
+	
+	while the along-track direction aligned with the orbital velocity vector.
+	
+	The reference-frame DCM was constructed relative to the Hill frame, and the reference-frame angular velocity was obtained from the orbital angular rate.
+	
+	\subsection{Task 5: GMO-Pointing Reference Frame Orientation}
+	
+	The communication reference frame was defined such that the spacecraft communication axis continuously points toward the GMO spacecraft.
+	
+	The relative position vector between the spacecraft was defined as:
+	
+	\[
+	\boldsymbol{\rho} = \mathbf{r}_{GMO} - \mathbf{r}_{LMO}
+	\]
+	
+	The communication-frame DCM was constructed from the normalized relative-position vector and orthogonal basis vectors.
+	
+	Since the reference-frame motion is time varying, the reference angular velocity was obtained numerically using finite-difference differentiation of the DCM.
+	
+	\section{Attitude Evaluation and Simulator}
+	
+	\subsection{Task 6: Attitude Error Evaluation}
+	
+	The spacecraft attitude tracking error was computed relative to a desired reference frame.
+	
+	The body-to-reference DCM is given by:
+	
+	\[
+	[C_{BR}] = [C_{BN}][C_{RN}]^T
+	\]
+	
+	The corresponding MRP attitude tracking error was extracted from the body-to-reference DCM.
+	
+	The angular velocity tracking error was computed from:
+	
+	\[
+	\boldsymbol{\omega}_{BR} = \boldsymbol{\omega}_{BN} - [C_{BR}]\boldsymbol{\omega}_{RN}
+	\]
+	
+	A MATLAB function named \texttt{attitudeErrorEval()} was implemented to evaluate both attitude and angular velocity tracking errors.
+	
+	\subsection{Task 7: Numerical Attitude Simulator}
+	
+	The spacecraft rotational dynamics were propagated using Euler's rigid-body rotational equation:
+	
+	\[
+	[I]\dot{\boldsymbol{\omega}} + \boldsymbol{\omega} \times ([I]\boldsymbol{\omega}) = \mathbf{u}
+	\]
+	
+	The spacecraft MRP kinematics were propagated according to:
+	
+	\[
+	\dot{\boldsymbol{\sigma}} = \frac{1}{4}B(\boldsymbol{\sigma})\boldsymbol{\omega}
+	\]
+	
+	A fixed-step RK4 numerical integrator was implemented to propagate spacecraft rotational motion.
+	
+	To avoid MRP singularities, shadow-set switching was performed whenever:
+	
+	\[
+	\|\boldsymbol{\sigma}\| > 1
+	\]
+	
+	The numerical simulator was validated under both uncontrolled and controlled torque conditions.
+	
+	\section{Completing the Mission}
+	
+	\subsection{Task 8: Sun Pointing Control}
+	
+	A PD attitude controller was implemented to drive the spacecraft toward the Sun-pointing reference frame.
+	
+	The control torque is defined as:
+	
+	\[
+	\mathbf{u} = -K\boldsymbol{\sigma}_{BR} - P\boldsymbol{\omega}_{BR}
+	\]
+	
+	The controller gains were selected using linearized closed-loop dynamics to satisfy desired transient-response requirements.
+	
+	Simulation results demonstrated stable convergence toward the desired Sun-pointing orientation.
+	
+	\subsection{Task 9: Nadir Pointing Control}
+	
+	The nadir-pointing control mode used the same PD control architecture while continuously updating the rotating reference frame.
+	
+	The controller successfully tracked the time-varying nadir reference orientation while maintaining stable spacecraft rotational dynamics.
+	
+	\subsection{Task 10: GMO Pointing Control}
+	
+	The GMO-pointing control mode continuously oriented the spacecraft communication platform toward the GMO spacecraft.
+	
+	The communication reference frame and corresponding angular velocity were updated dynamically throughout the simulation.
+	
+	Simulation results demonstrated stable closed-loop tracking of the moving communication reference frame.
+	
+	\subsection{Task 11: Mission Scenario Simulation}
+	
+	A complete mission simulation was developed to automatically switch between spacecraft operational modes according to mission conditions.
+	
+	The mission logic was implemented as follows:
+	
+	\begin{itemize}
+		\item If the spacecraft was illuminated by the Sun, Sun-pointing mode was activated,
+		\item If the spacecraft was in eclipse and the GMO spacecraft was visible, communication mode was activated,
+		\item Otherwise, nadir-pointing science mode was selected.
+	\end{itemize}
+	
+	At every simulation step:
+	
+	\begin{enumerate}
+		\item The active reference frame was selected,
+		\item The reference angular velocity was evaluated,
+		\item The attitude tracking errors were computed,
+		\item The PD control torque was generated,
+		\item The spacecraft rotational dynamics were propagated using RK4 integration.
+	\end{enumerate}
+	
+	The complete mission simulation demonstrated stable closed-loop attitude behavior and smooth transitions between operational spacecraft modes.
+	
+	\section{Detailed Mathematical Formulation}
+	
+	\subsection{Orbital Angular Velocity}
+	
+	For a circular orbit, the orbital angular rate is defined as:
+	
+	\[
+	\dot{\theta} = \sqrt{\frac{\mu}{r^3}}
+	\]
+	
+	where:
+	
+	\begin{itemize}
+		\item $\mu$ is the gravitational parameter of Mars,
+		\item $r$ is the orbital radius.
+	\end{itemize}
+	
+	The orbital angle evolution is then computed through:
+	
+	\[
+	\theta(t) = \theta_0 + \dot{\theta}t
+	\]
+	
+	\subsection{Modified Rodrigues Parameters}
+	
+	The spacecraft attitude is represented using Modified Rodrigues Parameters (MRPs):
+	
+	\[
+	\boldsymbol{\sigma} = \hat{e}\tan\left(\frac{\Phi}{4}\right)
+	\]
+	
+	The corresponding MRP kinematic differential equation becomes:
+	
+	\[
+	\dot{\boldsymbol{\sigma}} = \frac{1}{4}B(\boldsymbol{\sigma})\boldsymbol{\omega}
+	\]
+	
+	\subsection{Shadow Set Transformation}
+	
+	To avoid singularity when:
+	
+	\[
+	\|\boldsymbol{\sigma}\| > 1
+	\]
+	
+	The shadow-set transformation is applied:
+	
+	\[
+	\boldsymbol{\sigma}^S = -\frac{\boldsymbol{\sigma}}{\|\boldsymbol{\sigma}\|^2}
+	\]
+	
+	\section{Simulation Results and Discussion}
+	
+	Simulation results demonstrated stable spacecraft attitude behavior under all operational modes. The implemented proportional-derivative controller successfully reduced both attitude and angular velocity tracking errors while maintaining smooth spacecraft rotational motion.
+	
+	The complete mission simulation validated the autonomous switching architecture between spacecraft operational modes.
+	
+	\section{STK Visualization}
+	
+	To validate the MATLAB simulations visually, spacecraft orbit propagation and attitude motion were reconstructed using AGI Systems Tool Kit (STK).
+	
+	The generated visualization confirmed:
+	
+	\begin{enumerate}
+		\item Correct orbital motion of both spacecraft,
+		\item Proper nadir and Sun-pointing orientations,
+		\item Communication alignment during GMO visibility windows,
+		\item Stable attitude transitions throughout mission operation.
+	\end{enumerate}
+	
+	\section{Appendix: MATLAB Function Overview}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Main MATLAB Functions Used in the Project}
+		\begin{tabular}{lp{9cm}}
+			\toprule
+			Function Name & Description \\
+			\midrule
+			\texttt{orbit\_state()} & Computes spacecraft inertial position and velocity vectors \\
+			\texttt{orbitTheta()} & Computes orbital angle evolution \\
+			\texttt{orbit\_frame\_dcm()} & Generates Hill-frame DCM \\
+			\texttt{RsN\_DCM()} & Returns Sun-pointing reference-frame DCM \\
+			\texttt{RnN\_DCM()} & Returns nadir-pointing reference-frame DCM \\
+			\texttt{RcN\_DCM()} & Returns GMO-pointing reference-frame DCM \\
+			\texttt{attitudeErrorEval()} & Computes tracking errors \\
+			\texttt{simulate\_mode()} & Simulates spacecraft attitude dynamics \\
+			\texttt{getReferenceFrame()} & Performs automatic mission-mode selection \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\chapter*{Conclusion}
+	\addcontentsline{toc}{chapter}{Conclusion}
+	
+	This project presented the complete development and implementation of an attitude dynamics and control framework for a nano-satellite orbiting Mars. Multiple mission pointing modes were developed, including Sun-pointing, nadir-pointing, and GMO communication-pointing configurations.
+	
+	The spacecraft dynamics, reference-frame generation, attitude tracking evaluation, and closed-loop control architecture were successfully implemented in MATLAB and validated through numerical simulation.
+	
+	The final integrated mission simulation demonstrated stable spacecraft attitude behavior while autonomously switching between operational mission modes according to orbital conditions.
+	
+	Future improvements may include higher-fidelity environmental disturbance modeling, actuator limitations, sensor-noise modeling, and advanced nonlinear control strategies.
+	
+\end{document}
+```

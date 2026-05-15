@@ -1,7 +1,7 @@
 stk.v.11.0
 BEGIN Ephemeris
 NumberOfEphemerisPoints 65001
-ScenarioEpoch 1 Jan 2025 00:00:00
+ScenarioEpoch 1 Jan 2025 18:00:00
 InterpolationMethod Lagrange
 InterpolationOrder 5
 CentralBody Mars

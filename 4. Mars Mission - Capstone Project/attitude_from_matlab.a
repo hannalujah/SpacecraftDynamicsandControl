@@ -7,7 +7,7 @@ NumberOfAttitudePoints		65001
 BlockingFactor		20
 InterpolationOrder		1
 
-ScenarioEpoch		1 Jan 2025 00:00:00.000000
+ScenarioEpoch		1 Jan 2025 18:00:00.000000
 
 CoordinateAxes		Fixed
 
