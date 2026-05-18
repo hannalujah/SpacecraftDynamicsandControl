@@ -175,13 +175,13 @@
 		\centering
 		\caption{Mission Pointing Scenario Summary}
 		\label{tab:pointing}
-		\begin{tabular}{lll}
+		\begin{tabular}{ll}
 			\toprule
-			Orbital Situation & Operational Mode & Attitude Control Goal\\
+			Orbital Situation & Operational Mode\\
 			\midrule
-			Spacecraft on sunlit Mars side & Power Mode & Align $\hat{b}_1$ with $-\hat{i}_r$\\
-			Spacecraft in eclipse and GMO visible & Communication Mode & Align $-\hat{b}_1$ with $\textbf{r}_{GMO} - \textbf{r}_{LMO}$ \\
-			Spacecraft in eclipse and GMO not visible & Science Mode & Align $\hat{b}_3$ with $\hat{n}_2$\\
+			Spacecraft on sunlit Mars side & Power Mode\\
+			Spacecraft in eclipse and GMO visible & Communication Mode \\
+			Spacecraft in eclipse and GMO not visible & Science Mode\\
 			\bottomrule
 		\end{tabular}
 	\end{table}
@@ -317,36 +317,95 @@ end
 	The Hill-frame basis vectors were constructed directly from the inertial position and velocity vectors:
 	
 	\[
-	\hat{i}_r = \frac{\mathbf{r}_{LMO}}{\|\mathbf{r}_{LMO}\|}
+	\prescript{\mathcal{N}}{}{\hat{i}_r} = \frac{\boldsymbol{r}_{LMO}}{\|\boldsymbol{r}_{LMO}\|}
 	\]
 	
 	\[
-	\hat{i}_h = \frac{\mathbf{r} \times \mathbf{v}}{\|\mathbf{r} \times \mathbf{v}\|}
+	\prescript{\mathcal{N}}{}{\hat{i}_h} = \frac{\boldsymbol{r}_{LMO} \times \boldsymbol{\dot{r}}_{LMO}}{\|\boldsymbol{r}_{LMO} \times \boldsymbol{\dot{r}}_{LMO}\|}
 	\]
 	
 	\[
-	\hat{i}_\theta = \hat{i}_h \times \hat{i}_r
+	\prescript{\mathcal{N}}{}{\hat{i}_\theta} = \hat{i}_h \times \hat{i}_r
 	\]
 	
-	The inertial-to-Hill DCM was assembled from these orthonormal basis vectors.
+	To drive a DCM with the base vectors in either frames, we have:
+	$$[C]_{\mathcal{A}\mathcal{B}} = 
+	\begin{bmatrix}
+		\colorbox{yellow}{write this later} 
+	\end{bmatrix}	$$
+	
+	Therefore, to find $[C]_{\mathcal{H}\mathcal{N}}$ we will have:
+	$$[C]_{\mathcal{H}\mathcal{N}} = 
+	\begin{bmatrix}
+		\prescript{\mathcal{N}}{}{\hat{i}_r} ^ T \\
+		\prescript{\mathcal{N}}{}{\hat{i}_\theta} ^ T \\
+		\prescript{\mathcal{N}}{}{\hat{i}_h} ^ T
+	\end{bmatrix}$$
 	
 	A MATLAB function named \texttt{orbit\_frame\_dcm(t)} was implemented to evaluate the time-varying Hill-frame orientation.
 	
-	The resulting DCM satisfied orthogonality and normalization conditions expected from a valid rotation matrix.
-	
+	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
+function HN_DCM = orbit_frame_dcm(t)
+h_dc = 400*1000; % m
+R_mars = 3396.19*1000; % m
+r_LMO = R_mars + h_dc; % m
+
+mio_mars = 42828.3*10^9; % m^3/s^2
+theta_dot_LMO = sqrt(mio_mars / (r_LMO^3));  % rad/s
+
+RA_dc = 20 * pi/180; % DC right ascention
+i_dc = 30 * pi/180;  % DC Inclination
+theta_dc_0 = 60 * pi/180; % DC initial angle
+
+theta_dc_t = rem(theta_dot_LMO*t + theta_dc_0, 2*pi);
+[r_dc_t, r_dot_dc_t] = orbit_state(r_LMO, RA_dc, i_dc, theta_dc_t, theta_dot_LMO);
+
+i_r = r_dc_t / norm(r_dc_t);
+i_h = cross(r_dc_t, r_dot_dc_t) / norm(cross(r_dc_t, r_dot_dc_t));
+
+i_theta = cross(i_h, i_r);
+
+HN_DCM = [i_r';i_theta';i_h'];
+end
+	\end{lstlisting}
+
 	\section{Reference Frame Orientation}
 	
 	\subsection{Task 3: Sun-Pointing Reference Frame Orientation}
 	
-	The Sun-pointing reference frame was defined such that the spacecraft solar-panel axis aligns with the inertial Sun direction.
+	To point the spacecraft solar panels axis $\boldsymbol{\hat{b}}_3$ at the Sun, the reference frame $\mathcal{R}_s$ must be chosen such that $\boldsymbol{\hat{r}}_3$ axis points in the Sun direction ($\boldsymbol{\hat{n}}_2$ in the scenario). To define the frame completely, the first axis $\boldsymbol{\hat{r}}_1$ is assumed to point in $-\boldsymbol{\hat{n}}_1$ direction. Therefore, the base vectors will be:
 	
-	The resulting reference-frame DCM remained constant because the Sun direction was assumed fixed in inertial space.
+	$$ \boldsymbol{\hat{r}}_1 = -\boldsymbol{\hat{n}}_1 $$
+	$$ \boldsymbol{\hat{r}}_3 = \boldsymbol{\hat{n}}_2 $$
+	$$ \boldsymbol{\hat{r}}_2 = \boldsymbol{\hat{r}}_3 \times \boldsymbol{\hat{r}}_1 = -(\boldsymbol{\hat{n}}_2\times\boldsymbol{\hat{n}}_1) = \boldsymbol{\hat{n}}_3$$
 	
-	The reference-frame angular velocity therefore becomes:
+	Similar to the previous task, the analytical expression for the DCM can be obtained using the base vectors:
 	
-	\[
-	\boldsymbol{\omega}_{RN} = \mathbf{0}
-	\]
+	$$[C]_{\mathcal{R}_s\mathcal{N}} = 
+	\begin{bmatrix}
+		\prescript{\mathcal{N}}{}{\hat{r}_1} ^ T \\
+		\prescript{\mathcal{N}}{}{\hat{r}_2} ^ T \\
+		\prescript{\mathcal{N}}{}{\hat{r}_3} ^ T
+	\end{bmatrix}
+	= \begin{bmatrix}
+		-1 & 0 & 0 \\
+		0 & 0 & 1 \\
+		0 & 1 & 0
+	\end{bmatrix}$$
+	
+	The resulting reference-frame DCM  can also be obtained using a (3-1-3) Euler Angle of ($\pi$, $\frac{\pi}{2}$, 0) rotation on it. MATLAB function $\texttt{RsN\_DCM()}$ serves this purpose:
+		\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
+function rotation = RsN_DCM()
+
+rotation = M1(pi/2)*M3(pi);
+
+end
+	\end{lstlisting}
+	
+	Since the base vectors of this frame are just a re-arrangement of the inertial frame base vectors, the frame remains fixed relative to the inertial frame, thus:
+	
+	$$ \boldsymbol{\omega}_{R_sN} = 0$$
+
 	
 	\subsection{Task 4: Nadir-Pointing Reference Frame Orientation}
 	

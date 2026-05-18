@@ -431,9 +431,9 @@ for psi = linspace(0,2*pi,200)
     quiver3(0,0,0,0,0,1,'b','LineWidth',2);
 
     % Rotation matrix
-    Rz = [ cos(psi) -sin(psi) 0;
-           sin(psi)  cos(psi) 0;
-           0         0        1 ];
+    % Rz = [ cos(psi) -sin(psi) 0;
+    %        sin(psi)  cos(psi) 0;
+    %        0         0        1 ];
     % Rz = HN;
 
     % Rotated body axes
