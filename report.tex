@@ -329,9 +329,14 @@ end
 	\]
 	
 	To drive a DCM with the base vectors in either frames, we have:
-	$$[C]_{\mathcal{A}\mathcal{B}} = 
+	$$[C]_{\mathcal{F}\mathcal{B}} = 
 	\begin{bmatrix}
-		\colorbox{yellow}{write this later} 
+		\prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_1} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_2} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_3}
+	\end{bmatrix} =
+	\begin{bmatrix}
+		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_1}^T \\
+		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_2}^T \\
+		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_3}^T
 	\end{bmatrix}	$$
 	
 	Therefore, to find $[C]_{\mathcal{H}\mathcal{N}}$ we will have:
@@ -409,17 +414,37 @@ end
 	
 	\subsection{Task 4: Nadir-Pointing Reference Frame Orientation}
 	
-	The nadir-pointing reference frame was defined such that the spacecraft sensor continuously points toward the center of Mars.
+	To point the spacecraft sensor platform axis $ \boldsymbol{\hat{b}}_1 $ towards the center of Mars (nadir direction), the reference frame $\mathcal{R}_n$ must be chosen such that $ \boldsymbol{\hat{r}}_1 $ axis points towards the planet. To completely describe the frame, we assume the second axis $ \boldsymbol{\hat{r}}_2 $ points in velocity direction $ \boldsymbol{\hat{i}}_\theta $. Therefore, we'll have:
 	
-	The nadir direction was defined as:
+	$$  \boldsymbol{\hat{r}}_1 = -\boldsymbol{\hat{i}}_r $$
+	$$
+	 \boldsymbol{\hat{r}}_2 = \boldsymbol{\hat{i}}_\theta 
+	$$
+	$$ \boldsymbol{\hat{r}}_3 = \boldsymbol{\hat{r}}_1 \times \boldsymbol{\hat{r}}_3 = -\boldsymbol{\hat{i}}_h$$
 	
-	\[
-	\hat{r}_1 = -\hat{i}_r
-	\]
+	This frame can be obtained using a (3-1-3) Euler Angles rotation on the Hill frame with angles ($\pi, \pi, 0$).
 	
-	while the along-track direction aligned with the orbital velocity vector.
+	$$[C]_{\mathcal{R}_n\mathcal{H}} = M_1(\pi)M_3(\pi)$$
 	
-	The reference-frame DCM was constructed relative to the Hill frame, and the reference-frame angular velocity was obtained from the orbital angular rate.
+	
+	 We also had previously obtained $[C]_{\mathcal{H}\mathcal{N}}$ in task 2 as a function of time. So,
+	 
+	 $$[C]_{\mathcal{R}_n\mathcal{N}} (t) = [C]_{\mathcal{R}_n\mathcal{H}}[C]_{\mathcal{H}\mathcal{N}}(t) $$
+	 
+	 In Matlab, this task is done by function \texttt{RnN\_DCM}.
+	 
+	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
+function rotation = RnN_DCM(t)
+
+RnH = M1(pi)*M3(pi);
+HN = orbit_frame_dcm(t); % Function from task 2
+
+rotation = RnH*HN;
+end
+	\end{lstlisting}
+	 
+	
+	
 	
 	\subsection{Task 5: GMO-Pointing Reference Frame Orientation}
 	
