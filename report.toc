@@ -12,7 +12,7 @@
 \contentsline {subsection}{\numberline {3.1.2}Task 2: Orbit Frame Orientation}{11}{subsection.3.1.2}%
 \contentsline {section}{\numberline {3.2}Reference Frame Orientation}{13}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Task 3: Sun-Pointing Reference Frame Orientation}{13}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Task 4: Nadir-Pointing Reference Frame Orientation}{13}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.2}Task 4: Nadir-Pointing Reference Frame Orientation}{14}{subsection.3.2.2}%
 \contentsline {subsection}{\numberline {3.2.3}Task 5: GMO-Pointing Reference Frame Orientation}{14}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}Attitude Evaluation and Simulator}{15}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Task 6: Attitude Error Evaluation}{15}{subsection.3.3.1}%

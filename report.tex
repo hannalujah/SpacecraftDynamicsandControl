@@ -142,7 +142,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.7\textwidth]{figures/doc_orbits_frames.png}
-		\caption{Illustration of circular orbital elements alongside inertial frame $\mathcal{N} : \{\hat{n}_1, \hat{n}_2, \hat{n}_3\}$ and Hill frame $\mathcal{H} : \{\hat{i}_r, \hat{i}_\theta, \hat{i}_h\}$ base vectors}
+		\caption{Illustration of circular orbital elements alongside inertial frame $\mathcal{N} : \{\boldsymbol{\hat{n}}_1, \boldsymbol{\hat{n}}_2, \boldsymbol{\hat{n}}_3\}$ and Hill frame $\mathcal{H} : \{\boldsymbol{\hat{i}}_r, \boldsymbol{\hat{i}}_\theta, \boldsymbol{\hat{i}}_h\}$ base vectors}
 		\label{fig:orbits_frames}
 	\end{figure}
 	
@@ -153,7 +153,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.7\textwidth]{figures/lmo_body_frame.png}
-		\caption{Illustration of LMO spacecraft's body frame $\mathcal{B}:\{\hat{b}_1, \hat{b}_2, \hat{b}_3\}$}
+		\caption{Illustration of LMO spacecraft's body frame $\mathcal{B}:\{\boldsymbol{\hat{b}}_1, \boldsymbol{\hat{b}}_2, \boldsymbol{\hat{b}}_3\}$}
 		\label{fig:lmo_body_frame}
 	\end{figure}
 	
@@ -267,25 +267,27 @@
 	Both these frames are obtainable through a (3-1-3) Euler Angle rotation on the inertial frame, though the hill frame origin is also translated to the spacecraft. 
 	
 	Now, using the $\mathcal{O}$ frame, spacecraft position vector is expressed as:
-	$$\prescript{\mathcal{O}}{}{\boldsymbol{r}} = r\hat{i}_r$$
+	$$\prescript{\mathcal{O}}{}{\boldsymbol{r}} = r\boldsymbol{\hat{i}}_r$$
 	
 	Both LMO and GMO orbits are circular, therefore having the same angular velocity $\dot{\theta}$ all over the orbit. Spacecraft velocity vector is expressed as:
-	$$\prescript{\mathcal{O}}{}{\boldsymbol{\dot{r}}} = r\dot{\theta}\hat{i}_\theta$$
+	$$\prescript{\mathcal{O}}{}{\boldsymbol{\dot{r}}} = r\dot{\theta}\boldsymbol{\hat{i}}_\theta$$
 	
 	The MATLAB function \texttt{orbitTheta()} takes time, angular velocity and initial angle to calculate the element $\theta$ using the following equation:
 	$$\theta_t = \dot{\theta}t + \theta_0$$
 	
 	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
 function theta = orbitTheta(time,thetaDot,theta0)
-	theta = rem(thetaDot*time+theta0, 2*pi);
+
+theta = rem(thetaDot*time+theta0, 2*pi);
+
 end
 	\end{lstlisting}
 	
-	Taking the position and velocity vectors from the general orbit frame to the inertial frame is done using the $[C]_{\mathcal{N}\mathcal{O}}$ which can be obtained having all orbital elements at a given time.
-	$$[C]_{\mathcal{O}\mathcal{N}} = M_3(\theta_t)M_1(i)M_3(\Omega)$$
-	$$[C]_{\mathcal{N}\mathcal{O}} = [C]_{\mathcal{O}\mathcal{N}}^T$$
-	$$\prescript{\mathcal{N}}{}{\boldsymbol{r}} = [C]_{\mathcal{N}\mathcal{O}} \prescript{\mathcal{O}}{}{\boldsymbol{r}}$$
-	$$\prescript{\mathcal{N}}{}{\boldsymbol{\dot{r}}} = [C]_{\mathcal{N}\mathcal{O}} \prescript{\mathcal{O}}{}{\boldsymbol{\dot{r}}}$$
+	Taking the position and velocity vectors from the general orbit frame to the inertial frame is done using the DCM $[NO]$ which can be obtained having all orbital elements at a given time.
+	$$[ON] = M_3(\theta_t)M_1(i)M_3(\Omega)$$
+	$$[NO] = [ON]^T$$
+	$$\prescript{\mathcal{N}}{}{\boldsymbol{r}} = [NO] \prescript{\mathcal{O}}{}{\boldsymbol{r}}$$
+	$$\prescript{\mathcal{N}}{}{\boldsymbol{\dot{r}}} = [NO] \prescript{\mathcal{O}}{}{\boldsymbol{\dot{r}}}$$
 	
 	This is achieved by the MATLAB function \texttt{orbit\_state()} as follows:
 	
@@ -317,19 +319,19 @@ end
 	The Hill-frame basis vectors were constructed directly from the inertial position and velocity vectors:
 	
 	\[
-	\prescript{\mathcal{N}}{}{\hat{i}_r} = \frac{\boldsymbol{r}_{LMO}}{\|\boldsymbol{r}_{LMO}\|}
+	\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_r} = \frac{\boldsymbol{r}_{LMO}}{\|\boldsymbol{r}_{LMO}\|}
 	\]
 	
 	\[
-	\prescript{\mathcal{N}}{}{\hat{i}_h} = \frac{\boldsymbol{r}_{LMO} \times \boldsymbol{\dot{r}}_{LMO}}{\|\boldsymbol{r}_{LMO} \times \boldsymbol{\dot{r}}_{LMO}\|}
+	\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_h} = \frac{\boldsymbol{r}_{LMO} \times \boldsymbol{\dot{r}}_{LMO}}{\|\boldsymbol{r}_{LMO} \times \boldsymbol{\dot{r}}_{LMO}\|}
 	\]
 	
 	\[
-	\prescript{\mathcal{N}}{}{\hat{i}_\theta} = \hat{i}_h \times \hat{i}_r
+	\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_\theta} = \boldsymbol{\hat{i}}_h \times \boldsymbol{\hat{i}}_r
 	\]
 	
 	To drive a DCM with the base vectors in either frames, we have:
-	$$[C]_{\mathcal{F}\mathcal{B}} = 
+	$$[FB] = 
 	\begin{bmatrix}
 		\prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_1} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_2} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_3}
 	\end{bmatrix} =
@@ -339,12 +341,12 @@ end
 		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_3}^T
 	\end{bmatrix}	$$
 	
-	Therefore, to find $[C]_{\mathcal{H}\mathcal{N}}$ we will have:
-	$$[C]_{\mathcal{H}\mathcal{N}} = 
+	Therefore, to find $[HN]$ we will have:
+	$$[HN] = 
 	\begin{bmatrix}
-		\prescript{\mathcal{N}}{}{\hat{i}_r} ^ T \\
-		\prescript{\mathcal{N}}{}{\hat{i}_\theta} ^ T \\
-		\prescript{\mathcal{N}}{}{\hat{i}_h} ^ T
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_r} ^ T \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_\theta} ^ T \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_h} ^ T
 	\end{bmatrix}$$
 	
 	A MATLAB function named \texttt{orbit\_frame\_dcm(t)} was implemented to evaluate the time-varying Hill-frame orientation.
@@ -386,11 +388,11 @@ end
 	
 	Similar to the previous task, the analytical expression for the DCM can be obtained using the base vectors:
 	
-	$$[C]_{\mathcal{R}_s\mathcal{N}} = 
+	$$[R_sN] = 
 	\begin{bmatrix}
-		\prescript{\mathcal{N}}{}{\hat{r}_1} ^ T \\
-		\prescript{\mathcal{N}}{}{\hat{r}_2} ^ T \\
-		\prescript{\mathcal{N}}{}{\hat{r}_3} ^ T
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_1} ^ T \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_2} ^ T \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_3} ^ T
 	\end{bmatrix}
 	= \begin{bmatrix}
 		-1 & 0 & 0 \\
@@ -409,7 +411,7 @@ end
 	
 	Since the base vectors of this frame are just a re-arrangement of the inertial frame base vectors, the frame remains fixed relative to the inertial frame, thus:
 	
-	$$ \boldsymbol{\omega}_{R_sN} = 0$$
+	$$ \boldsymbol{\omega}_{R_s/N} = 0$$
 
 	
 	\subsection{Task 4: Nadir-Pointing Reference Frame Orientation}
@@ -424,12 +426,12 @@ end
 	
 	This frame can be obtained using a (3-1-3) Euler Angles rotation on the Hill frame with angles ($\pi, \pi, 0$).
 	
-	$$[C]_{\mathcal{R}_n\mathcal{H}} = M_1(\pi)M_3(\pi)$$
+	$$[R_nH] = M_1(\pi)M_3(\pi)$$
 	
 	
-	 We also had previously obtained $[C]_{\mathcal{H}\mathcal{N}}$ in task 2 as a function of time. So,
+	 We also had previously obtained $[HN]$ in task 2 as a function of time. So,
 	 
-	 $$[C]_{\mathcal{R}_n\mathcal{N}} (t) = [C]_{\mathcal{R}_n\mathcal{H}}[C]_{\mathcal{H}\mathcal{N}}(t) $$
+	 $$[R_nN] (t) = [R_nH][HN](t) $$
 	 
 	 In Matlab, this task is done by function \texttt{RnN\_DCM}.
 	 
@@ -442,6 +444,9 @@ HN = orbit_frame_dcm(t); % Function from task 2
 rotation = RnH*HN;
 end
 	\end{lstlisting}
+	
+	Since this frame is a re-arrangement of the Hill frame, it also moves with it, thus:
+	$$\boldsymbol{\omega}_{R_n/N} = \boldsymbol{\omega}_{H/N} = \dot{\theta}\boldsymbol{\hat{i}}_\theta$$
 	 
 	
 	
