@@ -13,6 +13,9 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{mathtools}
 \usepackage{matlab-prettifier}
+\usepackage{graphicx} 
+\usepackage{caption,subcaption}
+
 
 
 \setstretch{1.25}
@@ -580,27 +583,88 @@ end
 	
 	\subsection{Task 7: Numerical Attitude Simulator}
 	
-	The spacecraft rotational dynamics were propagated using Euler's rigid-body rotational equation:
+	In order to integrate the attitude we need a numerical integrator. The LMO and GMO orbit satellite positions are already calculated in earlier tasks. Let the propagated attitude state $\boldsymbol{X}$ be
+	$$\boldsymbol{X} = \begin{bmatrix}
+		\boldsymbol{\sigma}_{B/N} \\
+		\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N}
+	\end{bmatrix}$$
 	
+	Assuming that the spacecraft is rigid and there's no external torque acting on it, its dynamics obey
+		
 	\[
-	[I]\dot{\boldsymbol{\omega}} = - [\tilde{\boldsymbol{\omega}}][I]\boldsymbol{\omega} + \mathbf{u} 
+	[I]\dot{\boldsymbol{\omega}}_{B/N} = - [\tilde{\boldsymbol{\omega}}_{B/N}][I]\boldsymbol{\omega}_{B/N} + \boldsymbol{u} 
 	\]
+	where $\boldsymbol{u}$ is the external control torque vector.
 	
-	The spacecraft MRP kinematics were propagated according to:
+	For this task, a simple loop integrator was written in MATLAB (which comparing to RK4, proved to be more time-consuming yet more precise). The control torques $\boldsymbol{u}_1 = 0$ and $\prescript{\mathcal{B}}{}{\boldsymbol{u}} = (0.01, -0.01, 0.02)$
+	were applied respectively and the following were computed:
+	\begin{itemize}
+		\item Attitude MRP $\boldsymbol{\sigma}_{B/N}$
+		\item Angular velocity $\boldsymbol{\omega}_{B/N}$
+		\item Angular momentum vector $\boldsymbol{H} = [I]\boldsymbol{\omega}_{B/N}$ in both $\mathcal{N}$ and $\mathcal{B}$ frames
+		\item Rotational kinetic energy $T = \frac{1}{2}\boldsymbol{\omega}_{B/N}^T[I]\boldsymbol{\omega}_{B/N}$
+	\end{itemize}
 	
-	\[
-	\dot{\boldsymbol{\sigma}} = \frac{1}{4}B(\boldsymbol{\sigma})\boldsymbol{\omega}
-	\]
+	The results of both simulations are plotted in Figure~\ref{fig:task7_results}. As is seen, after applying the control torque $\boldsymbol{u}_2$ on the spacecraft, its rotational kinetic energy plummets (from approximately 9 mJ in uncontrolled mode (Figure~\ref{fig:u1_T}) to more than 2.5 J when controlled (Figure~\ref{fig:u2_T})). This is verified by spacecraft angular velocity, whose 1st and 2nd components start to oscillate in controlled mode while its 3rd goes through a rapid, non-stop increase (Figure~\ref{fig:u2_omega}). 
 	
-	A fixed-step RK4 numerical integrator was implemented to propagate spacecraft rotational motion.
+	The MRP confirms it all. The spacecraft goes crazily oscillating when the control torque $\boldsymbol{u}_2$ is applied to it (Figure~\ref{fig:u2_sigma}). This suggests that $\boldsymbol{u}_2$ fails as a successful control, making the craft uncontrollable rather that detumbling it. 
+	  
 	
-	To avoid MRP singularities, shadow-set switching was performed whenever:
+	\begin{figure}[!htbp]
+		\centering
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_KineticEnergy.png}
+			\caption{$\boldsymbol{u}_1$ Applied: $T$}
+			\label{fig:u1_T}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/ControlledVehicle_KineticEnergy.png}
+			\caption{$\boldsymbol{u}_2$ Applied: $T$}
+			\label{fig:u2_T}
+		\end{subfigure}
+		
+		\vspace{1em} % Spacing between rows
+		
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_MRP.png}
+			\caption{$\boldsymbol{u}_1$ Applied: $\boldsymbol{\sigma}_{B/N}$}
+			\label{fig:u1_sigma}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/ControlledVehicle_MRP.png}
+			\caption{$\boldsymbol{u}_2$ Applied: $\boldsymbol{\sigma}_{B/N}$}
+			\label{fig:u2_sigma}
+		\end{subfigure}
+		
+		\vspace{1em} % Spacing between rows
+		
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_Omega.png}
+			\caption{$\boldsymbol{u}_1$ Applied: $\boldsymbol{\omega}_{B/N}$}
+			\label{fig:u1_omega}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/ControlledVehicle_Omega.png}
+			\caption{$\boldsymbol{u}_2$ Applied: $\boldsymbol{\omega}_{B/N}$}
+			\label{fig:u2_omega}
+		\end{subfigure}
+		
+		\caption{Results of the simulations in task 7}
+		\label{fig:task7_results}
+	\end{figure}
 	
-	\[
-	\|\boldsymbol{\sigma}\| > 1
-	\]
 	
-	The numerical simulator was validated under both uncontrolled and controlled torque conditions.
+	
+	
 	
 	\section{Completing the Mission}
 	
@@ -656,56 +720,7 @@ end
 	
 	The complete mission simulation demonstrated stable closed-loop attitude behavior and smooth transitions between operational spacecraft modes.
 	
-	\section{Detailed Mathematical Formulation}
 	
-	\subsection{Orbital Angular Velocity}
-	
-	For a circular orbit, the orbital angular rate is defined as:
-	
-	\[
-	\dot{\theta} = \sqrt{\frac{\mu}{r^3}}
-	\]
-	
-	where:
-	
-	\begin{itemize}
-		\item $\mu$ is the gravitational parameter of Mars,
-		\item $r$ is the orbital radius.
-	\end{itemize}
-	
-	The orbital angle evolution is then computed through:
-	
-	\[
-	\theta(t) = \theta_0 + \dot{\theta}t
-	\]
-	
-	\subsection{Modified Rodrigues Parameters}
-	
-	The spacecraft attitude is represented using Modified Rodrigues Parameters (MRPs):
-	
-	\[
-	\boldsymbol{\sigma} = \hat{e}\tan\left(\frac{\Phi}{4}\right)
-	\]
-	
-	The corresponding MRP kinematic differential equation becomes:
-	
-	\[
-	\dot{\boldsymbol{\sigma}} = \frac{1}{4}B(\boldsymbol{\sigma})\boldsymbol{\omega}
-	\]
-	
-	\subsection{Shadow Set Transformation}
-	
-	To avoid singularity when:
-	
-	\[
-	\|\boldsymbol{\sigma}\| > 1
-	\]
-	
-	The shadow-set transformation is applied:
-	
-	\[
-	\boldsymbol{\sigma}^S = -\frac{\boldsymbol{\sigma}}{\|\boldsymbol{\sigma}\|^2}
-	\]
 	
 	\section{Simulation Results and Discussion}
 	

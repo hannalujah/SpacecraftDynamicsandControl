@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  22 MAY 2026 16:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  22 MAY 2026 18:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -452,31 +452,38 @@ Package: listings 2025/11/14 1.11b (Carsten Heinz)
 \jayDepth@mlpr=\skip65
 \sectionRuleOffset@mlpr=\skip66
 \toks@mlpr=\toks30
-) (c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+) (c:/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count335
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count336
+)
+(c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count335
+\l__color_backend_stack_int=\count337
 )
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -514,16 +521,16 @@ LaTeX Font Info:    ... okay on input line 24.
 
 (c:/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count336
+\scratchcounter=\count338
 \scratchdimen=\dimen273
 \scratchbox=\box64
-\nofMPsegments=\count337
-\nofMParguments=\count338
+\nofMPsegments=\count339
+\nofMParguments=\count340
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count339
+\MPscratchCnt=\count341
 \MPscratchDim=\dimen274
-\MPnumerator=\count340
-\makeMPintoPDFobject=\count341
+\MPnumerator=\count342
+\makeMPintoPDFobject=\count343
 \everyMPtoPDFconversion=\toks32
 ) (c:/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -539,13 +546,13 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 24.
+Package hyperref Info: Link coloring OFF on input line 27.
 
 (./report.out) (./report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
-\c@lstlisting=\count342
+\c@lstlisting=\count344
  [1
 
 {c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./report.toc
@@ -558,64 +565,106 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
 
 (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+))
+\tf@toc=\write4
+\openout4 = `report.toc'.
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.30 ...e {3.7}STK Visualization}{21}{section.3.7}
-                                                  % [1
+l.57 	\newpage
+               [1
 
-])
-\tf@toc=\write4
-\openout4 = `report.toc'.
-
- [2] [3
+] [2
 
 ]
 Chapter 1.
-[4
+[3
 
 {c:/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Chapter 2.
-[5
+[4
 
 ]
-<figures/doc_orbits_frames.png, id=211, 454.69875pt x 325.215pt>
+<figures/doc_orbits_frames.png, id=187, 454.69875pt x 325.215pt>
 File: figures/doc_orbits_frames.png Graphic file (type png)
 <use figures/doc_orbits_frames.png>
-Package pdftex.def Info: figures/doc_orbits_frames.png  used on input line 144.
+Package pdftex.def Info: figures/doc_orbits_frames.png  used on input line 147.
 
 (pdftex.def)             Requested size: 317.07614pt x 226.78549pt.
-<figures/lmo_body_frame.png, id=214, 495.8525pt x 282.05376pt>
+<figures/lmo_body_frame.png, id=190, 495.8525pt x 282.05376pt>
 File: figures/lmo_body_frame.png Graphic file (type png)
 <use figures/lmo_body_frame.png>
-Package pdftex.def Info: figures/lmo_body_frame.png  used on input line 155.
+Package pdftex.def Info: figures/lmo_body_frame.png  used on input line 158.
 (pdftex.def)             Requested size: 317.07614pt x 180.36314pt.
- [6 <./figures/doc_orbits_frames.png> <./figures/lmo_body_frame.png>]
-<figures/orbit_scenario.png, id=225, 599.74063pt x 379.4175pt>
+ [5 <./figures/doc_orbits_frames.png> <./figures/lmo_body_frame.png>]
+<figures/orbit_scenario.png, id=200, 599.74063pt x 379.4175pt>
 File: figures/orbit_scenario.png Graphic file (type png)
 <use figures/orbit_scenario.png>
-Package pdftex.def Info: figures/orbit_scenario.png  used on input line 191.
+Package pdftex.def Info: figures/orbit_scenario.png  used on input line 194.
 (pdftex.def)             Requested size: 452.9679pt x 286.57135pt.
 
-Overfull \hbox (8.00235pt too wide) in paragraph at lines 198--199
+Overfull \hbox (8.00235pt too wide) in paragraph at lines 201--202
 \OT1/cmr/m/n/12 The space-craft ini-tial at-ti-tude is rep-re-sented us-ing Mod
 -i-fied Ro-drigues Pa-ram-e-ters (MRPs),
  []
 
-[7 <./figures/orbit_scenario.png>] [8] [9]
+[6 <./figures/orbit_scenario.png>] [7] [8]
 Chapter 3.
-[10
+[9
 
-] [11] [12] [13] [14] [15] [16]
-Overfull \hbox (19.44559pt too wide) in paragraph at lines 559--560
+] [10] [11] [12] [13] [14] [15]
+Overfull \hbox (19.44559pt too wide) in paragraph at lines 562--563
 []\OT1/cmr/m/n/12 These two forms are im-ple-mented in MAT-LAB func-tion \OT1/c
 mtt/m/n/12 sigmaToDCM() \OT1/cmr/m/n/12 and \OT1/cmtt/m/n/12 DCMToSigma()
  []
 
-[17] [18] [19] [20] [21]
-Overfull \hbox (18.93008pt too wide) in paragraph at lines 754--755
+[16]
+<figures/UncontrolledVehicle_KineticEnergy.png, id=376, 523.7166pt x 336.7782pt
+>
+File: figures/UncontrolledVehicle_KineticEnergy.png Graphic file (type png)
+<use figures/UncontrolledVehicle_KineticEnergy.png>
+Package pdftex.def Info: figures/UncontrolledVehicle_KineticEnergy.png  used on
+ input line 617.
+(pdftex.def)             Requested size: 217.42265pt x 139.81686pt.
+<figures/ControlledVehicle_KineticEnergy.png, id=377, 506.8536pt x 336.7782pt>
+File: figures/ControlledVehicle_KineticEnergy.png Graphic file (type png)
+<use figures/ControlledVehicle_KineticEnergy.png>
+Package pdftex.def Info: figures/ControlledVehicle_KineticEnergy.png  used on i
+nput line 624.
+(pdftex.def)             Requested size: 217.42265pt x 144.4675pt.
+<figures/UncontrolledVehicle_MRP.png, id=378, 510.708pt x 336.7782pt>
+File: figures/UncontrolledVehicle_MRP.png Graphic file (type png)
+<use figures/UncontrolledVehicle_MRP.png>
+Package pdftex.def Info: figures/UncontrolledVehicle_MRP.png  used on input lin
+e 633.
+(pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
+<figures/ControlledVehicle_MRP.png, id=379, 510.708pt x 336.7782pt>
+File: figures/ControlledVehicle_MRP.png Graphic file (type png)
+<use figures/ControlledVehicle_MRP.png>
+Package pdftex.def Info: figures/ControlledVehicle_MRP.png  used on input line 
+640.
+(pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
+<figures/UncontrolledVehicle_Omega.png, id=380, 518.4168pt x 336.7782pt>
+File: figures/UncontrolledVehicle_Omega.png Graphic file (type png)
+<use figures/UncontrolledVehicle_Omega.png>
+Package pdftex.def Info: figures/UncontrolledVehicle_Omega.png  used on input l
+ine 649.
+(pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
+<figures/ControlledVehicle_Omega.png, id=381, 512.6352pt x 336.7782pt>
+File: figures/ControlledVehicle_Omega.png Graphic file (type png)
+<use figures/ControlledVehicle_Omega.png>
+Package pdftex.def Info: figures/ControlledVehicle_Omega.png  used on input lin
+e 656.
+(pdftex.def)             Requested size: 217.42265pt x 142.83849pt.
+ [17] [18 <./figures/UncontrolledVehicle_KineticEnergy.png (PNG copy)> <./figur
+es/ControlledVehicle_KineticEnergy.png (PNG copy)> <./figures/UncontrolledVehic
+le_MRP.png (PNG copy)> <./figures/ControlledVehicle_MRP.png (PNG copy)> <./figu
+res/UncontrolledVehicle_Omega.png (PNG copy)> <./figures/ControlledVehicle_Omeg
+a.png (PNG copy)>] [19] [20] [21]
+Overfull \hbox (18.93008pt too wide) in paragraph at lines 769--770
 \OT1/cmr/m/n/12 ing modes were de-vel-oped, in-clud-ing Sun-pointing, nadir-poi
 nting, and GMO communication-
  []
@@ -628,34 +677,35 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: A95976F0EA27AE4B6D315455BB6EAB9D;6496.
+(rerunfilecheck)             Checksum: 22295B65FCE0B199FC336FEED46465BB;5676.
  ) 
 Here is how much of TeX's memory you used:
- 15693 strings out of 467349
- 242568 string characters out of 5419863
- 854879 words of memory out of 5000000
- 44389 multiletter control sequences out of 15000+600000
- 639368 words of font info for 82 fonts, out of 8000000 for 9000
+ 15863 strings out of 467349
+ 246853 string characters out of 5419863
+ 857400 words of memory out of 5000000
+ 44559 multiletter control sequences out of 15000+600000
+ 641837 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,19n,79p,552b,2148s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,19n,79p,590b,2148s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/tex
 live/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/202
 6/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2026/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2026/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmib10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c
-:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2
-026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2026/texmf-dist/font
-s/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm1200.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-s
-uper/sftt1200.pfb>
-Output written on report.pdf (23 pages, 1013036 bytes).
+ist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2026/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+ib10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive
+/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2026/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2026/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm
+1200.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on report.pdf (23 pages, 1408944 bytes).
 PDF statistics:
- 543 PDF objects out of 1000 (max. 8388607)
- 477 compressed objects within 5 object streams
- 202 named destinations out of 1000 (max. 500000)
- 272 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 545 PDF objects out of 1000 (max. 8388607)
+ 469 compressed objects within 5 object streams
+ 199 named destinations out of 1000 (max. 500000)
+ 270 words of extra memory for PDF output out of 10000 (max. 10000000)
 
