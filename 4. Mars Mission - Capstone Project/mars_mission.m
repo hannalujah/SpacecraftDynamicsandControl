@@ -333,12 +333,14 @@ idx4400 = round(4400/dt);
 idx5600 = round(5600/dt);
 
 fprintf("\nTask 11 - Mission Scenario Simulation \n");
-[t11, sigma11, w11, u11] = final_simulation(0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
+[t11, sigma11, w11, u11, modeChanges] = final_simulation(0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 300s: [%.6f %.6f %.6f]\n", sigma11(1,idx300), sigma11(2,idx300), sigma11(3,idx300));
 fprintf("Sigma_BN at t = 2100s: [%.6f %.6f %.6f]\n", sigma11(1,idx2100), sigma11(2,idx2100), sigma11(3,idx2100));
 fprintf("Sigma_BN at t = 3400s: [%.6f %.6f %.6f]\n", sigma11(1,idx3400), sigma11(2,idx3400), sigma11(3,idx3400));
 fprintf("Sigma_BN at t = 4400s: [%.6f %.6f %.6f]\n", sigma11(1,idx4400), sigma11(2,idx4400), sigma11(3,idx4400));
 fprintf("Sigma_BN at t = 5600s: [%.6f %.6f %.6f]\n", sigma11(1,idx5600), sigma11(2,idx5600), sigma11(3,idx5600));
+
+[modeChangeTimes,~] = size(modeChanges);
 
 figure
 plot(t11,sigma11);
@@ -346,6 +348,9 @@ title('Mission Scenario Simulation: MRP');
 xlabel('time (s)');
 ylabel('\sigma_t');
 legend('\sigma_1', '\sigma_2', '\sigma_3')
+for i = 1:modeChangeTimes
+    xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
+end
 
 figure
 plot(t11,w11);
@@ -353,6 +358,9 @@ title('Mission Scenario Simulation: Angular Velocity');
 xlabel('time (s)');
 ylabel('\omega_t (rad/s)');
 legend('\omega_1', '\omega_2', '\omega_3')
+for i = 1:modeChangeTimes
+    xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
+end
 
 
 %% Exporting attitude for STK

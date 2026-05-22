@@ -1,4 +1,4 @@
-function [tHist, sigmaHist, wHist, uHist] = final_simulation(t0, tf, dt, ...
+function [tHist, sigmaHist, wHist, uHist, modeChanges] = final_simulation(t0, tf, dt, ...
     sigma0, w0, K, P, I_dc)
 
     tHist = t0:dt:tf;
@@ -8,6 +8,9 @@ function [tHist, sigmaHist, wHist, uHist] = final_simulation(t0, tf, dt, ...
     wHist = zeros(3,N);
     uHist = zeros(3,N);
 
+    modeChanges = [];
+    currentMode = " ";
+
     x = [sigma0; w0];
 
     sigmaHist(:,1) = sigma0;
@@ -16,7 +19,11 @@ function [tHist, sigmaHist, wHist, uHist] = final_simulation(t0, tf, dt, ...
     for k = 1:N-1
         t = tHist(k);
 
-        [RN, w_RN_N, ~] = getReferenceFrame(t);
+        [RN, w_RN_N, mode] = getReferenceFrame(t);
+        if mode ~= currentMode
+            modeChanges = [modeChanges; t, mode];
+            currentMode = mode;
+        end
 
         sigma_BN = x(1:3);
         w_BN = x(4:6);

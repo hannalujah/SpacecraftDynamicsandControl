@@ -607,7 +607,7 @@ end
 	
 	The results of both simulations are plotted in Figure~\ref{fig:task7_results}. As is seen, after applying the control torque $\boldsymbol{u}_2$ on the spacecraft, its rotational kinetic energy plummets (from approximately 9 mJ in uncontrolled mode (Figure~\ref{fig:u1_T}) to more than 2.5 J when controlled (Figure~\ref{fig:u2_T})). This is verified by spacecraft angular velocity, whose 1st and 2nd components start to oscillate in controlled mode while its 3rd goes through a rapid, non-stop increase (Figure~\ref{fig:u2_omega}). 
 	
-	The MRP confirms it all. The spacecraft goes crazily oscillating when the control torque $\boldsymbol{u}_2$ is applied to it (Figure~\ref{fig:u2_sigma}). This suggests that $\boldsymbol{u}_2$ fails as a successful control, making the craft uncontrollable rather that detumbling it. 
+	Attitude states confirm it all. The spacecraft goes crazily tumbling when the control torque $\boldsymbol{u}_2$ is applied to it (Figure~\ref{fig:u2_sigma}). This suggests that $\boldsymbol{u}_2$ fails as a successful control, making the craft uncontrollable rather that detumbling it. 
 	  
 	
 	\begin{figure}[!htbp]
@@ -626,23 +626,7 @@ end
 			\label{fig:u2_T}
 		\end{subfigure}
 		
-		\vspace{1em} % Spacing between rows
-		
-		\begin{subfigure}[b]{0.48\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_MRP.png}
-			\caption{$\boldsymbol{u}_1$ Applied: $\boldsymbol{\sigma}_{B/N}$}
-			\label{fig:u1_sigma}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.48\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/ControlledVehicle_MRP.png}
-			\caption{$\boldsymbol{u}_2$ Applied: $\boldsymbol{\sigma}_{B/N}$}
-			\label{fig:u2_sigma}
-		\end{subfigure}
-		
-		\vspace{1em} % Spacing between rows
+		\vspace{1em} 
 		
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
@@ -658,43 +642,122 @@ end
 			\label{fig:u2_omega}
 		\end{subfigure}
 		
+		\vspace{1em} 
+		
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_MRP.png}
+			\caption{$\boldsymbol{u}_1$ Applied: $\boldsymbol{\sigma}_{B/N}$}
+			\label{fig:u1_sigma}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/ControlledVehicle_MRP.png}
+			\caption{$\boldsymbol{u}_2$ Applied: $\boldsymbol{\sigma}_{B/N}$}
+			\label{fig:u2_sigma}
+		\end{subfigure}
+		
+		
 		\caption{Results of the simulations in task 7}
 		\label{fig:task7_results}
 	\end{figure}
-	
-	
-	
 	
 	
 	\section{Completing the Mission}
 	
 	\subsection{Task 8: Sun Pointing Control}
 	
-	A PD attitude controller was implemented to drive the spacecraft toward the Sun-pointing reference frame.
+	The PD gains were selected using the linearized closed-loop attitude dynamics together with a worst-case inertia design approach. Since scalar gains were used for all spacecraft axes, the gains were chosen based on the maximum and minimum principal moments of inertia to guarantee that all rotational modes satisfy the required 120-second decay time constant. 
+	
+	$$I_{max} = 10, I_{min} = 5$$
+	$$T = 120s$$
+	
+	$$K = \frac{4I_{max}^2}{T^2I_{min}}$$
+	$$P = \frac{2I_{max}}{T}$$
 	
 	The control torque is defined as:
 	
 	\[
-	\mathbf{u} = -K\boldsymbol{\sigma}_{BR} - P\boldsymbol{\omega}_{BR}
+	\prescript{\mathcal{B}}{}{\boldsymbol{u}} = -K\boldsymbol{\sigma}_{B/R} - P\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
 	\]
 	
-	The controller gains were selected using linearized closed-loop dynamics to satisfy desired transient-response requirements.
+	An RK4 integrator was developed for pulling off this task used by the MATLAB function \texttt{simulate\_mode()}. The results of Sun pointing simulation are evident in Figure~\ref{fig:sun_pointing}. 
 	
-	Simulation results demonstrated stable convergence toward the desired Sun-pointing orientation.
+	\begin{figure}[H]
+		\centering
+		
+		\begin{subfigure}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/SunPointing_MRP.png}
+			\caption{$\boldsymbol{\sigma}_{B/R}$}
+			\label{fig:task8_sigma}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/SunPointing_Omega.png}
+			\caption{$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}$}
+			\label{fig:task8_omega}
+		\end{subfigure}
+		
+		\caption{Results of Sun pointing control}
+		\label{fig:sun_pointing}
+	\end{figure}
+	
+	As is illustrated, the spacecraft is fully detumbled ($\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R} \approx 0$) and controlled to a certain attitude MRP. 
 	
 	\subsection{Task 9: Nadir Pointing Control}
 	
-	The nadir-pointing control mode used the same PD control architecture while continuously updating the rotating reference frame.
+	The same PD control torque developed in task 8 is also applied here and the results of simulation for Nadir pointing mode are evident in Figure~\ref{fig:nadir_pointing}.
 	
-	The controller successfully tracked the time-varying nadir reference orientation while maintaining stable spacecraft rotational dynamics.
+	\begin{figure}[H]
+		\centering
+		
+		\begin{subfigure}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/NadirPointing_MRP.png}
+			\caption{$\boldsymbol{\sigma}_{B/R}$}
+			\label{fig:task9_sigma}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/NadirPointing_Omega.png}
+			\caption{$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}$}
+			\label{fig:task9_omega}
+		\end{subfigure}
+		
+		\caption{Results of Nadir pointing control}
+		\label{fig:nadir_pointing}
+	\end{figure}
+	
+	Similar to the previous task, the MRP has converged to a certain state and the spacecraft is also detumbled.
 	
 	\subsection{Task 10: GMO Pointing Control}
 	
-	The GMO-pointing control mode continuously oriented the spacecraft communication platform toward the GMO spacecraft.
+	The same PD control torque used in two previous tasks is also applied here and the results of simulation for GMO pointing mode are evident in Figure~\ref{fig:GMO_pointing}.
 	
-	The communication reference frame and corresponding angular velocity were updated dynamically throughout the simulation.
-	
-	Simulation results demonstrated stable closed-loop tracking of the moving communication reference frame.
+	\begin{figure}[H]
+		\centering
+		
+		\begin{subfigure}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/GMOPointing_MRP.png}
+			\caption{$\boldsymbol{\sigma}_{B/R}$}
+			\label{fig:task10_sigma}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/GMOPointing_Omega.png}
+			\caption{$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}$}
+			\label{fig:task10_omega}
+		\end{subfigure}
+		
+		\caption{Results of GMO pointing control}
+		\label{fig:GMO_pointing}
+	\end{figure}
 	
 	\subsection{Task 11: Mission Scenario Simulation}
 	
@@ -708,18 +771,24 @@ end
 		\item Otherwise, nadir-pointing science mode was selected.
 	\end{itemize}
 	
-	At every simulation step:
+	The task of finding out the operation mode at each given time in the mission--and choosing the corresponding reference frame as a result--is carried out by the MATLAB function \texttt{getReferenceFrame()}. 
 	
-	\begin{enumerate}
-		\item The active reference frame was selected,
-		\item The reference angular velocity was evaluated,
-		\item The attitude tracking errors were computed,
-		\item The PD control torque was generated,
-		\item The spacecraft rotational dynamics were propagated using RK4 integration.
-	\end{enumerate}
 	
-	The complete mission simulation demonstrated stable closed-loop attitude behavior and smooth transitions between operational spacecraft modes.
+	The MATLAB function \texttt{final\_simulation()} handles the procedure of combining all the modes and tasks together in a timespan of 6500 seconds. 	
 	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/mission_sigma.png}
+		\caption{Full mission spacecraft attitude state}
+		\label{fig:task11_sigma}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/mission_omega.png}
+		\caption{Full mission spacecraft angular velocity}
+		\label{fig:task11_omega}
+	\end{figure}
 	
 	
 	\section{Simulation Results and Discussion}
