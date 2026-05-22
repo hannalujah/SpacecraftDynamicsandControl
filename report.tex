@@ -336,17 +336,17 @@ end
 		\prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_1} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_2} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_3}
 	\end{bmatrix} =
 	\begin{bmatrix}
-		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_1}^T \\
-		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_2}^T \\
-		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_3}^T
+		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_1 ^ T} \\
+		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_2 ^ T} \\
+		\prescript{\mathcal{B}}{}{\hat{\boldsymbol{f}}_3 ^ T}
 	\end{bmatrix}	$$
 	
 	Therefore, to find $[HN]$ we will have:
 	$$[HN] = 
 	\begin{bmatrix}
-		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_r} ^ T \\
-		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_\theta} ^ T \\
-		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_h} ^ T
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_r ^ T} \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_\theta ^ T} \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_h ^ T}
 	\end{bmatrix}$$
 	
 	A MATLAB function named \texttt{orbit\_frame\_dcm(t)} was implemented to evaluate the time-varying Hill-frame orientation.
@@ -390,9 +390,9 @@ end
 	
 	$$[R_sN] = 
 	\begin{bmatrix}
-		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_1} ^ T \\
-		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_2} ^ T \\
-		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_3} ^ T
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_1 ^ T} \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_2 ^ T} \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_3 ^ T}
 	\end{bmatrix}
 	= \begin{bmatrix}
 		-1 & 0 & 0 \\
@@ -433,7 +433,7 @@ end
 	 
 	 $$[R_nN] (t) = [R_nH][HN](t) $$
 	 
-	 In Matlab, this task is done by function \texttt{RnN\_DCM}.
+	 In Matlab, this task is done by function \texttt{RnN\_DCM()}.
 	 
 	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
 function rotation = RnN_DCM(t)
@@ -453,17 +453,92 @@ end
 	
 	\subsection{Task 5: GMO-Pointing Reference Frame Orientation}
 	
-	The communication reference frame was defined such that the spacecraft communication axis continuously points toward the GMO spacecraft.
+	To point the nano-satellite communication platform axis $\boldsymbol{\hat{b}}_1$ towards the GMO mother spacecraft, the communication reference frame $\mathcal{R}_c$ must be chosen such that $-\boldsymbol{\hat{r}}_1$ axis points towards the GMO satellite location, defining $\Delta\boldsymbol{r} = \boldsymbol{r}_{GMO} - \boldsymbol{r}_{LMO}$. So,
+	$$\boldsymbol{\hat{r}}_1 = -\frac{\Delta\boldsymbol{r}}{\|\Delta\boldsymbol{r}\|}$$
+	Further, to fully define a three-dimensional reference frame, assume the second axis is defined as
+	$$\boldsymbol{\hat{r}}_2 = \frac{\Delta\boldsymbol{r}\times\boldsymbol{\hat{n}}_3}{\|\Delta\boldsymbol{r}\times\boldsymbol{\hat{n}}_3\|}$$
+	Naturally,
+	$$\boldsymbol{\hat{r}}_3 = \boldsymbol{\hat{r}}_1 \times \boldsymbol{\hat{r}}_2$$
 	
-	The relative position vector between the spacecraft was defined as:
+	Having all three base vectors in the inertial frame, we have:
+	$$[R_cN] = 
+	\begin{bmatrix}
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_1 ^ T} \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_2 ^ T} \\
+		\prescript{\mathcal{N}}{}{\boldsymbol{\hat{r}}_3 ^ T} \\
+	\end{bmatrix}$$
 	
-	\[
-	\boldsymbol{\rho} = \mathbf{r}_{GMO} - \mathbf{r}_{LMO}
-	\]
+	The MATLAB function \texttt{RcN\_DCM(t)} is written to deliver this task.
+	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
+function rotation = RcN_DCM(t)
+
+h_dc = 400*1000;                              % m
+R_mars = 3396.19*1000;                        % m
+r_LMO = R_mars + h_dc;                        % m
+mio_mars = 42828.3*10^9;                      % m^3/s^2
+theta_dot_LMO = sqrt(mio_mars / (r_LMO^3));   % rad/s
+RA_dc = 20 * pi/180;                          % DC right ascention
+i_dc = 30 * pi/180;                           % DC Inclination
+theta_dc_0 = 60 * pi/180;                     % DC initial angle
+r_GMO = 20424.2*1000;                         % m
+theta_dot_GMO = sqrt(mio_mars / (r_GMO^3));   % rad/s
+
+RA_mc = 0;
+i_mc = 0;
+theta_mc_0  = 250 * pi/180;             % MC initial angle
+
+theta_dc_t  = orbitTheta(t, theta_dot_LMO, theta_dc_0);
+[r_dc_t, ~] = orbit_state(r_LMO, RA_dc, i_dc, theta_dc_t, theta_dot_LMO);
+
+theta_mc_t  = orbitTheta(t, theta_dot_GMO, theta_mc_0);
+[r_mc_t, ~] = orbit_state(r_GMO, RA_mc, i_mc, theta_mc_t, theta_dot_GMO);
+
+n3 = [0;0;1];
+dr = r_mc_t - r_dc_t;
+r1 = -dr/norm(dr);   % Since -r1 should point toward the mother craft
+r2 = cross(dr,n3)/norm(cross(dr,n3));
+r3 = cross(r1,r2);
+
+RcN = [r1';r2';r3'];
+rotation = RcN;
+
+end
+	\end{lstlisting}
 	
-	The communication-frame DCM was constructed from the normalized relative-position vector and orthogonal basis vectors.
+	To derive the relative angular velocity $\prescript{\mathcal{N}}{}{\boldsymbol{\omega}_{R_c/N}}$, we'll use an equation (3.27) in book $\colorbox{yellow}{give reference later}$ :
+	$$[\dot{C}] = -[\tilde{\boldsymbol{\omega}}][C]$$
+	Therefore,
+	$$[\tilde{\boldsymbol{\omega}}_{R_c/N}] = 
+	\begin{bmatrix}
+		0 & -\omega_3 & \omega_2 \\
+		\omega_3 & 0 & -\omega_1 \\
+		-\omega_2 & \omega_1 & 0
+	\end{bmatrix} = -[\dot{R_cN}][R_cN]^T$$
 	
-	Since the reference-frame motion is time varying, the reference angular velocity was obtained numerically using finite-difference differentiation of the DCM.
+	To derive the rate of a DCM numerically, we'll have:
+	$$[\dot{R_cN}] \approx \frac{[R_cN]_{t+dt} - [R_cN]_{t}}{dt}$$
+	
+	This algorithm is implemented in MATLAB function \texttt{RcN\_omega(t)}. The choice of different \texttt{dt} will result in different precisions in finding the angular velocity.
+	
+	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
+function w_RcN = RcN_omega(t)
+
+dt = 1;
+RcN = RcN_DCM(t);
+RcN_next = RcN_DCM(t+dt);
+
+RcN_dot = (1/dt)*(RcN_next - RcN);
+
+w_tilde = -RcN_dot*transpose(RcN);
+
+w1 = w_tilde(3,2);
+w2 = w_tilde(1,3);
+w3 = w_tilde(2,1);
+
+w_RcN = [w1;w2;w3];
+end
+	\end{lstlisting}
+	
 	
 	\section{Attitude Evaluation and Simulator}
 	

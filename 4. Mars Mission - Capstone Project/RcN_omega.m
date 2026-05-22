@@ -6,7 +6,7 @@ RcN_next = RcN_DCM(t+dt);
 
 RcN_dot = (1/dt)*(RcN_next - RcN);
 
-w_tilde = -transpose(RcN)*RcN_dot;
+w_tilde = -RcN_dot*transpose(RcN);
 
 w1 = w_tilde(3,2);
 w2 = w_tilde(1,3);
