@@ -544,30 +544,46 @@ end
 	
 	\subsection{Task 6: Attitude Error Evaluation}
 	
-	The spacecraft attitude tracking error was computed relative to a desired reference frame.
+	Any attitude feedback control algorithm requires the ability to compute the attitude and angular velocity tracking errors of the current body frame $\mathcal{B}$ relative to the reference frame $\mathcal{R}$. 
+	To find a set of tracking errors $\begin{bmatrix}
+		\boldsymbol{\sigma}_{B/R} \\
+		\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
+	\end{bmatrix}$, we have the known variables $\boldsymbol{\sigma}_{B/N}$, $\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N}$, as well as the desired reference frame DCM $[RN]$ and frame rate $\prescript{\mathcal{N}}{}{\boldsymbol{\omega}}_{R/N}$.
+	We first need to drive the DCM $[BN]$ which can be obtained from $\boldsymbol{\sigma}_{B/N}$ using equation (3.152):
+	$$[C] = [I_{3\times3}] + \frac{8[\tilde{\boldsymbol{\sigma}}]^2 - 4(1-\sigma^2)[\tilde{\boldsymbol{\sigma}}]}{(1+\sigma^2)^2}$$
 	
-	The body-to-reference DCM is given by:
+	The opposite of this operation--converting a DCM to its MRP form--is formulated in equation (3.153):
+	$$[\tilde{\boldsymbol{\sigma}}] = \frac{[C]^T - [C]}{\zeta(\zeta+2)}$$
+	$$\zeta = \sqrt{trace([C])+1}$$ 
 	
-	\[
-	[C_{BR}] = [C_{BN}][C_{RN}]^T
-	\]
+	These two forms are implemented in MATLAB function \texttt{sigmaToDCM()} and \texttt{DCMToSigma()} in respect. 
 	
-	The corresponding MRP attitude tracking error was extracted from the body-to-reference DCM.
-	
-	The angular velocity tracking error was computed from:
-	
-	\[
-	\boldsymbol{\omega}_{BR} = \boldsymbol{\omega}_{BN} - [C_{BR}]\boldsymbol{\omega}_{RN}
-	\]
+	Now, the roadmap to finding the tracking errors would be:
+	$$\boldsymbol{\sigma}_{B/N} \rightarrow [BN] $$	
+	$$[BR] = [BN][NR] = [BN][RN]^T$$
+	$$[BR] \rightarrow \boldsymbol{\sigma}_{B/R}$$
+	$$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R} = \prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N} - \prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{R/N} = \prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N} - [BN]\prescript{\mathcal{N}}{}{\boldsymbol{\omega}}_{R/N}$$
 	
 	A MATLAB function named \texttt{attitudeErrorEval()} was implemented to evaluate both attitude and angular velocity tracking errors.
+	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
+function [sigma_BR, w_BR] = attitudeErrorEval(sigma_BN, w_BN, RN, w_RN)
+
+BN = sigmaToDCM(sigma_BN);
+BR = BN*transpose(RN);
+
+sigma_BR = DCMToSigma(BR);
+w_BR = w_BN - BN*w_RN;
+
+end
+	\end{lstlisting}
+	
 	
 	\subsection{Task 7: Numerical Attitude Simulator}
 	
 	The spacecraft rotational dynamics were propagated using Euler's rigid-body rotational equation:
 	
 	\[
-	[I]\dot{\boldsymbol{\omega}} + \boldsymbol{\omega} \times ([I]\boldsymbol{\omega}) = \mathbf{u}
+	[I]\dot{\boldsymbol{\omega}} = - [\tilde{\boldsymbol{\omega}}][I]\boldsymbol{\omega} + \mathbf{u} 
 	\]
 	
 	The spacecraft MRP kinematics were propagated according to:

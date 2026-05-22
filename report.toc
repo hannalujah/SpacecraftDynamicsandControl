@@ -16,17 +16,17 @@
 \contentsline {subsection}{\numberline {3.2.3}Task 5: GMO-Pointing Reference Frame Orientation}{14}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}Attitude Evaluation and Simulator}{17}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Task 6: Attitude Error Evaluation}{17}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Task 7: Numerical Attitude Simulator}{17}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.2}Task 7: Numerical Attitude Simulator}{18}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}Completing the Mission}{18}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Task 8: Sun Pointing Control}{18}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Task 9: Nadir Pointing Control}{18}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Task 10: GMO Pointing Control}{18}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Task 11: Mission Scenario Simulation}{18}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Detailed Mathematical Formulation}{19}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Orbital Angular Velocity}{19}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Modified Rodrigues Parameters}{19}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.4.2}Task 9: Nadir Pointing Control}{19}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Task 10: GMO Pointing Control}{19}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Task 11: Mission Scenario Simulation}{19}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Detailed Mathematical Formulation}{20}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Orbital Angular Velocity}{20}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Modified Rodrigues Parameters}{20}{subsection.3.5.2}%
 \contentsline {subsection}{\numberline {3.5.3}Shadow Set Transformation}{20}{subsection.3.5.3}%
 \contentsline {section}{\numberline {3.6}Simulation Results and Discussion}{20}{section.3.6}%
-\contentsline {section}{\numberline {3.7}STK Visualization}{20}{section.3.7}%
+\contentsline {section}{\numberline {3.7}STK Visualization}{21}{section.3.7}%
 \contentsline {section}{\numberline {3.8}Appendix: MATLAB Function Overview}{21}{section.3.8}%
 \contentsline {chapter}{Conclusion}{22}{chapter*.10}%

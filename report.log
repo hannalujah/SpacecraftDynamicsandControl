@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  22 MAY 2026 16:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  22 MAY 2026 16:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -563,7 +563,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.30 ...e {3.7}STK Visualization}{20}{section.3.7}
+l.30 ...e {3.7}STK Visualization}{21}{section.3.7}
                                                   % [1
 
 ])
@@ -608,8 +608,14 @@ Overfull \hbox (8.00235pt too wide) in paragraph at lines 198--199
 Chapter 3.
 [10
 
-] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
-Overfull \hbox (18.93008pt too wide) in paragraph at lines 738--739
+] [11] [12] [13] [14] [15] [16]
+Overfull \hbox (19.44559pt too wide) in paragraph at lines 559--560
+[]\OT1/cmr/m/n/12 These two forms are im-ple-mented in MAT-LAB func-tion \OT1/c
+mtt/m/n/12 sigmaToDCM() \OT1/cmr/m/n/12 and \OT1/cmtt/m/n/12 DCMToSigma()
+ []
+
+[17] [18] [19] [20] [21]
+Overfull \hbox (18.93008pt too wide) in paragraph at lines 754--755
 \OT1/cmr/m/n/12 ing modes were de-vel-oped, in-clud-ing Sun-pointing, nadir-poi
 nting, and GMO communication-
  []
@@ -625,10 +631,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: A95976F0EA27AE4B6D315455BB6EAB9D;6496.
  ) 
 Here is how much of TeX's memory you used:
- 15672 strings out of 467349
- 242301 string characters out of 5419863
+ 15693 strings out of 467349
+ 242568 string characters out of 5419863
  854879 words of memory out of 5000000
- 44378 multiletter control sequences out of 15000+600000
+ 44389 multiletter control sequences out of 15000+600000
  639368 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,19n,79p,552b,2148s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -646,10 +652,10 @@ r12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c
 s/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/p
 ublic/cm-super/sfrm1200.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-s
 uper/sftt1200.pfb>
-Output written on report.pdf (23 pages, 1009478 bytes).
+Output written on report.pdf (23 pages, 1013036 bytes).
 PDF statistics:
- 531 PDF objects out of 1000 (max. 8388607)
- 465 compressed objects within 5 object streams
- 192 named destinations out of 1000 (max. 500000)
+ 543 PDF objects out of 1000 (max. 8388607)
+ 477 compressed objects within 5 object streams
+ 202 named destinations out of 1000 (max. 500000)
  272 words of extra memory for PDF output out of 10000 (max. 10000000)
 
