@@ -10,19 +10,19 @@
 \contentsline {section}{\numberline {3.1}Orbits}{9}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Task 1: Orbit Simulation}{9}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Task 2: Orbit Frame Orientation}{10}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Reference Frame Orientation}{12}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Task 3: Sun-Pointing Reference Frame Orientation}{12}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Task 4: Nadir-Pointing Reference Frame Orientation}{13}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Task 5: GMO-Pointing Reference Frame Orientation}{13}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Attitude Evaluation and Simulator}{16}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Task 6: Attitude Error Evaluation}{16}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Task 7: Numerical Attitude Simulator}{17}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}Completing the Mission}{19}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Task 8: Sun Pointing Control}{19}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Task 9: Nadir Pointing Control}{20}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Task 10: GMO Pointing Control}{20}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Task 11: Mission Scenario Simulation}{20}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Simulation Results and Discussion}{22}{section.3.5}%
-\contentsline {section}{\numberline {3.6}STK Visualization}{22}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Appendix: MATLAB Function Overview}{23}{section.3.7}%
-\contentsline {chapter}{Conclusion}{24}{chapter*.16}%
+\contentsline {section}{\numberline {3.2}Reference Frame Orientation}{10}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Task 3: Sun-Pointing Reference Frame Orientation}{10}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Task 4: Nadir-Pointing Reference Frame Orientation}{11}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Task 5: GMO-Pointing Reference Frame Orientation}{12}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Attitude Evaluation and Simulator}{13}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Task 6: Attitude Error Evaluation}{13}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Task 7: Numerical Attitude Simulator}{13}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Completing the Mission}{14}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Task 8: Sun Pointing Control}{14}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Task 9: Nadir Pointing Control}{16}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Task 10: GMO Pointing Control}{17}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Task 11: Mission Scenario Simulation}{17}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Simulation Results and Discussion}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.6}STK Visualization}{19}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Appendix: MATLAB Function Overview}{19}{section.3.7}%
+\contentsline {chapter}{Conclusion}{20}{chapter*.16}%

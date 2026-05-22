@@ -277,44 +277,14 @@
 	
 	The MATLAB function \texttt{orbitTheta()} takes time, angular velocity and initial angle to calculate the element $\theta$ using the following equation:
 	$$\theta_t = \dot{\theta}t + \theta_0$$
-	
-	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function theta = orbitTheta(time,thetaDot,theta0)
-
-theta = rem(thetaDot*time+theta0, 2*pi);
-
-end
-	\end{lstlisting}
-	
+		
 	Taking the position and velocity vectors from the general orbit frame to the inertial frame is done using the DCM $[NO]$ which can be obtained having all orbital elements at a given time.
 	$$[ON] = M_3(\theta_t)M_1(i)M_3(\Omega)$$
 	$$[NO] = [ON]^T$$
 	$$\prescript{\mathcal{N}}{}{\boldsymbol{r}} = [NO] \prescript{\mathcal{O}}{}{\boldsymbol{r}}$$
 	$$\prescript{\mathcal{N}}{}{\boldsymbol{\dot{r}}} = [NO] \prescript{\mathcal{O}}{}{\boldsymbol{\dot{r}}}$$
 	
-	This is achieved by the MATLAB function \texttt{orbit\_state()} as follows:
-	
-	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function [r,r_dot] = orbit_state(r,Omega,i,theta,theta_dot)
-
-% Since the motion is planar and circular, at any time we have
-% r_dot = 0 i_r + r*theta_dot i_theta + 0 i_h
-
-r_O = [r;0;0];
-r_dot_O = [0;r*theta_dot;0];
-
-ON = M3(theta)*M1(i)*M3(Omega);
-NO = transpose(ON);
-
-% Taking the O frame vectors to the N frame
-r = (NO*r_O) / 1000;    
-r_dot = (NO*r_dot_O) / 1000;
-
-% r parameters are expressed in km
-% r_dot parameters are expressed in km/s
-
-end
-	\end{lstlisting}
+	This is achieved by the MATLAB function \texttt{orbit\_state()}.
 	
 	
 	\subsection{Task 2: Orbit Frame Orientation}
@@ -353,31 +323,6 @@ end
 	\end{bmatrix}$$
 	
 	A MATLAB function named \texttt{orbit\_frame\_dcm(t)} was implemented to evaluate the time-varying Hill-frame orientation.
-	
-	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function HN_DCM = orbit_frame_dcm(t)
-h_dc = 400*1000; % m
-R_mars = 3396.19*1000; % m
-r_LMO = R_mars + h_dc; % m
-
-mio_mars = 42828.3*10^9; % m^3/s^2
-theta_dot_LMO = sqrt(mio_mars / (r_LMO^3));  % rad/s
-
-RA_dc = 20 * pi/180; % DC right ascention
-i_dc = 30 * pi/180;  % DC Inclination
-theta_dc_0 = 60 * pi/180; % DC initial angle
-
-theta_dc_t = rem(theta_dot_LMO*t + theta_dc_0, 2*pi);
-[r_dc_t, r_dot_dc_t] = orbit_state(r_LMO, RA_dc, i_dc, theta_dc_t, theta_dot_LMO);
-
-i_r = r_dc_t / norm(r_dc_t);
-i_h = cross(r_dc_t, r_dot_dc_t) / norm(cross(r_dc_t, r_dot_dc_t));
-
-i_theta = cross(i_h, i_r);
-
-HN_DCM = [i_r';i_theta';i_h'];
-end
-	\end{lstlisting}
 
 	\section{Reference Frame Orientation}
 	
@@ -403,14 +348,7 @@ end
 		0 & 1 & 0
 	\end{bmatrix}$$
 	
-	The resulting reference-frame DCM  can also be obtained using a (3-1-3) Euler Angle of ($\pi$, $\frac{\pi}{2}$, 0) rotation on it. MATLAB function $\texttt{RsN\_DCM()}$ serves this purpose:
-		\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function rotation = RsN_DCM()
-
-rotation = M1(pi/2)*M3(pi);
-
-end
-	\end{lstlisting}
+	The resulting reference-frame DCM  can also be obtained using a (3-1-3) Euler Angle of ($\pi$, $\frac{\pi}{2}$, 0) rotation on it. MATLAB function $\texttt{RsN\_DCM()}$ serves this purpose.
 	
 	Since the base vectors of this frame are just a re-arrangement of the inertial frame base vectors, the frame remains fixed relative to the inertial frame, thus:
 	
@@ -436,17 +374,7 @@ end
 	 
 	 $$[R_nN] (t) = [R_nH][HN](t) $$
 	 
-	 In Matlab, this task is done by function \texttt{RnN\_DCM()}.
-	 
-	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function rotation = RnN_DCM(t)
-
-RnH = M1(pi)*M3(pi);
-HN = orbit_frame_dcm(t); % Function from task 2
-
-rotation = RnH*HN;
-end
-	\end{lstlisting}
+	 In MATLAB, this task is done by function \texttt{RnN\_DCM()}.
 	
 	Since this frame is a re-arrangement of the Hill frame, it also moves with it, thus:
 	$$\boldsymbol{\omega}_{R_n/N} = \boldsymbol{\omega}_{H/N} = \dot{\theta}\boldsymbol{\hat{i}}_\theta$$
@@ -472,41 +400,6 @@ end
 	\end{bmatrix}$$
 	
 	The MATLAB function \texttt{RcN\_DCM(t)} is written to deliver this task.
-	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function rotation = RcN_DCM(t)
-
-h_dc = 400*1000;                              % m
-R_mars = 3396.19*1000;                        % m
-r_LMO = R_mars + h_dc;                        % m
-mio_mars = 42828.3*10^9;                      % m^3/s^2
-theta_dot_LMO = sqrt(mio_mars / (r_LMO^3));   % rad/s
-RA_dc = 20 * pi/180;                          % DC right ascention
-i_dc = 30 * pi/180;                           % DC Inclination
-theta_dc_0 = 60 * pi/180;                     % DC initial angle
-r_GMO = 20424.2*1000;                         % m
-theta_dot_GMO = sqrt(mio_mars / (r_GMO^3));   % rad/s
-
-RA_mc = 0;
-i_mc = 0;
-theta_mc_0  = 250 * pi/180;             % MC initial angle
-
-theta_dc_t  = orbitTheta(t, theta_dot_LMO, theta_dc_0);
-[r_dc_t, ~] = orbit_state(r_LMO, RA_dc, i_dc, theta_dc_t, theta_dot_LMO);
-
-theta_mc_t  = orbitTheta(t, theta_dot_GMO, theta_mc_0);
-[r_mc_t, ~] = orbit_state(r_GMO, RA_mc, i_mc, theta_mc_t, theta_dot_GMO);
-
-n3 = [0;0;1];
-dr = r_mc_t - r_dc_t;
-r1 = -dr/norm(dr);   % Since -r1 should point toward the mother craft
-r2 = cross(dr,n3)/norm(cross(dr,n3));
-r3 = cross(r1,r2);
-
-RcN = [r1';r2';r3'];
-rotation = RcN;
-
-end
-	\end{lstlisting}
 	
 	To derive the relative angular velocity $\prescript{\mathcal{N}}{}{\boldsymbol{\omega}_{R_c/N}}$, we'll use an equation (3.27) in book $\colorbox{yellow}{give reference later}$ :
 	$$[\dot{C}] = -[\tilde{\boldsymbol{\omega}}][C]$$
@@ -521,27 +414,7 @@ end
 	To derive the rate of a DCM numerically, we'll have:
 	$$[\dot{R_cN}] \approx \frac{[R_cN]_{t+dt} - [R_cN]_{t}}{dt}$$
 	
-	This algorithm is implemented in MATLAB function \texttt{RcN\_omega(t)}. The choice of different \texttt{dt} will result in different precisions in finding the angular velocity.
-	
-	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function w_RcN = RcN_omega(t)
-
-dt = 1;
-RcN = RcN_DCM(t);
-RcN_next = RcN_DCM(t+dt);
-
-RcN_dot = (1/dt)*(RcN_next - RcN);
-
-w_tilde = -RcN_dot*transpose(RcN);
-
-w1 = w_tilde(3,2);
-w2 = w_tilde(1,3);
-w3 = w_tilde(2,1);
-
-w_RcN = [w1;w2;w3];
-end
-	\end{lstlisting}
-	
+	This algorithm is implemented in MATLAB function \texttt{RcN\_omega(t)}. The choice of different \texttt{dt} will result in different precisions in finding the angular velocity.	
 	
 	\section{Attitude Evaluation and Simulator}
 	
@@ -568,18 +441,6 @@ end
 	$$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R} = \prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N} - \prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{R/N} = \prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N} - [BN]\prescript{\mathcal{N}}{}{\boldsymbol{\omega}}_{R/N}$$
 	
 	A MATLAB function named \texttt{attitudeErrorEval()} was implemented to evaluate both attitude and angular velocity tracking errors.
-	\begin{lstlisting}[frame=single,numbers=left,style=Matlab-editor]
-function [sigma_BR, w_BR] = attitudeErrorEval(sigma_BN, w_BN, RN, w_RN)
-
-BN = sigmaToDCM(sigma_BN);
-BR = BN*transpose(RN);
-
-sigma_BR = DCMToSigma(BR);
-w_BR = w_BN - BN*w_RN;
-
-end
-	\end{lstlisting}
-	
 	
 	\subsection{Task 7: Numerical Attitude Simulator}
 	
@@ -673,8 +534,7 @@ end
 	$$I_{max} = 10, I_{min} = 5$$
 	$$T = 120s$$
 	
-	$$K = \frac{4I_{max}^2}{T^2I_{min}}$$
-	$$P = \frac{2I_{max}}{T}$$
+	$$K = \frac{4I_{max}^2}{T^2I_{min}}, P = \frac{2I_{max}}{T}$$
 	
 	The control torque is defined as:
 	

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  22 MAY 2026 22:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  22 MAY 2026 22:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -615,113 +615,113 @@ Overfull \hbox (8.00235pt too wide) in paragraph at lines 201--202
 Chapter 3.
 [9
 
-] [10] [11] [12] [13] [14] [15]
-Overfull \hbox (19.44559pt too wide) in paragraph at lines 562--563
+] [10] [11] [12]
+Overfull \hbox (19.44559pt too wide) in paragraph at lines 435--436
 []\OT1/cmr/m/n/12 These two forms are im-ple-mented in MAT-LAB func-tion \OT1/c
 mtt/m/n/12 sigmaToDCM() \OT1/cmr/m/n/12 and \OT1/cmtt/m/n/12 DCMToSigma()
  []
 
-[16]
-<figures/UncontrolledVehicle_KineticEnergy.png, id=376, 523.7166pt x 336.7782pt
+[13]
+<figures/UncontrolledVehicle_KineticEnergy.png, id=246, 523.7166pt x 336.7782pt
 >
 File: figures/UncontrolledVehicle_KineticEnergy.png Graphic file (type png)
 <use figures/UncontrolledVehicle_KineticEnergy.png>
 Package pdftex.def Info: figures/UncontrolledVehicle_KineticEnergy.png  used on
- input line 617.
+ input line 478.
 (pdftex.def)             Requested size: 217.42265pt x 139.81686pt.
-<figures/ControlledVehicle_KineticEnergy.png, id=377, 506.8536pt x 336.7782pt>
+<figures/ControlledVehicle_KineticEnergy.png, id=247, 506.8536pt x 336.7782pt>
 File: figures/ControlledVehicle_KineticEnergy.png Graphic file (type png)
 <use figures/ControlledVehicle_KineticEnergy.png>
 Package pdftex.def Info: figures/ControlledVehicle_KineticEnergy.png  used on i
-nput line 624.
+nput line 485.
 (pdftex.def)             Requested size: 217.42265pt x 144.4675pt.
-<figures/UncontrolledVehicle_Omega.png, id=378, 518.4168pt x 336.7782pt>
+<figures/UncontrolledVehicle_Omega.png, id=248, 518.4168pt x 336.7782pt>
 File: figures/UncontrolledVehicle_Omega.png Graphic file (type png)
 <use figures/UncontrolledVehicle_Omega.png>
 Package pdftex.def Info: figures/UncontrolledVehicle_Omega.png  used on input l
-ine 633.
+ine 494.
 (pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
-<figures/ControlledVehicle_Omega.png, id=379, 512.6352pt x 336.7782pt>
+<figures/ControlledVehicle_Omega.png, id=249, 512.6352pt x 336.7782pt>
 File: figures/ControlledVehicle_Omega.png Graphic file (type png)
 <use figures/ControlledVehicle_Omega.png>
 Package pdftex.def Info: figures/ControlledVehicle_Omega.png  used on input lin
-e 640.
+e 501.
 (pdftex.def)             Requested size: 217.42265pt x 142.83849pt.
-<figures/UncontrolledVehicle_MRP.png, id=380, 510.708pt x 336.7782pt>
+<figures/UncontrolledVehicle_MRP.png, id=250, 510.708pt x 336.7782pt>
 File: figures/UncontrolledVehicle_MRP.png Graphic file (type png)
 <use figures/UncontrolledVehicle_MRP.png>
 Package pdftex.def Info: figures/UncontrolledVehicle_MRP.png  used on input lin
-e 649.
+e 510.
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/ControlledVehicle_MRP.png, id=381, 510.708pt x 336.7782pt>
+<figures/ControlledVehicle_MRP.png, id=251, 510.708pt x 336.7782pt>
 File: figures/ControlledVehicle_MRP.png Graphic file (type png)
 <use figures/ControlledVehicle_MRP.png>
 Package pdftex.def Info: figures/ControlledVehicle_MRP.png  used on input line 
-656.
+517.
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
- [17] [18 <./figures/UncontrolledVehicle_KineticEnergy.png (PNG copy)> <./figur
+ [14] [15 <./figures/UncontrolledVehicle_KineticEnergy.png (PNG copy)> <./figur
 es/ControlledVehicle_KineticEnergy.png (PNG copy)> <./figures/UncontrolledVehic
 le_Omega.png (PNG copy)> <./figures/ControlledVehicle_Omega.png (PNG copy)> <./
 figures/UncontrolledVehicle_MRP.png (PNG copy)> <./figures/ControlledVehicle_MR
 P.png (PNG copy)>]
-<figures/SunPointing_MRP.png, id=404, 510.708pt x 336.7782pt>
+<figures/SunPointing_MRP.png, id=264, 510.708pt x 336.7782pt>
 File: figures/SunPointing_MRP.png Graphic file (type png)
 <use figures/SunPointing_MRP.png>
-Package pdftex.def Info: figures/SunPointing_MRP.png  used on input line 692.
+Package pdftex.def Info: figures/SunPointing_MRP.png  used on input line 552.
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/SunPointing_Omega.png, id=405, 518.4168pt x 336.7782pt>
+<figures/SunPointing_Omega.png, id=265, 518.4168pt x 336.7782pt>
 File: figures/SunPointing_Omega.png Graphic file (type png)
 <use figures/SunPointing_Omega.png>
-Package pdftex.def Info: figures/SunPointing_Omega.png  used on input line 699.
+Package pdftex.def Info: figures/SunPointing_Omega.png  used on input line 559.
 
 (pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
-<figures/NadirPointing_MRP.png, id=407, 510.708pt x 336.7782pt>
+<figures/NadirPointing_MRP.png, id=267, 510.708pt x 336.7782pt>
 File: figures/NadirPointing_MRP.png Graphic file (type png)
 <use figures/NadirPointing_MRP.png>
-Package pdftex.def Info: figures/NadirPointing_MRP.png  used on input line 719.
+Package pdftex.def Info: figures/NadirPointing_MRP.png  used on input line 579.
 
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/NadirPointing_Omega.png, id=408, 518.4168pt x 336.7782pt>
+<figures/NadirPointing_Omega.png, id=268, 518.4168pt x 336.7782pt>
 File: figures/NadirPointing_Omega.png Graphic file (type png)
 <use figures/NadirPointing_Omega.png>
-Package pdftex.def Info: figures/NadirPointing_Omega.png  used on input line 72
+Package pdftex.def Info: figures/NadirPointing_Omega.png  used on input line 58
 6.
 (pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
- [19 <./figures/SunPointing_MRP.png (PNG copy)> <./figures/SunPointing_Omega.pn
-g (PNG copy)>]
-<figures/GMOPointing_MRP.png, id=415, 510.708pt x 336.7782pt>
+<figures/GMOPointing_MRP.png, id=270, 510.708pt x 336.7782pt>
 File: figures/GMOPointing_MRP.png Graphic file (type png)
 <use figures/GMOPointing_MRP.png>
-Package pdftex.def Info: figures/GMOPointing_MRP.png  used on input line 746.
+Package pdftex.def Info: figures/GMOPointing_MRP.png  used on input line 606.
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/GMOPointing_Omega.png, id=416, 518.4168pt x 336.7782pt>
+<figures/GMOPointing_Omega.png, id=271, 518.4168pt x 336.7782pt>
 File: figures/GMOPointing_Omega.png Graphic file (type png)
 <use figures/GMOPointing_Omega.png>
-Package pdftex.def Info: figures/GMOPointing_Omega.png  used on input line 753.
+Package pdftex.def Info: figures/GMOPointing_Omega.png  used on input line 613.
 
 (pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
- [20 <./figures/NadirPointing_MRP.png (PNG copy)> <./figures/NadirPointing_Omeg
-a.png (PNG copy)> <./figures/GMOPointing_MRP.png (PNG copy)> <./figures/GMOPoin
+ [16 <./figures/SunPointing_MRP.png (PNG copy)> <./figures/SunPointing_Omega.pn
+g (PNG copy)> <./figures/NadirPointing_MRP.png (PNG copy)> <./figures/NadirPoin
 ting_Omega.png (PNG copy)>]
-<figures/mission_sigma.png, id=423, 513.5988pt x 336.7782pt>
+<figures/mission_sigma.png, id=278, 513.5988pt x 336.7782pt>
 File: figures/mission_sigma.png Graphic file (type png)
 <use figures/mission_sigma.png>
-Package pdftex.def Info: figures/mission_sigma.png  used on input line 781.
+Package pdftex.def Info: figures/mission_sigma.png  used on input line 641.
 (pdftex.def)             Requested size: 452.9679pt x 297.01836pt.
-<figures/mission_omega.png, id=424, 521.3076pt x 336.7782pt>
+ [17 <./figures/GMOPointing_MRP.png (PNG copy)> <./figures/GMOPointing_Omega.pn
+g (PNG copy)>]
+<figures/mission_omega.png, id=284, 521.3076pt x 336.7782pt>
 File: figures/mission_omega.png Graphic file (type png)
 <use figures/mission_omega.png>
-Package pdftex.def Info: figures/mission_omega.png  used on input line 788.
+Package pdftex.def Info: figures/mission_omega.png  used on input line 648.
 (pdftex.def)             Requested size: 452.9679pt x 292.64009pt.
- [21 <./figures/mission_sigma.png (PNG copy)>] [22 <./figures/mission_omega.png
- (PNG copy)>]
-[23]
-Overfull \hbox (18.93008pt too wide) in paragraph at lines 838--839
+ [18 <./figures/mission_sigma.png (PNG copy)> <./figures/mission_omega.png (PNG
+ copy)>]
+[19]
+Overfull \hbox (18.93008pt too wide) in paragraph at lines 698--699
 \OT1/cmr/m/n/12 ing modes were de-vel-oped, in-clud-ing Sun-pointing, nadir-poi
 nting, and GMO communication-
  []
 
-[24
+[20
 
 ] (./report.aux)
  ***********
@@ -732,13 +732,13 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: ABD3D31BB34D4C394D41D96EA6A8E012;5676.
  ) 
 Here is how much of TeX's memory you used:
- 15938 strings out of 467349
- 249179 string characters out of 5419863
- 858355 words of memory out of 5000000
- 44632 multiletter control sequences out of 15000+600000
- 641837 words of font info for 91 fonts, out of 8000000 for 9000
+ 15376 strings out of 467349
+ 243146 string characters out of 5419863
+ 678355 words of memory out of 5000000
+ 44199 multiletter control sequences out of 15000+600000
+ 641540 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,19n,79p,590b,2148s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,19n,79p,590b,650s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/tex
 live/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/202
 6/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2026/texmf-d
@@ -753,11 +753,11 @@ f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2026/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm
-1200.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on report.pdf (25 pages, 1777378 bytes).
+1200.pfb>
+Output written on report.pdf (21 pages, 1739925 bytes).
 PDF statistics:
- 565 PDF objects out of 1000 (max. 8388607)
- 479 compressed objects within 5 object streams
- 201 named destinations out of 1000 (max. 500000)
+ 394 PDF objects out of 1000 (max. 8388607)
+ 315 compressed objects within 4 object streams
+ 73 named destinations out of 1000 (max. 500000)
  310 words of extra memory for PDF output out of 10000 (max. 10000000)
 
