@@ -15,6 +15,8 @@
 \usepackage{matlab-prettifier}
 \usepackage{graphicx} 
 \usepackage{caption,subcaption}
+\usepackage{biblatex}
+\addbibresource{ref.bib}
 
 
 
@@ -121,9 +123,9 @@
 	
 	The orbital angular rates are computed using the circular-orbit relation:
 	
-	\[
-	\dot{\theta} = \sqrt{\frac{\mu_{Mars}}{r^3}}
-	\]
+	\begin{equation}
+		\dot{\theta} = \sqrt{\frac{\mu_{Mars}}{r^3}}
+	\end{equation}
 	
 	The initial orbit orientation angles of both spacecraft are summarized in Table~\ref{tab:orbitangles}.
 	
@@ -151,7 +153,7 @@
 	
 	\section{Mission Pointing Scenarios}
 	
-	A body frame as shown in Figure~\ref{fig:lmo_body_frame} is mounted on the spacecraft, assuming to be the principle body frame. 
+	A body frame as shown in Figure~\ref{fig:lmo_body_frame} is mounted on the spacecraft, assumed to be the principal body frame. 
 	
 	\begin{figure}[H]
 		\centering
@@ -169,10 +171,12 @@
 	\begin{itemize}
 		\item \textbf{Power Mode:} active whenever the spacecraft is on the sunlit side of Mars,
 		\item \textbf{Science Mode:} active during eclipse when GMO communication is unavailable,
-		\item \textbf{Communication Mode:} active whenever the GMO spacecraft lies within the communication visibility constraint.
+		\item \textbf{Communication Mode:} active whenever the GMO spacecraft lies within the communication line-of-sight constraint.
 	\end{itemize}
 	
 	The communication mode is activated when the angular separation between the LMO and GMO position vectors is less than $35^{\circ}$.
+	
+	This operational logic prioritizes spacecraft power generation whenever solar illumination is available, while eclipse periods are allocated to science or communication operations.
 	
 	\begin{table}[H]
 		\centering
@@ -223,8 +227,7 @@
 	deg/s
 	\]
 	
-	The rigid-body spacecraft inertia tensor is assumed to be:
-	
+	The spacecraft inertia tensor is assumed diagonal, implying alignment between the body frame and principal inertia axes.	
 	\[
 	\prescript{\mathcal{B}}{}{[I]} =
 	\prescript{\mathcal{B}}{}{\begin{bmatrix}
@@ -233,7 +236,7 @@
 			0 & 0 & 7.5
 	\end{bmatrix}}
 	\text{ kg·m}^2
-	\]
+	\]	
 	
 	The spacecraft is assumed to be capable of generating arbitrary three-axis control torques through an onboard actuator system.
 	
@@ -241,9 +244,9 @@
 	
 	A proportional-derivative (PD) control law is used throughout this project to regulate spacecraft attitude motion:
 	
-	\[
-	\prescript{\mathcal{B}}{}{\mathbf{u}} = -K\boldsymbol{\sigma}_{B/R} - P\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
-	\]
+	\begin{equation}
+		\prescript{\mathcal{B}}{}{\boldsymbol{u}} = -K\boldsymbol{\sigma}_{B/R} - P\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
+	\end{equation}
 	
 	where:
 	
@@ -253,7 +256,7 @@
 		\item $K$ and $P$ are controller gain matrices.
 	\end{itemize}
 	
-	The objective of the controller is to detumble the spacecraft while driving the body frame toward a desired mission reference frame.
+	The controller objective is to asymptotically reduce attitude and angular velocity tracking errors while ensuring stable closed-loop rotational behavior.
 	 
 	\section{Implementation Methods}
 	
@@ -303,7 +306,7 @@
 	\prescript{\mathcal{N}}{}{\boldsymbol{\hat{i}}_\theta} = \boldsymbol{\hat{i}}_h \times \boldsymbol{\hat{i}}_r
 	\]
 	
-	To drive a DCM with the base vectors in either frames, we have:
+	To construct a DCM with the base vectors in either frames, we have:
 	$$[FB] = 
 	\begin{bmatrix}
 		\prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_1} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_2} & \prescript{\mathcal{F}}{}{\hat{\boldsymbol{b}}_3}
@@ -348,9 +351,9 @@
 		0 & 1 & 0
 	\end{bmatrix}$$
 	
-	The resulting reference-frame DCM  can also be obtained using a (3-1-3) Euler Angle of ($\pi$, $\frac{\pi}{2}$, 0) rotation on it. MATLAB function $\texttt{RsN\_DCM()}$ serves this purpose.
+	The resulting reference-frame DCM  can also be obtained using a 3-1-3 Euler-angle of ($\pi$, $\frac{\pi}{2}$, 0) rotation on it. MATLAB function $\texttt{RsN\_DCM()}$ serves this purpose.
 	
-	Since the base vectors of this frame are just a re-arrangement of the inertial frame base vectors, the frame remains fixed relative to the inertial frame, thus:
+	Since the base vectors of this frame are just a fixed permutation of inertial frame basis vectors, the frame remains fixed relative to the inertial frame, thus:
 	
 	$$ \boldsymbol{\omega}_{R_s/N} = 0$$
 
@@ -363,7 +366,7 @@
 	$$
 	 \boldsymbol{\hat{r}}_2 = \boldsymbol{\hat{i}}_\theta 
 	$$
-	$$ \boldsymbol{\hat{r}}_3 = \boldsymbol{\hat{r}}_1 \times \boldsymbol{\hat{r}}_3 = -\boldsymbol{\hat{i}}_h$$
+	$$ \boldsymbol{\hat{r}}_3 = \boldsymbol{\hat{r}}_1 \times \boldsymbol{\hat{r}}_2 = -\boldsymbol{\hat{i}}_h$$
 	
 	This frame can be obtained using a (3-1-3) Euler Angles rotation on the Hill frame with angles ($\pi, \pi, 0$).
 	
@@ -388,7 +391,7 @@
 	$$\boldsymbol{\hat{r}}_1 = -\frac{\Delta\boldsymbol{r}}{\|\Delta\boldsymbol{r}\|}$$
 	Further, to fully define a three-dimensional reference frame, assume the second axis is defined as
 	$$\boldsymbol{\hat{r}}_2 = \frac{\Delta\boldsymbol{r}\times\boldsymbol{\hat{n}}_3}{\|\Delta\boldsymbol{r}\times\boldsymbol{\hat{n}}_3\|}$$
-	Naturally,
+	The third basis vector is then obtained from
 	$$\boldsymbol{\hat{r}}_3 = \boldsymbol{\hat{r}}_1 \times \boldsymbol{\hat{r}}_2$$
 	
 	Having all three base vectors in the inertial frame, we have:
@@ -401,18 +404,21 @@
 	
 	The MATLAB function \texttt{RcN\_DCM(t)} is written to deliver this task.
 	
-	To derive the relative angular velocity $\prescript{\mathcal{N}}{}{\boldsymbol{\omega}_{R_c/N}}$, we'll use an equation (3.27) in book $\colorbox{yellow}{give reference later}$ :
-	$$[\dot{C}] = -[\tilde{\boldsymbol{\omega}}][C]$$
-	Therefore,
-	$$[\tilde{\boldsymbol{\omega}}_{R_c/N}] = 
+	To derive the relative angular velocity $\prescript{\mathcal{N}}{}{\boldsymbol{\omega}_{R_c/N}}$, we'll use an equation (3.27) in the textbook \cite{textbook} :
+	\begin{equation}
+		[\dot{C}] = -[\tilde{\boldsymbol{\omega}}][C]
+	\end{equation}
+	Because the reference-frame motion varies smoothly over time, finite-difference differentiation provides a sufficiently accurate approximation of the frame angular velocity. Therefore,
+	\begin{equation}
+	[\tilde{\boldsymbol{\omega}}_{R_c/N}] = 
 	\begin{bmatrix}
 		0 & -\omega_3 & \omega_2 \\
 		\omega_3 & 0 & -\omega_1 \\
 		-\omega_2 & \omega_1 & 0
-	\end{bmatrix} = -[\dot{R_cN}][R_cN]^T$$
+	\end{bmatrix} = -[\dot{R_cN}][R_cN]^T\end{equation}
 	
 	To derive the rate of a DCM numerically, we'll have:
-	$$[\dot{R_cN}] \approx \frac{[R_cN]_{t+dt} - [R_cN]_{t}}{dt}$$
+	\begin{equation}[\dot{R_cN}] \approx \frac{[R_cN]_{t+dt} - [R_cN]_{t}}{dt}\end{equation}
 	
 	This algorithm is implemented in MATLAB function \texttt{RcN\_omega(t)}. The choice of different \texttt{dt} will result in different precisions in finding the angular velocity.	
 	
@@ -426,11 +432,11 @@
 		\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
 	\end{bmatrix}$, we have the known variables $\boldsymbol{\sigma}_{B/N}$, $\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N}$, as well as the desired reference frame DCM $[RN]$ and frame rate $\prescript{\mathcal{N}}{}{\boldsymbol{\omega}}_{R/N}$.
 	We first need to drive the DCM $[BN]$ which can be obtained from $\boldsymbol{\sigma}_{B/N}$ using equation (3.152):
-	$$[C] = [I_{3\times3}] + \frac{8[\tilde{\boldsymbol{\sigma}}]^2 - 4(1-\sigma^2)[\tilde{\boldsymbol{\sigma}}]}{(1+\sigma^2)^2}$$
+	\begin{equation}[C] = [I_{3\times3}] + \frac{8[\tilde{\boldsymbol{\sigma}}]^2 - 4(1-\sigma^2)[\tilde{\boldsymbol{\sigma}}]}{(1+\sigma^2)^2}\end{equation}
 	
-	The opposite of this operation--converting a DCM to its MRP form--is formulated in equation (3.153):
-	$$[\tilde{\boldsymbol{\sigma}}] = \frac{[C]^T - [C]}{\zeta(\zeta+2)}$$
-	$$\zeta = \sqrt{trace([C])+1}$$ 
+	The inverse transformation--converting a DCM to its MRP form--is formulated in equation (3.153):
+	\begin{equation}[\tilde{\boldsymbol{\sigma}}] = \frac{[C]^T - [C]}{\zeta(\zeta+2)} \end{equation}
+	$$\zeta = \sqrt{trace([C])+1}$$
 	
 	These two forms are implemented in MATLAB function \texttt{sigmaToDCM()} and \texttt{DCMToSigma()} in respect. 
 	
@@ -452,12 +458,12 @@
 	
 	Assuming that the spacecraft is rigid and there's no external torque acting on it, its dynamics obey
 		
-	\[
+	\begin{equation}
 	[I]\dot{\boldsymbol{\omega}}_{B/N} = - [\tilde{\boldsymbol{\omega}}_{B/N}][I]\boldsymbol{\omega}_{B/N} + \boldsymbol{u} 
-	\]
+	\end{equation}
 	where $\boldsymbol{u}$ is the external control torque vector.
 	
-	For this task, a simple loop integrator was written in MATLAB (which comparing to RK4, proved to be more time-consuming yet more precise). The control torques $\boldsymbol{u}_1 = 0$ and $\prescript{\mathcal{B}}{}{\boldsymbol{u}} = (0.01, -0.01, 0.02)$
+	For this task, a simple loop integrator was written in MATLAB. The control torques $\prescript{\mathcal{B}}{}{\boldsymbol{u}}_1 = 0$ and $\prescript{\mathcal{B}}{}{\boldsymbol{u}}_2 = (0.01, -0.01, 0.02)$
 	were applied respectively and the following were computed:
 	\begin{itemize}
 		\item Attitude MRP $\boldsymbol{\sigma}_{B/N}$
@@ -468,7 +474,7 @@
 	
 	The results of both simulations are plotted in Figure~\ref{fig:task7_results}. As is seen, after applying the control torque $\boldsymbol{u}_2$ on the spacecraft, its rotational kinetic energy plummets (from approximately 9 mJ in uncontrolled mode (Figure~\ref{fig:u1_T}) to more than 2.5 J when controlled (Figure~\ref{fig:u2_T})). This is verified by spacecraft angular velocity, whose 1st and 2nd components start to oscillate in controlled mode while its 3rd goes through a rapid, non-stop increase (Figure~\ref{fig:u2_omega}). 
 	
-	Attitude states confirm it all. The spacecraft goes crazily tumbling when the control torque $\boldsymbol{u}_2$ is applied to it (Figure~\ref{fig:u2_sigma}). This suggests that $\boldsymbol{u}_2$ fails as a successful control, making the craft uncontrollable rather that detumbling it. 
+	Attitude states confirm it all. The spacecraft exhibits unstable rotational behavior when the control torque $\boldsymbol{u}_2$ is applied to it (Figure~\ref{fig:u2_sigma}). These results indicate that the applied torque does not stabilize the spacecraft attitude dynamics.
 	  
 	
 	\begin{figure}[!htbp]
@@ -532,9 +538,9 @@
 	The PD gains were selected using the linearized closed-loop attitude dynamics together with a worst-case inertia design approach. Since scalar gains were used for all spacecraft axes, the gains were chosen based on the maximum and minimum principal moments of inertia to guarantee that all rotational modes satisfy the required 120-second decay time constant. 
 	
 	$$I_{max} = 10, I_{min} = 5$$
-	$$T = 120s$$
+	$$\tau = 120s$$
 	
-	$$K = \frac{4I_{max}^2}{T^2I_{min}}, P = \frac{2I_{max}}{T}$$
+	\begin{equation}K = \frac{4I_{max}^2}{\tau^2I_{min}}, P = \frac{2I_{max}}{\tau}\end{equation}
 	
 	The control torque is defined as:
 	
@@ -542,7 +548,7 @@
 	\prescript{\mathcal{B}}{}{\boldsymbol{u}} = -K\boldsymbol{\sigma}_{B/R} - P\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
 	\]
 	
-	An RK4 integrator was developed for pulling off this task used by the MATLAB function \texttt{simulate\_mode()}. The results of Sun pointing simulation are evident in Figure~\ref{fig:sun_pointing}. 
+	An RK4 integrator was developed for to perform numerical propagation of the spacecraft attitude dynamics used by the MATLAB function \texttt{simulate\_mode()}. The results of Sun pointing simulation are evident in Figure~\ref{fig:sun_pointing}. 
 	
 	\begin{figure}[H]
 		\centering
@@ -653,9 +659,15 @@
 	
 	\section{Simulation Results and Discussion}
 	
-	Simulation results demonstrated stable spacecraft attitude behavior under all operational modes. The implemented proportional-derivative controller successfully reduced both attitude and angular velocity tracking errors while maintaining smooth spacecraft rotational motion.
+	The complete mission simulation demonstrates the ability of the spacecraft attitude-control architecture to autonomously transition between multiple operational pointing modes while maintaining stable closed-loop rotational behavior.
 	
-	The complete mission simulation validated the autonomous switching architecture between spacecraft operational modes.
+	Unlike the previous tasks, where each reference frame remained fixed to a single operational objective, the reference frame in Task 11 varies dynamically according to orbital geometry and mission conditions. Consequently, the controller must continuously track time-varying reference attitudes generated by the mission-management logic.
+	
+	The simulation results indicate that the spacecraft successfully transitions between Sun-pointing, communication, and nadir-pointing operational modes without loss of stability. During mode-switching events, temporary increases in attitude and angular velocity tracking errors are observed due to the sudden change in commanded reference orientation. However, the proportional-derivative feedback controller rapidly damps these transients and drives the spacecraft toward the new reference frame.
+	
+	The angular velocity histories demonstrate that the spacecraft remains fully detumbled throughout the mission despite repeated reference-frame transitions. Short-duration angular-rate excursions occur immediately after mode changes as the spacecraft reorients itself toward the newly commanded operational attitude. The derivative feedback term provides sufficient damping to prevent sustained oscillatory behavior.
+		
+	Overall, the integrated simulation confirms the effectiveness of the spacecraft attitude determination and control architecture in performing stable autonomous mission operations under varying orbital conditions.
 	
 	\section{STK Visualization}
 	
@@ -702,5 +714,8 @@
 	The final integrated mission simulation demonstrated stable spacecraft attitude behavior while autonomously switching between operational mission modes according to orbital conditions.
 	
 	Future improvements may include higher-fidelity environmental disturbance modeling, actuator limitations, sensor-noise modeling, and advanced nonlinear control strategies.
+	
+	
+	\printbibliography
 	
 \end{document}

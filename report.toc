@@ -4,7 +4,7 @@
 \contentsline {section}{\numberline {2.1}Mission Orbit Overview}{4}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Mission Pointing Scenarios}{5}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Spacecraft Attitude States}{7}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Attitude Control Law Overview}{7}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Attitude Control Law Overview}{8}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Implementation Methods}{8}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Task Descriptions and Solutions}{9}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Orbits}{9}{section.3.1}%
@@ -23,6 +23,6 @@
 \contentsline {subsection}{\numberline {3.4.3}Task 10: GMO Pointing Control}{17}{subsection.3.4.3}%
 \contentsline {subsection}{\numberline {3.4.4}Task 11: Mission Scenario Simulation}{17}{subsection.3.4.4}%
 \contentsline {section}{\numberline {3.5}Simulation Results and Discussion}{19}{section.3.5}%
-\contentsline {section}{\numberline {3.6}STK Visualization}{19}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Appendix: MATLAB Function Overview}{19}{section.3.7}%
-\contentsline {chapter}{Conclusion}{20}{chapter*.16}%
+\contentsline {section}{\numberline {3.6}STK Visualization}{20}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Appendix: MATLAB Function Overview}{20}{section.3.7}%
+\contentsline {chapter}{Conclusion}{21}{chapter*.16}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  22 MAY 2026 22:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  23 MAY 2026 18:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -459,31 +459,272 @@ Package caption Info: New subtype `subfigure' on input line 238.
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count336
 )
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2025/07/10 v3.21 programmable bibliographies (PK/MW)
+
+(c:/texlive/2026/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count337
+
+(c:/texlive/2026/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(c:/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+)
+\c@tabx@nest=\count338
+\c@listtotal=\count339
+\c@listcount=\count340
+\c@liststart=\count341
+\c@liststop=\count342
+\c@citecount=\count343
+\c@citetotal=\count344
+\c@multicitecount=\count345
+\c@multicitetotal=\count346
+\c@instcount=\count347
+\c@maxnames=\count348
+\c@minnames=\count349
+\c@maxitems=\count350
+\c@minitems=\count351
+\c@citecounter=\count352
+\c@maxcitecounter=\count353
+\c@savedcitecounter=\count354
+\c@uniquelist=\count355
+\c@uniquename=\count356
+\c@refsection=\count357
+\c@refsegment=\count358
+\c@maxextratitle=\count359
+\c@maxextratitleyear=\count360
+\c@maxextraname=\count361
+\c@maxextradate=\count362
+\c@maxextraalpha=\count363
+\c@abbrvpenalty=\count364
+\c@highnamepenalty=\count365
+\c@lownamepenalty=\count366
+\c@maxparens=\count367
+\c@parenlevel=\count368
+\blx@tempcnta=\count369
+\blx@tempcntb=\count370
+\blx@tempcntc=\count371
+\c@blx@maxsection=\count372
+\blx@maxsegment@0=\count373
+\blx@notetype=\count374
+\blx@parenlevel@text=\count375
+\blx@parenlevel@foot=\count376
+\blx@sectionciteorder@0=\count377
+\blx@sectionciteorderinternal@0=\count378
+\blx@entrysetcounter=\count379
+\blx@biblioinstance=\count380
+\labelnumberwidth=\skip67
+\labelalphawidth=\skip68
+\biblabelsep=\skip69
+\bibitemsep=\skip70
+\bibnamesep=\skip71
+\bibinitsep=\skip72
+\bibparsep=\skip73
+\bibhang=\skip74
+\blx@bcfin=\read2
+\blx@bcfout=\write3
+\blx@langwohyphens=\language91
+\c@mincomprange=\count381
+\c@maxcomprange=\count382
+\c@mincompwidth=\count383
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2025/07/10 v3.21 biblatex datamodel (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count384
+\c@savedafterword=\count385
+\c@annotator=\count386
+\c@savedannotator=\count387
+\c@author=\count388
+\c@savedauthor=\count389
+\c@bookauthor=\count390
+\c@savedbookauthor=\count391
+\c@commentator=\count392
+\c@savedcommentator=\count393
+\c@editor=\count394
+\c@savededitor=\count395
+\c@editora=\count396
+\c@savededitora=\count397
+\c@editorb=\count398
+\c@savededitorb=\count399
+\c@editorc=\count400
+\c@savededitorc=\count401
+\c@foreword=\count402
+\c@savedforeword=\count403
+\c@holder=\count404
+\c@savedholder=\count405
+\c@introduction=\count406
+\c@savedintroduction=\count407
+\c@namea=\count408
+\c@savednamea=\count409
+\c@nameb=\count410
+\c@savednameb=\count411
+\c@namec=\count412
+\c@savednamec=\count413
+\c@translator=\count414
+\c@savedtranslator=\count415
+\c@shortauthor=\count416
+\c@savedshortauthor=\count417
+\c@shorteditor=\count418
+\c@savedshorteditor=\count419
+\c@labelname=\count420
+\c@savedlabelname=\count421
+\c@institution=\count422
+\c@savedinstitution=\count423
+\c@lista=\count424
+\c@savedlista=\count425
+\c@listb=\count426
+\c@savedlistb=\count427
+\c@listc=\count428
+\c@savedlistc=\count429
+\c@listd=\count430
+\c@savedlistd=\count431
+\c@liste=\count432
+\c@savedliste=\count433
+\c@listf=\count434
+\c@savedlistf=\count435
+\c@location=\count436
+\c@savedlocation=\count437
+\c@organization=\count438
+\c@savedorganization=\count439
+\c@origlocation=\count440
+\c@savedoriglocation=\count441
+\c@origpublisher=\count442
+\c@savedorigpublisher=\count443
+\c@publisher=\count444
+\c@savedpublisher=\count445
+\c@language=\count446
+\c@savedlanguage=\count447
+\c@origlanguage=\count448
+\c@savedoriglanguage=\count449
+\c@pageref=\count450
+\c@savedpageref=\count451
+\shorthandwidth=\skip75
+\shortjournalwidth=\skip76
+\shortserieswidth=\skip77
+\shorttitlewidth=\skip78
+\shortauthorwidth=\skip79
+\shorteditorwidth=\skip80
+\locallabelnumberwidth=\skip81
+\locallabelalphawidth=\skip82
+\localshorthandwidth=\skip83
+\localshortjournalwidth=\skip84
+\localshortserieswidth=\skip85
+\localshorttitlewidth=\skip86
+\localshortauthorwidth=\skip87
+\localshorteditorwidth=\skip88
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
+\c@textcitecount=\count452
+\c@textcitetotal=\count453
+\c@textcitemaxnames=\count454
+\c@biburlbigbreakpenalty=\count455
+\c@biburlbreakpenalty=\count456
+\c@biburlnumpenalty=\count457
+\c@biburlucpenalty=\count458
+\c@biburllcpenalty=\count459
+\biburlbigskip=\muskip19
+\biburlnumskip=\muskip20
+\biburlucskip=\muskip21
+\biburllcskip=\muskip22
+\c@smartand=\count460
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count461
+\c@bbx:relatedtotal=\count462
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2025/07/10 v3.21 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Document encoding is UTF8 ....
+
+(c:/texlive/2026/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2026-03-20 L3 programming layer (loader) 
+
 (c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count337
+\l__color_backend_stack_int=\count463
+))
+Package biblatex Info: ... and expl3
+(biblatex)             2026-03-20 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
+(c:/texlive/2026/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2025-10-09 L3 Experimental document command parser
 )
+Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
+))
+\@quotelevel=\count464
+\@quotereset=\count465
+
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -521,16 +762,16 @@ LaTeX Font Info:    ... okay on input line 27.
 
 (c:/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count338
+\scratchcounter=\count466
 \scratchdimen=\dimen273
 \scratchbox=\box64
-\nofMPsegments=\count339
-\nofMParguments=\count340
+\nofMPsegments=\count467
+\nofMParguments=\count468
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count341
+\MPscratchCnt=\count469
 \MPscratchDim=\dimen274
-\MPnumerator=\count342
-\makeMPintoPDFobject=\count343
+\MPnumerator=\count470
+\makeMPintoPDFobject=\count471
 \everyMPtoPDFconversion=\toks32
 ) (c:/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -546,18 +787,34 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 27.
+Package hyperref Info: Link coloring OFF on input line 29.
 
 (./report.out) (./report.out)
-\@outlinefile=\write3
-\openout3 = `report.out'.
+\@outlinefile=\write4
+\openout4 = `report.out'.
 
-\c@lstlisting=\count344
- [1
+\c@lstlisting=\count472
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(c:/texlive/2026/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `report.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'report.bbl' found.
+ (./report.bbl)
+Package biblatex Info: Reference section=0 on input line 29.
+Package biblatex Info: Reference segment=0 on input line 29.
+
+[1
 
 {c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./report.toc
 LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
-
 (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
@@ -566,15 +823,15 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
 (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ))
-\tf@toc=\write4
-\openout4 = `report.toc'.
+\tf@toc=\write5
+\openout5 = `report.toc'.
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.57 	\newpage
+l.59 	\newpage
                [1
 
 ] [2
@@ -588,157 +845,170 @@ Chapter 2.
 [4
 
 ]
-<figures/doc_orbits_frames.png, id=187, 454.69875pt x 325.215pt>
+<figures/doc_orbits_frames.png, id=188, 454.69875pt x 325.215pt>
 File: figures/doc_orbits_frames.png Graphic file (type png)
 <use figures/doc_orbits_frames.png>
-Package pdftex.def Info: figures/doc_orbits_frames.png  used on input line 147.
+Package pdftex.def Info: figures/doc_orbits_frames.png  used on input line 149.
 
 (pdftex.def)             Requested size: 317.07614pt x 226.78549pt.
-<figures/lmo_body_frame.png, id=190, 495.8525pt x 282.05376pt>
+<figures/lmo_body_frame.png, id=191, 495.8525pt x 282.05376pt>
 File: figures/lmo_body_frame.png Graphic file (type png)
 <use figures/lmo_body_frame.png>
-Package pdftex.def Info: figures/lmo_body_frame.png  used on input line 158.
+Package pdftex.def Info: figures/lmo_body_frame.png  used on input line 160.
 (pdftex.def)             Requested size: 317.07614pt x 180.36314pt.
  [5 <./figures/doc_orbits_frames.png> <./figures/lmo_body_frame.png>]
-<figures/orbit_scenario.png, id=200, 599.74063pt x 379.4175pt>
+<figures/orbit_scenario.png, id=201, 599.74063pt x 379.4175pt>
 File: figures/orbit_scenario.png Graphic file (type png)
 <use figures/orbit_scenario.png>
-Package pdftex.def Info: figures/orbit_scenario.png  used on input line 194.
+Package pdftex.def Info: figures/orbit_scenario.png  used on input line 198.
 (pdftex.def)             Requested size: 452.9679pt x 286.57135pt.
 
-Overfull \hbox (8.00235pt too wide) in paragraph at lines 201--202
+[6]
+Overfull \hbox (8.00235pt too wide) in paragraph at lines 205--206
 \OT1/cmr/m/n/12 The space-craft ini-tial at-ti-tude is rep-re-sented us-ing Mod
 -i-fied Ro-drigues Pa-ram-e-ters (MRPs),
  []
 
-[6 <./figures/orbit_scenario.png>] [7] [8]
+[7 <./figures/orbit_scenario.png>] [8]
 Chapter 3.
 [9
 
 ] [10] [11] [12]
-Overfull \hbox (19.44559pt too wide) in paragraph at lines 435--436
+Overfull \hbox (19.44559pt too wide) in paragraph at lines 441--442
 []\OT1/cmr/m/n/12 These two forms are im-ple-mented in MAT-LAB func-tion \OT1/c
 mtt/m/n/12 sigmaToDCM() \OT1/cmr/m/n/12 and \OT1/cmtt/m/n/12 DCMToSigma()
  []
 
 [13]
-<figures/UncontrolledVehicle_KineticEnergy.png, id=246, 523.7166pt x 336.7782pt
+<figures/UncontrolledVehicle_KineticEnergy.png, id=255, 523.7166pt x 336.7782pt
 >
 File: figures/UncontrolledVehicle_KineticEnergy.png Graphic file (type png)
 <use figures/UncontrolledVehicle_KineticEnergy.png>
 Package pdftex.def Info: figures/UncontrolledVehicle_KineticEnergy.png  used on
- input line 478.
+ input line 484.
 (pdftex.def)             Requested size: 217.42265pt x 139.81686pt.
-<figures/ControlledVehicle_KineticEnergy.png, id=247, 506.8536pt x 336.7782pt>
+<figures/ControlledVehicle_KineticEnergy.png, id=256, 506.8536pt x 336.7782pt>
 File: figures/ControlledVehicle_KineticEnergy.png Graphic file (type png)
 <use figures/ControlledVehicle_KineticEnergy.png>
 Package pdftex.def Info: figures/ControlledVehicle_KineticEnergy.png  used on i
-nput line 485.
+nput line 491.
 (pdftex.def)             Requested size: 217.42265pt x 144.4675pt.
-<figures/UncontrolledVehicle_Omega.png, id=248, 518.4168pt x 336.7782pt>
+<figures/UncontrolledVehicle_Omega.png, id=257, 518.4168pt x 336.7782pt>
 File: figures/UncontrolledVehicle_Omega.png Graphic file (type png)
 <use figures/UncontrolledVehicle_Omega.png>
 Package pdftex.def Info: figures/UncontrolledVehicle_Omega.png  used on input l
-ine 494.
+ine 500.
 (pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
-<figures/ControlledVehicle_Omega.png, id=249, 512.6352pt x 336.7782pt>
+<figures/ControlledVehicle_Omega.png, id=258, 512.6352pt x 336.7782pt>
 File: figures/ControlledVehicle_Omega.png Graphic file (type png)
 <use figures/ControlledVehicle_Omega.png>
 Package pdftex.def Info: figures/ControlledVehicle_Omega.png  used on input lin
-e 501.
+e 507.
 (pdftex.def)             Requested size: 217.42265pt x 142.83849pt.
-<figures/UncontrolledVehicle_MRP.png, id=250, 510.708pt x 336.7782pt>
+<figures/UncontrolledVehicle_MRP.png, id=259, 510.708pt x 336.7782pt>
 File: figures/UncontrolledVehicle_MRP.png Graphic file (type png)
 <use figures/UncontrolledVehicle_MRP.png>
 Package pdftex.def Info: figures/UncontrolledVehicle_MRP.png  used on input lin
-e 510.
+e 516.
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/ControlledVehicle_MRP.png, id=251, 510.708pt x 336.7782pt>
+<figures/ControlledVehicle_MRP.png, id=260, 510.708pt x 336.7782pt>
 File: figures/ControlledVehicle_MRP.png Graphic file (type png)
 <use figures/ControlledVehicle_MRP.png>
 Package pdftex.def Info: figures/ControlledVehicle_MRP.png  used on input line 
-517.
+523.
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
  [14] [15 <./figures/UncontrolledVehicle_KineticEnergy.png (PNG copy)> <./figur
 es/ControlledVehicle_KineticEnergy.png (PNG copy)> <./figures/UncontrolledVehic
 le_Omega.png (PNG copy)> <./figures/ControlledVehicle_Omega.png (PNG copy)> <./
 figures/UncontrolledVehicle_MRP.png (PNG copy)> <./figures/ControlledVehicle_MR
 P.png (PNG copy)>]
-<figures/SunPointing_MRP.png, id=264, 510.708pt x 336.7782pt>
+<figures/SunPointing_MRP.png, id=274, 510.708pt x 336.7782pt>
 File: figures/SunPointing_MRP.png Graphic file (type png)
 <use figures/SunPointing_MRP.png>
-Package pdftex.def Info: figures/SunPointing_MRP.png  used on input line 552.
+Package pdftex.def Info: figures/SunPointing_MRP.png  used on input line 558.
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/SunPointing_Omega.png, id=265, 518.4168pt x 336.7782pt>
+<figures/SunPointing_Omega.png, id=275, 518.4168pt x 336.7782pt>
 File: figures/SunPointing_Omega.png Graphic file (type png)
 <use figures/SunPointing_Omega.png>
-Package pdftex.def Info: figures/SunPointing_Omega.png  used on input line 559.
+Package pdftex.def Info: figures/SunPointing_Omega.png  used on input line 565.
 
 (pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
-<figures/NadirPointing_MRP.png, id=267, 510.708pt x 336.7782pt>
+<figures/NadirPointing_MRP.png, id=277, 510.708pt x 336.7782pt>
 File: figures/NadirPointing_MRP.png Graphic file (type png)
 <use figures/NadirPointing_MRP.png>
-Package pdftex.def Info: figures/NadirPointing_MRP.png  used on input line 579.
+Package pdftex.def Info: figures/NadirPointing_MRP.png  used on input line 585.
 
 (pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/NadirPointing_Omega.png, id=268, 518.4168pt x 336.7782pt>
+<figures/NadirPointing_Omega.png, id=278, 518.4168pt x 336.7782pt>
 File: figures/NadirPointing_Omega.png Graphic file (type png)
 <use figures/NadirPointing_Omega.png>
-Package pdftex.def Info: figures/NadirPointing_Omega.png  used on input line 58
-6.
-(pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
-<figures/GMOPointing_MRP.png, id=270, 510.708pt x 336.7782pt>
-File: figures/GMOPointing_MRP.png Graphic file (type png)
-<use figures/GMOPointing_MRP.png>
-Package pdftex.def Info: figures/GMOPointing_MRP.png  used on input line 606.
-(pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
-<figures/GMOPointing_Omega.png, id=271, 518.4168pt x 336.7782pt>
-File: figures/GMOPointing_Omega.png Graphic file (type png)
-<use figures/GMOPointing_Omega.png>
-Package pdftex.def Info: figures/GMOPointing_Omega.png  used on input line 613.
-
+Package pdftex.def Info: figures/NadirPointing_Omega.png  used on input line 59
+2.
 (pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
  [16 <./figures/SunPointing_MRP.png (PNG copy)> <./figures/SunPointing_Omega.pn
-g (PNG copy)> <./figures/NadirPointing_MRP.png (PNG copy)> <./figures/NadirPoin
+g (PNG copy)>]
+<figures/GMOPointing_MRP.png, id=287, 510.708pt x 336.7782pt>
+File: figures/GMOPointing_MRP.png Graphic file (type png)
+<use figures/GMOPointing_MRP.png>
+Package pdftex.def Info: figures/GMOPointing_MRP.png  used on input line 612.
+(pdftex.def)             Requested size: 217.42265pt x 143.37292pt.
+<figures/GMOPointing_Omega.png, id=288, 518.4168pt x 336.7782pt>
+File: figures/GMOPointing_Omega.png Graphic file (type png)
+<use figures/GMOPointing_Omega.png>
+Package pdftex.def Info: figures/GMOPointing_Omega.png  used on input line 619.
+
+(pdftex.def)             Requested size: 217.42265pt x 141.24545pt.
+ [17 <./figures/NadirPointing_MRP.png (PNG copy)> <./figures/NadirPointing_Omeg
+a.png (PNG copy)> <./figures/GMOPointing_MRP.png (PNG copy)> <./figures/GMOPoin
 ting_Omega.png (PNG copy)>]
-<figures/mission_sigma.png, id=278, 513.5988pt x 336.7782pt>
+<figures/mission_sigma.png, id=295, 513.5988pt x 336.7782pt>
 File: figures/mission_sigma.png Graphic file (type png)
 <use figures/mission_sigma.png>
-Package pdftex.def Info: figures/mission_sigma.png  used on input line 641.
+Package pdftex.def Info: figures/mission_sigma.png  used on input line 647.
 (pdftex.def)             Requested size: 452.9679pt x 297.01836pt.
- [17 <./figures/GMOPointing_MRP.png (PNG copy)> <./figures/GMOPointing_Omega.pn
-g (PNG copy)>]
-<figures/mission_omega.png, id=284, 521.3076pt x 336.7782pt>
+<figures/mission_omega.png, id=296, 521.3076pt x 336.7782pt>
 File: figures/mission_omega.png Graphic file (type png)
 <use figures/mission_omega.png>
-Package pdftex.def Info: figures/mission_omega.png  used on input line 648.
+Package pdftex.def Info: figures/mission_omega.png  used on input line 654.
 (pdftex.def)             Requested size: 452.9679pt x 292.64009pt.
- [18 <./figures/mission_sigma.png (PNG copy)> <./figures/mission_omega.png (PNG
- copy)>]
-[19]
-Overfull \hbox (18.93008pt too wide) in paragraph at lines 698--699
+ [18 <./figures/mission_sigma.png (PNG copy)>] [19 <./figures/mission_omega.png
+ (PNG copy)>]
+[20]
+Overfull \hbox (18.93008pt too wide) in paragraph at lines 710--711
 \OT1/cmr/m/n/12 ing modes were de-vel-oped, in-clud-ing Sun-pointing, nadir-poi
 nting, and GMO communication-
  []
 
-[20
+[21
+
+] [22
 
 ] (./report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: ABD3D31BB34D4C394D41D96EA6A8E012;5676.
+
+Package biblatex Warning: Please rerun LaTeX.
+
+Package logreq Info: Writing requests to 'report.run.xml'.
+\openout1 = `report.run.xml'.
+
  ) 
 Here is how much of TeX's memory you used:
- 15376 strings out of 467349
- 243146 string characters out of 5419863
- 678355 words of memory out of 5000000
- 44199 multiletter control sequences out of 15000+600000
- 641540 words of font info for 90 fonts, out of 8000000 for 9000
+ 22716 strings out of 467349
+ 391217 string characters out of 5419863
+ 1242992 words of memory out of 5000000
+ 51470 multiletter control sequences out of 15000+600000
+ 642188 words of font info for 92 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,19n,79p,590b,650s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,19n,79p,695b,1311s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/tex
 live/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/202
 6/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2026/texmf-d
@@ -752,12 +1022,13 @@ c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive
 f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2026/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm
-1200.pfb>
-Output written on report.pdf (21 pages, 1739925 bytes).
+onts/cm/cmti12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+
+Output written on report.pdf (23 pages, 1756172 bytes).
 PDF statistics:
- 394 PDF objects out of 1000 (max. 8388607)
- 315 compressed objects within 4 object streams
- 73 named destinations out of 1000 (max. 500000)
+ 422 PDF objects out of 1000 (max. 8388607)
+ 339 compressed objects within 4 object streams
+ 86 named destinations out of 1000 (max. 500000)
  310 words of extra memory for PDF output out of 10000 (max. 10000000)
 
