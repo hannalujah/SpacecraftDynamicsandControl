@@ -431,14 +431,14 @@
 		\boldsymbol{\sigma}_{B/R} \\
 		\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
 	\end{bmatrix}$, we have the known variables $\boldsymbol{\sigma}_{B/N}$, $\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/N}$, as well as the desired reference frame DCM $[RN]$ and frame rate $\prescript{\mathcal{N}}{}{\boldsymbol{\omega}}_{R/N}$.
-	We first need to drive the DCM $[BN]$ which can be obtained from $\boldsymbol{\sigma}_{B/N}$ using equation (3.152):
+	We first construct the DCM $[BN]$ which can be obtained from $\boldsymbol{\sigma}_{B/N}$ using equation (3.152):
 	\begin{equation}[C] = [I_{3\times3}] + \frac{8[\tilde{\boldsymbol{\sigma}}]^2 - 4(1-\sigma^2)[\tilde{\boldsymbol{\sigma}}]}{(1+\sigma^2)^2}\end{equation}
 	
 	The inverse transformation--converting a DCM to its MRP form--is formulated in equation (3.153):
 	\begin{equation}[\tilde{\boldsymbol{\sigma}}] = \frac{[C]^T - [C]}{\zeta(\zeta+2)} \end{equation}
 	$$\zeta = \sqrt{trace([C])+1}$$
 	
-	These two forms are implemented in MATLAB function \texttt{sigmaToDCM()} and \texttt{DCMToSigma()} in respect. 
+	These two forms are implemented in MATLAB function \texttt{sigmaToDCM()} and \texttt{DCMToSigma()} respectively. 
 	
 	Now, the roadmap to finding the tracking errors would be:
 	$$\boldsymbol{\sigma}_{B/N} \rightarrow [BN] $$	
@@ -463,7 +463,7 @@
 	\end{equation}
 	where $\boldsymbol{u}$ is the external control torque vector.
 	
-	For this task, a simple loop integrator was written in MATLAB. The control torques $\prescript{\mathcal{B}}{}{\boldsymbol{u}}_1 = 0$ and $\prescript{\mathcal{B}}{}{\boldsymbol{u}}_2 = (0.01, -0.01, 0.02)$
+	For this task, a loop integrator was written in MATLAB. The control torques $\prescript{\mathcal{B}}{}{\boldsymbol{u}}_1 = 0$ and $\prescript{\mathcal{B}}{}{\boldsymbol{u}}_2 = (0.01, -0.01, 0.02)$
 	were applied respectively and the following were computed:
 	\begin{itemize}
 		\item Attitude MRP $\boldsymbol{\sigma}_{B/N}$
@@ -472,9 +472,9 @@
 		\item Rotational kinetic energy $T = \frac{1}{2}\boldsymbol{\omega}_{B/N}^T[I]\boldsymbol{\omega}_{B/N}$
 	\end{itemize}
 	
-	The results of both simulations are plotted in Figure~\ref{fig:task7_results}. As is seen, after applying the control torque $\boldsymbol{u}_2$ on the spacecraft, its rotational kinetic energy plummets (from approximately 9 mJ in uncontrolled mode (Figure~\ref{fig:u1_T}) to more than 2.5 J when controlled (Figure~\ref{fig:u2_T})). This is verified by spacecraft angular velocity, whose 1st and 2nd components start to oscillate in controlled mode while its 3rd goes through a rapid, non-stop increase (Figure~\ref{fig:u2_omega}). 
+	The results of both simulations are plotted in Figure~\ref{fig:task7_results}. As is seen, after applying the control torque $\boldsymbol{u}_2$ on the spacecraft, its rotational kinetic energy increases significantly (from approximately 9 mJ in uncontrolled mode (Figure~\ref{fig:u1_T}) to more than 2.5 J when controlled (Figure~\ref{fig:u2_T})). This is verified by spacecraft angular velocity, whose 1st and 2nd components start to oscillate in controlled mode while its 3rd goes through a rapid, non-stop increase (Figure~\ref{fig:u2_omega}). 
 	
-	Attitude states confirm it all. The spacecraft exhibits unstable rotational behavior when the control torque $\boldsymbol{u}_2$ is applied to it (Figure~\ref{fig:u2_sigma}). These results indicate that the applied torque does not stabilize the spacecraft attitude dynamics.
+	The attitude-state histories further confirm this behavior. The spacecraft exhibits unstable rotational behavior when the control torque $\boldsymbol{u}_2$ is applied to it (Figure~\ref{fig:u2_sigma}). These results indicate that the applied torque does not stabilize the spacecraft attitude dynamics.
 	  
 	
 	\begin{figure}[!htbp]
@@ -482,14 +482,14 @@
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_KineticEnergy.png}
-			\caption{$\boldsymbol{u}_1$ Applied: $T$}
+			\caption{$\boldsymbol{u}_1$ applied: $T$}
 			\label{fig:u1_T}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/ControlledVehicle_KineticEnergy.png}
-			\caption{$\boldsymbol{u}_2$ Applied: $T$}
+			\caption{$\boldsymbol{u}_2$ applied: $T$}
 			\label{fig:u2_T}
 		\end{subfigure}
 		
@@ -498,14 +498,14 @@
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_Omega.png}
-			\caption{$\boldsymbol{u}_1$ Applied: $\boldsymbol{\omega}_{B/N}$}
+			\caption{$\boldsymbol{u}_1$ applied: $\boldsymbol{\omega}_{B/N}$}
 			\label{fig:u1_omega}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/ControlledVehicle_Omega.png}
-			\caption{$\boldsymbol{u}_2$ Applied: $\boldsymbol{\omega}_{B/N}$}
+			\caption{$\boldsymbol{u}_2$ applied: $\boldsymbol{\omega}_{B/N}$}
 			\label{fig:u2_omega}
 		\end{subfigure}
 		
@@ -514,14 +514,14 @@
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_MRP.png}
-			\caption{$\boldsymbol{u}_1$ Applied: $\boldsymbol{\sigma}_{B/N}$}
+			\caption{$\boldsymbol{u}_1$ applied: $\boldsymbol{\sigma}_{B/N}$}
 			\label{fig:u1_sigma}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/ControlledVehicle_MRP.png}
-			\caption{$\boldsymbol{u}_2$ Applied: $\boldsymbol{\sigma}_{B/N}$}
+			\caption{$\boldsymbol{u}_2$ applied: $\boldsymbol{\sigma}_{B/N}$}
 			\label{fig:u2_sigma}
 		\end{subfigure}
 		
@@ -548,7 +548,7 @@
 	\prescript{\mathcal{B}}{}{\boldsymbol{u}} = -K\boldsymbol{\sigma}_{B/R} - P\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}
 	\]
 	
-	An RK4 integrator was developed for to perform numerical propagation of the spacecraft attitude dynamics used by the MATLAB function \texttt{simulate\_mode()}. The results of Sun pointing simulation are evident in Figure~\ref{fig:sun_pointing}. 
+	An RK4 integrator was developed to perform numerical propagation of the spacecraft attitude dynamics used by the MATLAB function \texttt{simulate\_mode()}. The results of Sun pointing simulation are evident in Figure~\ref{fig:sun_pointing}. 
 	
 	\begin{figure}[H]
 		\centering
@@ -571,7 +571,7 @@
 		\label{fig:sun_pointing}
 	\end{figure}
 	
-	As is illustrated, the spacecraft is fully detumbled ($\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R} \approx 0$) and controlled to a certain attitude MRP. 
+	As is illustrated, the spacecraft is fully detumbled ($\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R} \approx 0$) and driven toward the desired reference attitude. 
 	
 	\subsection{Task 9: Nadir Pointing Control}
 	
@@ -598,7 +598,7 @@
 		\label{fig:nadir_pointing}
 	\end{figure}
 	
-	Similar to the previous task, the MRP has converged to a certain state and the spacecraft is also detumbled.
+	Similar to the previous task,the attitude tracking errors converge asymptotically toward zero and the spacecraft is also detumbled.
 	
 	\subsection{Task 10: GMO Pointing Control}
 	
@@ -666,8 +666,10 @@
 	The simulation results indicate that the spacecraft successfully transitions between Sun-pointing, communication, and nadir-pointing operational modes without loss of stability. During mode-switching events, temporary increases in attitude and angular velocity tracking errors are observed due to the sudden change in commanded reference orientation. However, the proportional-derivative feedback controller rapidly damps these transients and drives the spacecraft toward the new reference frame.
 	
 	The angular velocity histories demonstrate that the spacecraft remains fully detumbled throughout the mission despite repeated reference-frame transitions. Short-duration angular-rate excursions occur immediately after mode changes as the spacecraft reorients itself toward the newly commanded operational attitude. The derivative feedback term provides sufficient damping to prevent sustained oscillatory behavior.
+	
+	The operational-mode transitions are currently implemented as instantaneous reference-frame changes. In practical spacecraft systems, slew maneuvers are typically constrained by actuator saturation limits, momentum management requirements, and attitude-rate limitations. Future implementations may therefore incorporate constrained slew trajectory generation to smooth operational transitions.
 		
-	Overall, the integrated simulation confirms the effectiveness of the spacecraft attitude determination and control architecture in performing stable autonomous mission operations under varying orbital conditions.
+	Overall, the integrated simulation confirms the effectiveness of the spacecraft attitude dynamics and control architecture in performing stable autonomous mission operations under varying orbital conditions.
 	
 	\section{STK Visualization}
 	

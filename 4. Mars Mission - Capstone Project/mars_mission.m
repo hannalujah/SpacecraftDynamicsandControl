@@ -366,7 +366,7 @@ end
 %% Exporting attitude for STK
 beta11 = sigma2beta(sigma11);
 Q = beta11;
-filename = 'attitude_from_matlab.a';
+filename = 'LMO_attitude.a';
 
 N = length(t11);
 
@@ -385,8 +385,8 @@ fprintf(fid,'NumberOfAttitudePoints\t\t%d\n\n', N);
 fprintf(fid,'BlockingFactor\t\t20\n');
 fprintf(fid,'InterpolationOrder\t\t1\n\n');
 
-fprintf(fid,'ScenarioEpoch\t\t1 Jan 2025 00:00:00.000000\n\n');
-fprintf(fid,'CoordinateAxes\t\tFixed\n\n');
+fprintf(fid,'ScenarioEpoch\t\t1 Jul 2020 00:00:00.000000\n\n');
+fprintf(fid,'CoordinateAxes\t\tInertial\n\n');
 
 fprintf(fid,'AttitudeTimeQuaternions\n');
 

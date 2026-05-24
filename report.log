@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  23 MAY 2026 18:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  23 MAY 2026 20:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -971,10 +971,14 @@ File: figures/mission_omega.png Graphic file (type png)
 <use figures/mission_omega.png>
 Package pdftex.def Info: figures/mission_omega.png  used on input line 654.
 (pdftex.def)             Requested size: 452.9679pt x 292.64009pt.
- [18 <./figures/mission_sigma.png (PNG copy)>] [19 <./figures/mission_omega.png
- (PNG copy)>]
-[20]
-Overfull \hbox (18.93008pt too wide) in paragraph at lines 710--711
+ [18 <./figures/mission_sigma.png (PNG copy)>]
+Overfull \hbox (7.23566pt too wide) in paragraph at lines 670--671
+[]\OT1/cmr/m/n/12 The operational-mode tran-si-tions are cur-rently im-ple-ment
+ed as in-stan-ta-neous reference-
+ []
+
+[19 <./figures/mission_omega.png (PNG copy)>] [20]
+Overfull \hbox (18.93008pt too wide) in paragraph at lines 712--713
 \OT1/cmr/m/n/12 ing modes were de-vel-oped, in-clud-ing Sun-pointing, nadir-poi
 nting, and GMO communication-
  []
@@ -988,15 +992,8 @@ nting, and GMO communication-
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: ABD3D31BB34D4C394D41D96EA6A8E012;5676.
-
-Package biblatex Warning: Please rerun LaTeX.
-
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
@@ -1004,7 +1001,7 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 Here is how much of TeX's memory you used:
  22716 strings out of 467349
  391217 string characters out of 5419863
- 1242992 words of memory out of 5000000
+ 1243026 words of memory out of 5000000
  51470 multiletter control sequences out of 15000+600000
  642188 words of font info for 92 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1025,7 +1022,7 @@ ublic/amsfonts/cm/cmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmti12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
 
-Output written on report.pdf (23 pages, 1756172 bytes).
+Output written on report.pdf (23 pages, 1756248 bytes).
 PDF statistics:
  422 PDF objects out of 1000 (max. 8388607)
  339 compressed objects within 4 object streams
