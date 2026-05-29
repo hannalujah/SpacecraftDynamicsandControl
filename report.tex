@@ -18,6 +18,19 @@
 \usepackage{biblatex}
 \addbibresource{ref.bib}
 
+\usepackage{xcolor}
+\usepackage{eso-pic}
+
+\newcommand\BackgroundPic{
+	\put(-5,-5){
+		\parbox[b][\paperheight]{\paperwidth}{
+			\includegraphics[
+			width=\dimexpr\paperwidth+10pt\relax,
+			height=\dimexpr\paperheight+10pt\relax
+			]{mars_two_copy.jpg}
+		}
+	}
+}
 
 
 \setstretch{1.25}
@@ -29,31 +42,37 @@
 \begin{document}
 	
 	\begin{titlepage}
+		\AddToShipoutPictureBG*{\BackgroundPic}
 		\centering
-		
-		{\Large \textsc{CU Boulder / Coursera} \par}
-		\vspace{2cm}
-		
-		{\Huge \textbf{Spacecraft Dynamics Capstone Project} \par}
+		\color{white}
+				
+		{\LARGE \textbf{Spacecraft Dynamics Capstone Project} \par}
 		\vspace{1cm}
-		
-		{\LARGE Attitude Dynamics and Control of a Nano-Satellite Orbiting Mars \par}
+	
+		{\Huge \textbf{Attitude Dynamics and Control of a Nano-Satellite Orbiting Mars} \par}
 		\vspace{2cm}
 		
-		{\Large Course Report \par}
+		{\Large \textsc{Course Report} \par}
 		\vfill
 		
 		\begin{flushleft}
 			\large
 			\textbf{Student:} Haniyeh Zahra Budaqi \\
 			\textbf{Instructor:} Prof. Dr. Hanspeter Schaub
+			
+			\vspace{2cm}
+			{\large May 2026 \par}
 		\end{flushleft}
+			
+		\vspace{1cm}
 		
-		\vspace{2cm}
 		
-		{\large May 2026 \par}
+		\begin{flushright}
+			\includegraphics[width=3cm]{cuboulder.png}
+		\end{flushright}
 		
 	\end{titlepage}
+	\ClearShipoutPictureBG
 	
 	\tableofcontents
 	\newpage
@@ -481,14 +500,14 @@
 		\centering
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_KineticEnergy.png}
+			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_KineticEnergy.pdf}
 			\caption{$\boldsymbol{u}_1$ applied: $T$}
 			\label{fig:u1_T}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/ControlledVehicle_KineticEnergy.png}
+			\includegraphics[width=\linewidth]{figures/ControlledVehicle_KineticEnergy.pdf}
 			\caption{$\boldsymbol{u}_2$ applied: $T$}
 			\label{fig:u2_T}
 		\end{subfigure}
@@ -497,14 +516,14 @@
 		
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_Omega.png}
+			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_Omega.pdf}
 			\caption{$\boldsymbol{u}_1$ applied: $\boldsymbol{\omega}_{B/N}$}
 			\label{fig:u1_omega}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/ControlledVehicle_Omega.png}
+			\includegraphics[width=\linewidth]{figures/ControlledVehicle_Omega.pdf}
 			\caption{$\boldsymbol{u}_2$ applied: $\boldsymbol{\omega}_{B/N}$}
 			\label{fig:u2_omega}
 		\end{subfigure}
@@ -513,14 +532,14 @@
 		
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_MRP.png}
+			\includegraphics[width=\linewidth]{figures/UncontrolledVehicle_MRP.pdf}
 			\caption{$\boldsymbol{u}_1$ applied: $\boldsymbol{\sigma}_{B/N}$}
 			\label{fig:u1_sigma}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[b]{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/ControlledVehicle_MRP.png}
+			\includegraphics[width=\linewidth]{figures/ControlledVehicle_MRP.pdf}
 			\caption{$\boldsymbol{u}_2$ applied: $\boldsymbol{\sigma}_{B/N}$}
 			\label{fig:u2_sigma}
 		\end{subfigure}
@@ -555,14 +574,14 @@
 		
 		\begin{subfigure}{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/SunPointing_MRP.png}
+			\includegraphics[width=\linewidth]{figures/SunPointing_MRP.pdf}
 			\caption{$\boldsymbol{\sigma}_{B/R}$}
 			\label{fig:task8_sigma}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/SunPointing_Omega.png}
+			\includegraphics[width=\linewidth]{figures/SunPointing_Omega.pdf}
 			\caption{$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}$}
 			\label{fig:task8_omega}
 		\end{subfigure}
@@ -582,14 +601,14 @@
 		
 		\begin{subfigure}{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/NadirPointing_MRP.png}
+			\includegraphics[width=\linewidth]{figures/NadirPointing_MRP.pdf}
 			\caption{$\boldsymbol{\sigma}_{B/R}$}
 			\label{fig:task9_sigma}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/NadirPointing_Omega.png}
+			\includegraphics[width=\linewidth]{figures/NadirPointing_Omega.pdf}
 			\caption{$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}$}
 			\label{fig:task9_omega}
 		\end{subfigure}
@@ -609,14 +628,14 @@
 		
 		\begin{subfigure}{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/GMOPointing_MRP.png}
+			\includegraphics[width=\linewidth]{figures/GMOPointing_MRP.pdf}
 			\caption{$\boldsymbol{\sigma}_{B/R}$}
 			\label{fig:task10_sigma}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}{0.48\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/GMOPointing_Omega.png}
+			\includegraphics[width=\linewidth]{figures/GMOPointing_Omega.pdf}
 			\caption{$\prescript{\mathcal{B}}{}{\boldsymbol{\omega}}_{B/R}$}
 			\label{fig:task10_omega}
 		\end{subfigure}
@@ -644,14 +663,14 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=1\textwidth]{figures/mission_sigma.png}
+		\includegraphics[width=1\textwidth]{figures/mission_sigma.pdf}
 		\caption{Full mission spacecraft attitude state}
 		\label{fig:task11_sigma}
 	\end{figure}
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=1\textwidth]{figures/mission_omega.png}
+		\includegraphics[width=1\textwidth]{figures/mission_omega.pdf}
 		\caption{Full mission spacecraft angular velocity}
 		\label{fig:task11_omega}
 	\end{figure}
@@ -671,7 +690,7 @@
 		
 	Overall, the integrated simulation confirms the effectiveness of the spacecraft attitude dynamics and control architecture in performing stable autonomous mission operations under varying orbital conditions.
 	
-	\section{STK Visualization}
+	\chapter{STK Visualization}
 	
 	To validate the MATLAB simulations visually, spacecraft orbit propagation and attitude motion were reconstructed using AGI Systems Tool Kit (STK).
 	
@@ -683,28 +702,6 @@
 		\item Communication alignment during GMO visibility windows,
 		\item Stable attitude transitions throughout mission operation.
 	\end{enumerate}
-	
-	\section{Appendix: MATLAB Function Overview}
-	
-	\begin{table}[H]
-		\centering
-		\caption{Main MATLAB Functions Used in the Project}
-		\begin{tabular}{lp{9cm}}
-			\toprule
-			Function Name & Description \\
-			\midrule
-			\texttt{orbit\_state()} & Computes spacecraft inertial position and velocity vectors \\
-			\texttt{orbitTheta()} & Computes orbital angle evolution \\
-			\texttt{orbit\_frame\_dcm()} & Generates Hill-frame DCM \\
-			\texttt{RsN\_DCM()} & Returns Sun-pointing reference-frame DCM \\
-			\texttt{RnN\_DCM()} & Returns nadir-pointing reference-frame DCM \\
-			\texttt{RcN\_DCM()} & Returns GMO-pointing reference-frame DCM \\
-			\texttt{attitudeErrorEval()} & Computes tracking errors \\
-			\texttt{simulate\_mode()} & Simulates spacecraft attitude dynamics \\
-			\texttt{getReferenceFrame()} & Performs automatic mission-mode selection \\
-			\bottomrule
-		\end{tabular}
-	\end{table}
 	
 	\chapter*{Conclusion}
 	\addcontentsline{toc}{chapter}{Conclusion}
