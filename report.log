@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  29 MAY 2026 12:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.2)  31 MAY 2026 17:31
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -814,12 +814,12 @@ Package biblatex Info: ... file 'report.bbl' found.
  (./report.bbl)
 Package biblatex Info: Reference section=0 on input line 42.
 Package biblatex Info: Reference segment=0 on input line 42.
-<cuboulder.png, id=116, 406.3983pt x 392.1852pt>
+<cuboulder.png, id=128, 406.3983pt x 392.1852pt>
 File: cuboulder.png Graphic file (type png)
 <use cuboulder.png>
 Package pdftex.def Info: cuboulder.png  used on input line 71.
 (pdftex.def)             Requested size: 85.35826pt x 82.37328pt.
-<mars_two_copy.jpg, id=118, 1038.88126pt x 1445.4pt>
+<mars_two_copy.jpg, id=130, 1038.88126pt x 1445.4pt>
 File: mars_two_copy.jpg Graphic file (type jpg)
 <use mars_two_copy.jpg>
 Package pdftex.def Info: mars_two_copy.jpg  used on input line 74.
@@ -847,7 +847,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.28 ...ine {chapter}{Conclusion}{24}{chapter*.16}
+l.30 ...level Validation Summary}{25}{section.4.4}
                                                   % [1
 
 ])
@@ -865,26 +865,26 @@ Chapter 2.
 [5
 
 ]
-<figures/doc_orbits_frames.png, id=195, 454.69875pt x 325.215pt>
+<figures/doc_orbits_frames.png, id=207, 454.69875pt x 325.215pt>
 File: figures/doc_orbits_frames.png Graphic file (type png)
 <use figures/doc_orbits_frames.png>
-Package pdftex.def Info: figures/doc_orbits_frames.png  used on input line 168.
+Package pdftex.def Info: figures/doc_orbits_frames.png  used on input line 165.
 
 (pdftex.def)             Requested size: 317.07614pt x 226.78549pt.
-<figures/lmo_body_frame.png, id=197, 495.8525pt x 282.05376pt>
+<figures/lmo_body_frame.png, id=209, 495.8525pt x 282.05376pt>
 File: figures/lmo_body_frame.png Graphic file (type png)
 <use figures/lmo_body_frame.png>
-Package pdftex.def Info: figures/lmo_body_frame.png  used on input line 179.
+Package pdftex.def Info: figures/lmo_body_frame.png  used on input line 176.
 (pdftex.def)             Requested size: 317.07614pt x 180.36314pt.
  [6 <./figures/doc_orbits_frames.png> <./figures/lmo_body_frame.png>]
-<figures/orbit_scenario.png, id=208, 599.74063pt x 379.4175pt>
+<figures/orbit_scenario.png, id=220, 599.74063pt x 379.4175pt>
 File: figures/orbit_scenario.png Graphic file (type png)
 <use figures/orbit_scenario.png>
-Package pdftex.def Info: figures/orbit_scenario.png  used on input line 217.
+Package pdftex.def Info: figures/orbit_scenario.png  used on input line 214.
 (pdftex.def)             Requested size: 452.9679pt x 286.57135pt.
 
 [7]
-Overfull \hbox (8.00235pt too wide) in paragraph at lines 224--225
+Overfull \hbox (8.00235pt too wide) in paragraph at lines 221--222
 \OT1/cmr/m/n/12 The space-craft ini-tial at-ti-tude is rep-re-sented us-ing Mod
 -i-fied Ro-drigues Pa-ram-e-ters (MRPs),
  []
@@ -894,170 +894,187 @@ Chapter 3.
 [10
 
 ] [11] [12] [13]
-Overfull \hbox (19.44559pt too wide) in paragraph at lines 460--461
+Overfull \hbox (19.44559pt too wide) in paragraph at lines 470--471
 []\OT1/cmr/m/n/12 These two forms are im-ple-mented in MAT-LAB func-tion \OT1/c
 mtt/m/n/12 sigmaToDCM() \OT1/cmr/m/n/12 and \OT1/cmtt/m/n/12 DCMToSigma()
  []
 
 [14]
-<figures/UncontrolledVehicle_KineticEnergy.pdf, id=261, 524.96124pt x 338.26375
+<figures/UncontrolledVehicle_KineticEnergy.pdf, id=273, 524.96124pt x 338.26375
 pt>
 File: figures/UncontrolledVehicle_KineticEnergy.pdf Graphic file (type pdf)
 <use figures/UncontrolledVehicle_KineticEnergy.pdf>
 Package pdftex.def Info: figures/UncontrolledVehicle_KineticEnergy.pdf  used on
- input line 503.
+ input line 513.
 (pdftex.def)             Requested size: 217.42265pt x 140.09811pt.
-<figures/ControlledVehicle_KineticEnergy.pdf, id=262, 507.8975pt x 338.26375pt>
+<figures/ControlledVehicle_KineticEnergy.pdf, id=274, 507.8975pt x 338.26375pt>
 
 File: figures/ControlledVehicle_KineticEnergy.pdf Graphic file (type pdf)
 <use figures/ControlledVehicle_KineticEnergy.pdf>
 Package pdftex.def Info: figures/ControlledVehicle_KineticEnergy.pdf  used on i
-nput line 510.
+nput line 520.
 (pdftex.def)             Requested size: 217.42265pt x 144.80537pt.
-<figures/UncontrolledVehicle_Omega.pdf, id=263, 521.95pt x 338.26375pt>
+<figures/UncontrolledVehicle_Omega.pdf, id=275, 521.95pt x 338.26375pt>
 File: figures/UncontrolledVehicle_Omega.pdf Graphic file (type pdf)
 <use figures/UncontrolledVehicle_Omega.pdf>
 Package pdftex.def Info: figures/UncontrolledVehicle_Omega.pdf  used on input l
-ine 519.
+ine 529.
 (pdftex.def)             Requested size: 217.42265pt x 140.90846pt.
-<figures/ControlledVehicle_Omega.pdf, id=264, 515.9275pt x 338.26375pt>
+<figures/ControlledVehicle_Omega.pdf, id=276, 515.9275pt x 338.26375pt>
 File: figures/ControlledVehicle_Omega.pdf Graphic file (type pdf)
 <use figures/ControlledVehicle_Omega.pdf>
 Package pdftex.def Info: figures/ControlledVehicle_Omega.pdf  used on input lin
-e 526.
+e 536.
 (pdftex.def)             Requested size: 217.42265pt x 142.54982pt.
-<figures/UncontrolledVehicle_MRP.pdf, id=265, 512.91624pt x 338.26375pt>
+<figures/UncontrolledVehicle_MRP.pdf, id=277, 512.91624pt x 338.26375pt>
 File: figures/UncontrolledVehicle_MRP.pdf Graphic file (type pdf)
 <use figures/UncontrolledVehicle_MRP.pdf>
 Package pdftex.def Info: figures/UncontrolledVehicle_MRP.pdf  used on input lin
-e 535.
+e 545.
 (pdftex.def)             Requested size: 217.42265pt x 143.38597pt.
-<figures/ControlledVehicle_MRP.pdf, id=266, 512.91624pt x 338.26375pt>
+<figures/ControlledVehicle_MRP.pdf, id=278, 512.91624pt x 338.26375pt>
 File: figures/ControlledVehicle_MRP.pdf Graphic file (type pdf)
 <use figures/ControlledVehicle_MRP.pdf>
 Package pdftex.def Info: figures/ControlledVehicle_MRP.pdf  used on input line 
-542.
+552.
 (pdftex.def)             Requested size: 217.42265pt x 143.38597pt.
  [15] [16 <./figures/UncontrolledVehicle_KineticEnergy.pdf> <./figures/Controll
 edVehicle_KineticEnergy.pdf> <./figures/UncontrolledVehicle_Omega.pdf> <./figur
 es/ControlledVehicle_Omega.pdf> <./figures/UncontrolledVehicle_MRP.pdf> <./figu
 res/ControlledVehicle_MRP.pdf>]
-<figures/SunPointing_MRP.pdf, id=411, 512.91624pt x 338.26375pt>
+<figures/SunPointing_MRP.pdf, id=423, 512.91624pt x 338.26375pt>
 File: figures/SunPointing_MRP.pdf Graphic file (type pdf)
 <use figures/SunPointing_MRP.pdf>
-Package pdftex.def Info: figures/SunPointing_MRP.pdf  used on input line 577.
+Package pdftex.def Info: figures/SunPointing_MRP.pdf  used on input line 587.
 (pdftex.def)             Requested size: 217.42265pt x 143.38597pt.
-<figures/SunPointing_Omega.pdf, id=412, 521.95pt x 338.26375pt>
+<figures/SunPointing_Omega.pdf, id=424, 521.95pt x 338.26375pt>
 File: figures/SunPointing_Omega.pdf Graphic file (type pdf)
 <use figures/SunPointing_Omega.pdf>
-Package pdftex.def Info: figures/SunPointing_Omega.pdf  used on input line 584.
+Package pdftex.def Info: figures/SunPointing_Omega.pdf  used on input line 594.
 
 (pdftex.def)             Requested size: 217.42265pt x 140.90846pt.
-<figures/NadirPointing_MRP.pdf, id=414, 512.91624pt x 338.26375pt>
+<figures/NadirPointing_MRP.pdf, id=426, 512.91624pt x 338.26375pt>
 File: figures/NadirPointing_MRP.pdf Graphic file (type pdf)
 <use figures/NadirPointing_MRP.pdf>
-Package pdftex.def Info: figures/NadirPointing_MRP.pdf  used on input line 604.
+Package pdftex.def Info: figures/NadirPointing_MRP.pdf  used on input line 614.
 
 (pdftex.def)             Requested size: 217.42265pt x 143.38597pt.
-<figures/NadirPointing_Omega.pdf, id=415, 521.95pt x 338.26375pt>
+<figures/NadirPointing_Omega.pdf, id=427, 521.95pt x 338.26375pt>
 File: figures/NadirPointing_Omega.pdf Graphic file (type pdf)
 <use figures/NadirPointing_Omega.pdf>
-Package pdftex.def Info: figures/NadirPointing_Omega.pdf  used on input line 61
+Package pdftex.def Info: figures/NadirPointing_Omega.pdf  used on input line 62
 1.
 (pdftex.def)             Requested size: 217.42265pt x 140.90846pt.
  [17 <./figures/SunPointing_MRP.pdf> <./figures/SunPointing_Omega.pdf>]
-<figures/GMOPointing_MRP.pdf, id=473, 512.91624pt x 338.26375pt>
+<figures/GMOPointing_MRP.pdf, id=485, 512.91624pt x 338.26375pt>
 File: figures/GMOPointing_MRP.pdf Graphic file (type pdf)
 <use figures/GMOPointing_MRP.pdf>
-Package pdftex.def Info: figures/GMOPointing_MRP.pdf  used on input line 631.
+Package pdftex.def Info: figures/GMOPointing_MRP.pdf  used on input line 641.
 (pdftex.def)             Requested size: 217.42265pt x 143.38597pt.
-<figures/GMOPointing_Omega.pdf, id=474, 521.95pt x 338.26375pt>
+<figures/GMOPointing_Omega.pdf, id=486, 521.95pt x 338.26375pt>
 File: figures/GMOPointing_Omega.pdf Graphic file (type pdf)
 <use figures/GMOPointing_Omega.pdf>
-Package pdftex.def Info: figures/GMOPointing_Omega.pdf  used on input line 638.
+Package pdftex.def Info: figures/GMOPointing_Omega.pdf  used on input line 648.
 
 (pdftex.def)             Requested size: 217.42265pt x 140.90846pt.
  [18 <./figures/NadirPointing_MRP.pdf> <./figures/NadirPointing_Omega.pdf> <./f
 igures/GMOPointing_MRP.pdf> <./figures/GMOPointing_Omega.pdf>]
-<figures/mission_sigma.pdf, id=577, 514.92375pt x 338.26375pt>
+<figures/mission_sigma.pdf, id=589, 514.92375pt x 338.26375pt>
 File: figures/mission_sigma.pdf Graphic file (type pdf)
 <use figures/mission_sigma.pdf>
-Package pdftex.def Info: figures/mission_sigma.pdf  used on input line 666.
+Package pdftex.def Info: figures/mission_sigma.pdf  used on input line 676.
 (pdftex.def)             Requested size: 452.9679pt x 297.56978pt.
-<figures/mission_omega.pdf, id=578, 523.9575pt x 338.26375pt>
+<figures/mission_omega.pdf, id=590, 523.9575pt x 338.26375pt>
 File: figures/mission_omega.pdf Graphic file (type pdf)
 <use figures/mission_omega.pdf>
-Package pdftex.def Info: figures/mission_omega.pdf  used on input line 673.
+Package pdftex.def Info: figures/mission_omega.pdf  used on input line 683.
 (pdftex.def)             Requested size: 452.9679pt x 292.43925pt.
- [19 <./figures/mission_sigma.pdf>]
-Overfull \hbox (7.23566pt too wide) in paragraph at lines 689--690
-[]\OT1/cmr/m/n/12 The operational-mode tran-si-tions are cur-rently im-ple-ment
-ed as in-stan-ta-neous reference-
+ [19 <./figures/mission_sigma.pdf>] [20 <./figures/mission_omega.pdf>]
+Overfull \hbox (2.47043pt too wide) in paragraph at lines 699--700
+[]\OT1/cmr/m/n/12 The sim-u-la-tion also re-veals dif-fer-ences in point-ing pe
+r-for-mance be-tween mis-sion modes.
  []
 
-[20 <./figures/mission_omega.pdf>] [21]
+[21]
 Chapter 4.
+<figures/orbits.jpg, id=656, 6022.5pt x 1933.2225pt>
+File: figures/orbits.jpg Graphic file (type jpg)
+<use figures/orbits.jpg>
+Package pdftex.def Info: figures/orbits.jpg  used on input line 710.
+(pdftex.def)             Requested size: 452.9679pt x 145.3984pt.
+<figures/satellite_vectors.jpg, id=657, 6022.5pt x 2244.385pt>
+File: figures/satellite_vectors.jpg Graphic file (type jpg)
+<use figures/satellite_vectors.jpg>
+Package pdftex.def Info: figures/satellite_vectors.jpg  used on input line 719.
+
+(pdftex.def)             Requested size: 452.9679pt x 168.80106pt.
 [22
 
-]
-Overfull \hbox (18.93008pt too wide) in paragraph at lines 709--710
-\OT1/cmr/m/n/12 ing modes were de-vel-oped, in-clud-ing Sun-pointing, nadir-poi
-nting, and GMO communication-
+ <./figures/orbits.jpg>]
+<figures/sunMode.jpg, id=663, 6022.5pt x 1761.58125pt>
+File: figures/sunMode.jpg Graphic file (type jpg)
+<use figures/sunMode.jpg>
+Package pdftex.def Info: figures/sunMode.jpg  used on input line 729.
+(pdftex.def)             Requested size: 452.9679pt x 132.4892pt.
+<figures/gmoMode.jpg, id=664, 6022.5pt x 2297.58376pt>
+File: figures/gmoMode.jpg Graphic file (type jpg)
+<use figures/gmoMode.jpg>
+Package pdftex.def Info: figures/gmoMode.jpg  used on input line 739.
+(pdftex.def)             Requested size: 452.9679pt x 172.80215pt.
+ [23 <./figures/satellite_vectors.jpg> <./figures/sunMode.jpg>]
+<figures/nadirMode.jpg, id=671, 6022.5pt x 2297.58376pt>
+File: figures/nadirMode.jpg Graphic file (type jpg)
+<use figures/nadirMode.jpg>
+Package pdftex.def Info: figures/nadirMode.jpg  used on input line 749.
+(pdftex.def)             Requested size: 452.9679pt x 172.80215pt.
+ [24 <./figures/gmoMode.jpg> <./figures/nadirMode.jpg>] [25]
+Overfull \hbox (39.62292pt too wide) in paragraph at lines 762--763
+\OT1/cmr/m/n/12 specific ref-er-ence frames were de-rived for Sun-pointing, nad
+ir-pointing, and GMO communication-
  []
 
-[23
+[26
 
-] [24
+] [27
 
 ] (./report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
-
-
-Package rerunfilecheck Warning: File `report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `report.out':
-(rerunfilecheck)             Before: 215139C2495C263DCEDDFEDEAFBD3B91;5654
-(rerunfilecheck)             After:  F30931B3A09A7A6635DD05254FCB5896;5431.
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 14954B74AA2B9E0ABD252EAA1790F55D;6160.
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22845 strings out of 467349
- 393766 string characters out of 5419863
- 1244897 words of memory out of 5000000
- 51594 multiletter control sequences out of 15000+600000
- 642495 words of font info for 93 fonts, out of 8000000 for 9000
+ 22893 strings out of 467349
+ 394992 string characters out of 5419863
+ 1246460 words of memory out of 5000000
+ 51638 multiletter control sequences out of 15000+600000
+ 642790 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,19n,79p,695b,1312s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{chapter.5} has been referenced but does not exist, 
-replaced by a fixed one
-
-<c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texli
-ve/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2026/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2026/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib
-10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:
-/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2
-026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2026/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmti12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1
-200.pfb>
-Output written on report.pdf (25 pages, 3423247 bytes).
+ 75i,19n,79p,808b,1307s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/tex
+live/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/202
+6/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2026/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2026/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+ib10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive
+/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2026/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmti12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfr
+m1200.pfb>
+Output written on report.pdf (28 pages, 5292034 bytes).
 PDF statistics:
- 754 PDF objects out of 1000 (max. 8388607)
- 546 compressed objects within 6 object streams
- 87 named destinations out of 1000 (max. 500000)
- 320 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 785 PDF objects out of 1000 (max. 8388607)
+ 569 compressed objects within 6 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 369 words of extra memory for PDF output out of 10000 (max. 10000000)
 

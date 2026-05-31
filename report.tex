@@ -46,7 +46,7 @@
 		\centering
 		\color{white}
 				
-		{\LARGE \textbf{Spacecraft Dynamics Capstone Project} \par}
+		{\LARGE \textsc{Spacecraft Dynamics Capstone Project} \par}
 		\vspace{1cm}
 	
 		{\Huge \textbf{Attitude Dynamics and Control of a Nano-Satellite Orbiting Mars} \par}
@@ -57,11 +57,11 @@
 		
 		\begin{flushleft}
 			\large
-			\textbf{Student:} Haniyeh Zahra Budaqi \\
-			\textbf{Instructor:} Prof. Dr. Hanspeter Schaub
+			\textsc{Student:} Haniyeh Zahra Budaqi \\
+			\textsc{Instructor:} Prof. Dr. Hanspeter Schaub
 			
 			\vspace{2cm}
-			{\large May 2026 \par}
+			{\large \textsc{May} 2026 \par}
 		\end{flushleft}
 			
 		\vspace{1cm}
@@ -80,15 +80,12 @@
 	\chapter*{Abstract}
 	\addcontentsline{toc}{chapter}{Abstract}
 	
-	In this project, the knowledge acquired from the Spacecraft Dynamics and Control specialization is applied to perform attitude control of a nano-satellite orbiting Mars while operating as a daughter-craft to a mother spacecraft in a geostationary Mars orbit (GMO). Through the completion and analysis of eleven project tasks, an attitude control architecture is developed and validated. The resulting simulation enables three operational modes based on the spacecraft mission requirements and relative orbital geometry:
+	This project presents the development and validation of a complete attitude dynamics and control framework for a nano-satellite operating in low Mars orbit. The mission requires the spacecraft to autonomously transition between three operational pointing modes: Sun-pointing for power generation, nadir-pointing for science observations, and GMO-pointing for communication with a geostationary Mars orbiter.
 	
-	\begin{enumerate}[label=\arabic*)]
-		\item Science mode: pointing the spacecraft sensor toward the Martian surface,
-		\item Power mode: orienting the solar panels toward the Sun,
-		\item Communication mode: pointing the communication antenna toward the mother spacecraft.
-	\end{enumerate}
+	Reference frames for each mission mode were derived analytically and implemented in MATLAB together with attitude error evaluation and rigid-body rotational dynamics propagation. A proportional-derivative control law was developed to track time-varying reference attitudes and maintain spacecraft stability during mission-mode transitions. The full mission scenario was simulated over a 6500-second orbital timeline with autonomous switching based on illumination and communication visibility conditions.
 	
-	The spacecraft dynamics, reference-frame generation, attitude error evaluation, and closed-loop control simulations are implemented in MATLAB, while mission visualization is performed using AGI Systems Tool Kit (STK).
+	To complement the numerical simulations, the mission was reconstructed in Systems Tool Kit (STK), providing three-dimensional visual verification of spacecraft orientation throughout the mission. The results demonstrate successful closed-loop stabilization and reliable autonomous transitions between operational modes. Sun-pointing and GMO-pointing objectives were achieved consistently, while the nadir-pointing interval revealed incomplete convergence to the desired Mars-facing orientation. This discrepancy, confirmed by both MATLAB and STK, highlights an area for future controller refinement. Overall, the project validates the integrated attitude-control architecture while demonstrating the value of combining numerical simulation with visual mission reconstruction.
+	
 	
 	\chapter{Introduction}
 	
@@ -279,7 +276,20 @@
 	 
 	\section{Implementation Methods}
 	
-	[NEED REVISION BEFORE EVEN BEING WRITTEN]
+	The project was implemented in MATLAB using modular functions for orbital propagation, reference-frame generation, attitude-error evaluation, and closed-loop numerical integration.
+	
+	The simulation architecture was organized into four primary components:
+	
+	\begin{itemize}
+		\item Orbit propagation functions to compute LMO and GMO inertial states as functions of time,
+		\item Reference-frame functions to generate Sun-, nadir-, and GMO-pointing DCMs and angular velocities,
+		\item Attitude utilities for MRP/DCM conversion and tracking-error evaluation,
+		\item Mission simulation routines to propagate spacecraft dynamics while automatically switching between operational modes.
+	\end{itemize}
+	
+	A fourth-order Runge–Kutta (RK4) integrator was used for numerical propagation of the attitude state. The modular structure simplified validation of individual tasks before integration into the complete mission scenario.
+	
+	The final MATLAB results were then reconstructed in STK to visually verify spacecraft orientation and reference-frame tracking throughout the mission timeline.
 	
 	\chapter{Task Descriptions and Solutions}
 	
@@ -678,41 +688,87 @@
 	
 	\section{Simulation Results and Discussion}
 	
-	The complete mission simulation demonstrates the ability of the spacecraft attitude-control architecture to autonomously transition between multiple operational pointing modes while maintaining stable closed-loop rotational behavior.
+	The complete mission simulation demonstrates that the spacecraft attitude-control architecture can autonomously transition between multiple operational pointing modes while maintaining stable closed-loop rotational behavior throughout the mission timeline.
 	
-	Unlike the previous tasks, where each reference frame remained fixed to a single operational objective, the reference frame in Task 11 varies dynamically according to orbital geometry and mission conditions. Consequently, the controller must continuously track time-varying reference attitudes generated by the mission-management logic.
+	Unlike the previous tasks, where each reference frame remained fixed to a single operational objective, the mission scenario in Task 11 requires the commanded reference frame to vary continuously according to orbital geometry and mission conditions. As a result, the controller must track time-varying attitude commands while responding to discrete transitions between Sun-pointing, communication, and nadir-pointing modes.
 	
-	The simulation results indicate that the spacecraft successfully transitions between Sun-pointing, communication, and nadir-pointing operational modes without loss of stability. During mode-switching events, temporary increases in attitude and angular velocity tracking errors are observed due to the sudden change in commanded reference orientation. However, the proportional-derivative feedback controller rapidly damps these transients and drives the spacecraft toward the new reference frame.
+	The numerical results show that the spacecraft remains dynamically stable throughout the simulation and successfully executes each scheduled mission transition. During mode-switching events, temporary increases in attitude and angular velocity tracking errors occur because of the sudden change in commanded reference orientation. These transient responses are short-lived and are effectively damped by the proportional-derivative control law.
 	
-	The angular velocity histories demonstrate that the spacecraft remains fully detumbled throughout the mission despite repeated reference-frame transitions. Short-duration angular-rate excursions occur immediately after mode changes as the spacecraft reorients itself toward the newly commanded operational attitude. The derivative feedback term provides sufficient damping to prevent sustained oscillatory behavior.
+	The angular velocity histories further demonstrate that the spacecraft remains detumbled throughout the mission despite repeated reference-frame transitions. Brief angular-rate excursions are observed immediately after switching events as the spacecraft reorients toward the newly commanded reference attitude, but no sustained oscillatory behavior or instability develops.
 	
-	The operational-mode transitions are currently implemented as instantaneous reference-frame changes. In practical spacecraft systems, slew maneuvers are typically constrained by actuator saturation limits, momentum management requirements, and attitude-rate limitations. Future implementations may therefore incorporate constrained slew trajectory generation to smooth operational transitions.
-		
-	Overall, the integrated simulation confirms the effectiveness of the spacecraft attitude dynamics and control architecture in performing stable autonomous mission operations under varying orbital conditions.
+	The simulation also reveals differences in pointing performance between mission modes. Sun-pointing and GMO-pointing exhibit stable convergence and consistent tracking of their commanded orientations. In contrast, the nadir-pointing intervals show slower convergence and incomplete alignment with the commanded Mars-facing reference before the next operational transition occurs. While the controller continues to damp rotational motion and preserve overall stability, the spacecraft does not fully settle into the desired nadir orientation within the available time window.
+	
+	These results indicate that the implemented control law is effective for autonomous mission execution and spacecraft stabilization, while also highlighting a performance limitation in nadir-pointing operation. This behavior is examined further in the STK visualization chapter, where the three-dimensional mission reconstruction provides additional confirmation of the observed tracking performance.
+	
 	
 	\chapter{STK Visualization}
+	To complement the numerical MATLAB simulations, the mission scenario was reconstructed in Systems Tool Kit (STK) to provide visual verification of the spacecraft attitude behavior throughout mission timeline--6500 seconds. The STK visualization enabled direct observation of spacecraft orientation relative to the desired reference frames during each mission segment. This provided an additional validation layer beyond the numerical plots and proved especially useful in identifying attitude tracking performance during transitions between operational modes.
+
 	
-	To validate the MATLAB simulations visually, spacecraft orbit propagation and attitude motion were reconstructed using AGI Systems Tool Kit (STK).
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/orbits.jpg}
+		\caption{Illustration of the central body inertial frame with sun vector (yellow) alongside the spacecrafts' orbits with the blue orbit indicating LMO and the yellow orbit, GMO. The figure depicts the inertial orbital positions of the spacecrafts.}
+		\label{fig:stk_orbits}
+	\end{figure}
 	
-	The generated visualization confirmed:
+	An assumption adopted in the project considered the Sun to be at an effectively infinite distance, with inertial basis vector $\boldsymbol{\hat{n}}_2$ (in this case, \textbf{Mars Inertial Y}) aligned toward it. In real world simulation, however, the date and time 1 July 2020 was the closest to this assumption.
 	
-	\begin{enumerate}
-		\item Correct orbital motion of both spacecraft,
-		\item Proper nadir and Sun-pointing orientations,
-		\item Communication alignment during GMO visibility windows,
-		\item Stable attitude transitions throughout mission operation.
-	\end{enumerate}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/satellite_vectors.jpg}
+		\caption{LMO spacecraft inertial position and mission reference vectors in STK}
+		\label{fig:stk_satellite}
+	\end{figure}
+	
+	\section{Sun Pointing Interval}
+	During Sun-pointing intervals, the spacecraft body-fixed reference axis remained aligned with the $\boldsymbol{\hat{n}}_2$ direction as expected. The STK visualization confirms the behavior observed in the MATLAB attitude history, where the MRP states converge rapidly after the transition and remain bounded throughout the interval. This demonstrates stable tracking performance under the implemented PD control law.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/sunMode.jpg}
+		\caption{STK Sun Pointing Mode}
+		\label{fig:stk_sunMode}
+	\end{figure}
+	
+	\section{GMO Pointing Interval}
+	During GMO-pointing operation, the spacecraft successfully reorients toward the communication target and maintains a visually consistent line-of-sight throughout the segment. The numerical MRP response shows transient behavior immediately after switching reference frames followed by convergence to bounded values, which agrees with the visual observation in STK.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/gmoMode.jpg}
+		\caption{STK GMO Pointing Mode}
+		\label{fig:stk_gmoMode}
+	\end{figure}
+	
+	\section{Nadir Pointing Interval}
+	During the nadir-pointing intervals, the spacecraft did not achieve the desired Mars-facing orientation within the available segment duration. This behavior is visible both in the MRP history and in the STK visualization, where the spacecraft attitude remains offset from the expected nadir alignment before the next mission transition occurs. While the controller continues to damp rotational motion and maintains overall stability, the attitude does not fully converge to the commanded reference during this interval.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/nadirMode.jpg}
+		\caption{STK Nadir Pointing Mode}
+		\label{fig:stk_nadirMode}
+	\end{figure}
+	
+	This discrepancy suggests that the implemented control law provides sufficient detumbling performance but may require additional tuning or refinement of the reference tracking formulation for nadir-pointing operation. The STK visualization was especially valuable in identifying this behavior and validating the interpretation of the numerical results.
+	
+	\section{Mission-level Validation Summary}
+	Overall, the STK reconstruction confirms that the spacecraft remains dynamically stable throughout the mission and successfully transitions between operational modes. Sun-pointing and GMO-pointing behaviors are consistent with the MATLAB simulation results and satisfy the intended mission objectives. Nadir-pointing, however, exhibits incomplete convergence, indicating a limitation in the current controller implementation. The combined MATLAB and STK analysis provides confidence in the numerical model while highlighting areas for future controller refinement.
 	
 	\chapter*{Conclusion}
 	\addcontentsline{toc}{chapter}{Conclusion}
 	
-	This project presented the complete development and implementation of an attitude dynamics and control framework for a nano-satellite orbiting Mars. Multiple mission pointing modes were developed, including Sun-pointing, nadir-pointing, and GMO communication-pointing configurations.
+	This project presented the complete development and implementation of an attitude dynamics and control framework for a nano-satellite operating in low Mars orbit. Mission-specific reference frames were derived for Sun-pointing, nadir-pointing, and GMO communication-pointing configurations and integrated into a unified autonomous mission-management architecture.
 	
-	The spacecraft dynamics, reference-frame generation, attitude tracking evaluation, and closed-loop control architecture were successfully implemented in MATLAB and validated through numerical simulation.
+	The spacecraft rotational dynamics, attitude tracking evaluation, and closed-loop proportional-derivative control system were implemented in MATLAB and tested through numerical simulation. The final mission scenario demonstrated that the spacecraft can autonomously transition between operational modes according to orbital conditions while maintaining stable rotational behavior and remaining detumbled throughout the mission.
 	
-	The final integrated mission simulation demonstrated stable spacecraft attitude behavior while autonomously switching between operational mission modes according to orbital conditions.
+	To further validate the numerical model, the mission was reconstructed in STK and evaluated through three-dimensional visualization. The STK results closely matched the MATLAB simulations and provided direct visual confirmation of spacecraft orientation during each operational segment. Sun-pointing and GMO-pointing modes successfully achieved their intended objectives and showed strong agreement between numerical and visual results.
 	
-	Future improvements may include higher-fidelity environmental disturbance modeling, actuator limitations, sensor-noise modeling, and advanced nonlinear control strategies.
+	A key finding of the project was the performance of the nadir-pointing mode. Although the spacecraft remained dynamically stable and continued damping rotational motion, the commanded Mars-facing orientation was not fully achieved within the available segment duration. This behavior was consistently observed in both MATLAB and STK and suggests that additional controller tuning or refinement of the nadir reference-tracking formulation would improve mission performance.
+	
+	Overall, the project demonstrates the successful integration of spacecraft attitude dynamics, autonomous control, and mission-level visualization for a multi-mode Mars-orbiting nano-satellite. Future work may include higher-fidelity disturbance modeling, actuator and sensor limitations, smoother slew-transition planning between modes, and more advanced nonlinear control strategies.
+	
 	
 	
 	\printbibliography

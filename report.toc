@@ -24,4 +24,8 @@
 \contentsline {subsection}{\numberline {3.4.4}Task 11: Mission Scenario Simulation}{18}{subsection.3.4.4}%
 \contentsline {section}{\numberline {3.5}Simulation Results and Discussion}{20}{section.3.5}%
 \contentsline {chapter}{\numberline {4}STK Visualization}{22}{chapter.4}%
-\contentsline {chapter}{Conclusion}{23}{chapter*.15}%
+\contentsline {section}{\numberline {4.1}Sun Pointing Interval}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}GMO Pointing Interval}{23}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Nadir Pointing Interval}{24}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Mission-level Validation Summary}{25}{section.4.4}%
+\contentsline {chapter}{Conclusion}{26}{chapter*.20}%
