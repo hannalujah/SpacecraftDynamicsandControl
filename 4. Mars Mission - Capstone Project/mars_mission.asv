@@ -412,9 +412,13 @@ end
 
 %% Exporting attitude for STK
 
+for i = 1:length(t11)
+    {
+     }
+
 beta11 = sigma2beta(sigma11);
 Q = beta11;
-filename = 'LMO_attitude_new.a';
+filename = 'LMO_attitude.a';
 
 N = length(t11);
 
