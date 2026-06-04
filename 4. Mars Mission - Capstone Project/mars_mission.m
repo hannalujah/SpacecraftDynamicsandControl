@@ -333,7 +333,7 @@ idx4400 = round(4400/dt);
 idx5600 = round(5600/dt);
 
 fprintf("\nTask 11 - Mission Scenario Simulation \n");
-[t11, sigma11, w11, u11, modeChanges] = final_simulation(0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
+[t11, sigma11, sigmaBR11, w11, wBR11, u11, modeChanges] = final_simulation(0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 300s: [%.6f %.6f %.6f]\n", sigma11(1,idx300), sigma11(2,idx300), sigma11(3,idx300));
 fprintf("Sigma_BN at t = 2100s: [%.6f %.6f %.6f]\n", sigma11(1,idx2100), sigma11(2,idx2100), sigma11(3,idx2100));
 fprintf("Sigma_BN at t = 3400s: [%.6f %.6f %.6f]\n", sigma11(1,idx3400), sigma11(2,idx3400), sigma11(3,idx3400));
@@ -353,6 +353,34 @@ for i = 1:modeChangeTimes
 end
 
 figure
+plot(t11,sigmaBR11);
+title('Mission Scenario Simulation: MRP_B/R');
+xlabel('time (s)');
+ylabel('\sigma_B/R');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+for i = 1:modeChangeTimes
+    xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
+end
+
+
+% should take sigma_BR out of the final simulation and then plot the
+% magnitude
+normSigma11 = zeros(1,length(t11));
+for i = 1:length(t11)
+    sigma_i = sigmaBR11(:,i);
+    normSigma11(i) = norm(sigma_i);
+end
+
+figure
+plot(t11,normSigma11);
+title('Mission Scenario Simulation: MRP_BR Magnitude');
+xlabel('time (s)');
+ylabel('||\sigma_B/R||');
+for i = 1:modeChangeTimes
+    xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
+end
+
+figure
 plot(t11,w11);
 title('Mission Scenario Simulation: Angular Velocity');
 xlabel('time (s)');
@@ -362,6 +390,25 @@ for i = 1:modeChangeTimes
     xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
 end
 
+figure
+plot(t11,wBR11);
+title('Mission Scenario Simulation: Angular Velocity B/R');
+xlabel('time (s)');
+ylabel('\omega_B/R (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
+for i = 1:modeChangeTimes
+    xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
+end
+
+figure
+plot(t11,u11);
+title('Mission Scenario Simulation: Applied Control Torque');
+xlabel('time (s)');
+ylabel('u_t');
+legend('u_1', 'u_2', 'u_3')
+for i = 1:modeChangeTimes
+    xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
+end
 
 %% Exporting attitude for STK
 beta11 = sigma2beta(sigma11);

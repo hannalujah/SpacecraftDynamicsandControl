@@ -1,11 +1,13 @@
-function [tHist, sigmaHist, wHist, uHist, modeChanges] = final_simulation(t0, tf, dt, ...
+function [tHist, sigmaHist, sigmaBR, wHist, wBR, uHist, modeChanges] = final_simulation(t0, tf, dt, ...
     sigma0, w0, K, P, I_dc)
 
     tHist = t0:dt:tf;
     N = length(tHist);
 
     sigmaHist = zeros(3,N);
+    sigmaBR = zeros(3,N);
     wHist = zeros(3,N);
+    wBR = zeros(3,N);
     uHist = zeros(3,N);
 
     modeChanges = [];
@@ -29,6 +31,9 @@ function [tHist, sigmaHist, wHist, uHist, modeChanges] = final_simulation(t0, tf
         w_BN = x(4:6);
 
         [sigma_BR, w_BR] = attitudeErrorEval(sigma_BN, w_BN, RN, w_RN_N);
+        
+        sigmaBR(:, k) = sigma_BR;
+        wBR(:,k) = w_BR;
 
         u = -K * sigma_BR - P * w_BR;
 
