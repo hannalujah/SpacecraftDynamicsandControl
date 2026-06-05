@@ -1,6 +1,6 @@
 # Spacecraft Dynamics and Control
 
-This repository contains a collection of MATLAB scripts for simulating spacecraft dynamics, attitude kinematics, and control systems. The project is structured as a series of modules covering fundamental concepts, culminating in a comprehensive capstone project simulating a multi-mode Mars mission.
+This repository contains a collection of MATLAB scripts for simulating spacecraft dynamics, attitude kinematics, and control systems. The project is structured as a series of modules covering fundamental concepts based on the [Coursera Specialization from the University of Colorado Boulder](https://www.coursera.org/specializations/spacecraft-dynamics-control), culminating in a comprehensive capstone project simulating a multi-mode Mars mission.
 
 ## Repository Structure
 
@@ -61,3 +61,8 @@ To run the full capstone project simulation and generate all associated plots an
 >> mars_mission
 ```
 The script will output results to the command window and generate figures illustrating the spacecraft's attitude (`sigma_B/N`), attitude error (`sigma_B/R`), angular velocity (`omega_B/N`), and control torque (`u`) over time. It also generates an attitude file (`LMO_attitude_new.a`) for visualization in STK.
+
+![Full Mission Attitude MRP State](assets/mission_sigma_BR.png)
+![Full Mission Angualr Velocity](assets/mission_omega_BR.png)
+
+![STK Mission Simulation](assets/full_mission.mp4)
