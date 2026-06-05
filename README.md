@@ -64,7 +64,9 @@ To run the full capstone project simulation and generate all associated plots an
 ```
 The script will output results to the command window and generate figures illustrating the spacecraft's attitude (`sigma_B/N`), attitude error (`sigma_B/R`), angular velocity (`omega_B/N`), and control torque (`u`) over time. It also generates an attitude file (`LMO_attitude_new.a`) for visualization in STK.
 
-![Full Mission Attitude MRP State](assets/mission_sigma_BR.png)
-![Full Mission Angualr Velocity](assets/mission_omega_BR.png)
+<p align="center">
+  <img src="assets/mission_sigma_BR.png" width="45%" />
+  <img src="assets/mission_omega_BR.png" width="45%" />
+</p>
 
 ![STK Mission Simulation](assets/full_mission.mp4)
