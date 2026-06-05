@@ -9,7 +9,7 @@ for i = 1:col
     b0 = (1 - ss^2)/(1 + ss^2);
     bv = (2/(1+ss^2))*sigma;
 
-    betaHist(:,i) = [b0;bv];
+    betaHist(:,i) = [bv;b0];
 end
 
 end

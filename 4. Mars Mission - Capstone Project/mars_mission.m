@@ -260,7 +260,7 @@ idx400 = round(400/dt);
 
 % Task 8 - Sun Pointing Control
 fprintf("\nTask 8 - Sun Pointing Control \n");
-[t8, sigma8, w8, u8] = simulate_mode("sun",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
+[t8, sigma8, sigmaBR8, w8, wBR8, u8] = simulate_mode("sun",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma8(1,idx15), sigma8(2,idx15), sigma8(3,idx15));
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma8(1,idx100), sigma8(2,idx100), sigma8(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma8(1,idx200), sigma8(2,idx200), sigma8(3,idx200));
@@ -270,19 +270,33 @@ figure
 plot(t8,sigma8);
 title('Sun Pointing Control: MRP');
 xlabel('time (s)');
-ylabel('\sigma_t');
+ylabel('\sigma_{B/N}');
 legend('\sigma_1', '\sigma_2', '\sigma_3')
 
 figure
 plot(t8,w8);
 title('Sun Pointing Control: Angular Velocity');
 xlabel('time (s)');
-ylabel('\omega_t (rad/s)');
+ylabel('\omega_{B/N} (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
+
+figure
+plot(t8,sigmaBR8);
+title('Sun Pointing Control: MRP_{B/R}');
+xlabel('time (s)');
+ylabel('\sigma_{B/R}');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
+figure
+plot(t8,wBR8);
+title('Sun Pointing Control: Angular Velocity_{B/R}');
+xlabel('time (s)');
+ylabel('\omega_{B/R} (rad/s)');
 legend('\omega_1', '\omega_2', '\omega_3')
 
 % Task 9 - Nadir Pointing Control
 fprintf("\nTask 9 - Nadir Pointing Control \n");
-[t9, sigma9, w9, u9] = simulate_mode("nadir",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
+[t9, sigma9, sigmaBR9, w9, wBR9, u9] = simulate_mode("nadir",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma9(1,idx15), sigma9(2,idx15), sigma9(3,idx15));
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma9(1,idx100), sigma9(2,idx100), sigma9(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma9(1,idx200), sigma9(2,idx200), sigma9(3,idx200));
@@ -291,20 +305,33 @@ figure
 plot(t9,sigma9);
 title('Nadir Pointing Control: MRP');
 xlabel('time (s)');
-ylabel('\sigma_t');
+ylabel('\sigma_{B/N}');
 legend('\sigma_1', '\sigma_2', '\sigma_3')
 
 figure
 plot(t9,w9);
 title('Nadir Pointing Control: Angular Velocity');
 xlabel('time (s)');
-ylabel('\omega_t (rad/s)');
+ylabel('\omega_{B/N} (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
+figure
+plot(t9,sigmaBR9);
+title('Nadir Pointing Control: MRP_{B/R}');
+xlabel('time (s)');
+ylabel('\sigma_{B/R}');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
+figure
+plot(t9,wBR9);
+title('Nadir Pointing Control: Angular Velocity_{B/R}');
+xlabel('time (s)');
+ylabel('\omega_{B/R} (rad/s)');
 legend('\omega_1', '\omega_2', '\omega_3')
 
 
 % Task 10 - GMO Pointing Control
 fprintf("\nTask 10 - GMO Pointing Control \n");
-[t10, sigma10, w10, u10] = simulate_mode("gmo",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
+[t10, sigma10, sigmaBR10, w10, wBR10, u10] = simulate_mode("gmo",0, tf, dt, sigma_BN_0, w_BN_0, K, P, I_dc);
 fprintf("Sigma_BN at t = 15s: [%.6f %.6f %.6f]\n", sigma10(1,idx15), sigma10(2,idx15), sigma10(3,idx15));
 fprintf("Sigma_BN at t = 100s: [%.6f %.6f %.6f]\n", sigma10(1,idx100), sigma10(2,idx100), sigma10(3,idx100));
 fprintf("Sigma_BN at t = 200s: [%.6f %.6f %.6f]\n", sigma10(1,idx200), sigma10(2,idx200), sigma10(3,idx200));
@@ -314,14 +341,28 @@ figure
 plot(t10,sigma10);
 title('GMO Pointing Control: MRP');
 xlabel('time (s)');
-ylabel('\sigma_t');
+ylabel('\sigma_{B/N}');
 legend('\sigma_1', '\sigma_2', '\sigma_3')
 
 figure
 plot(t10,w10);
 title('GMO Pointing Control: Angular Velocity');
 xlabel('time (s)');
-ylabel('\omega_t (rad/s)');
+ylabel('\omega_{B/N} (rad/s)');
+legend('\omega_1', '\omega_2', '\omega_3')
+
+figure
+plot(t10,sigmaBR10);
+title('GMO Pointing Control: MRP_{B/R}');
+xlabel('time (s)');
+ylabel('\sigma_{B/R}');
+legend('\sigma_1', '\sigma_2', '\sigma_3')
+
+figure
+plot(t10,wBR10);
+title('GMO Pointing Control: Angular Velocity_{B/R}');
+xlabel('time (s)');
+ylabel('\omega_{B/R} (rad/s)');
 legend('\omega_1', '\omega_2', '\omega_3')
 
 % Task 11 - Mission Scenario Simulation
@@ -346,7 +387,7 @@ figure
 plot(t11,sigma11);
 title('Mission Scenario Simulation: MRP');
 xlabel('time (s)');
-ylabel('\sigma_t');
+ylabel('\sigma_{B/N}');
 legend('\sigma_1', '\sigma_2', '\sigma_3')
 for i = 1:modeChangeTimes
     xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
@@ -354,9 +395,9 @@ end
 
 figure
 plot(t11,sigmaBR11);
-title('Mission Scenario Simulation: MRP_B/R');
+title('Mission Scenario Simulation: MRP_{B/R}');
 xlabel('time (s)');
-ylabel('\sigma_B/R');
+ylabel('\sigma_{B/R}');
 legend('\sigma_1', '\sigma_2', '\sigma_3')
 for i = 1:modeChangeTimes
     xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
@@ -373,9 +414,9 @@ end
 
 figure
 plot(t11,normSigma11);
-title('Mission Scenario Simulation: MRP_BR Magnitude');
+title('Mission Scenario Simulation: MRP_{BR} Magnitude');
 xlabel('time (s)');
-ylabel('||\sigma_B/R||');
+ylabel('||\sigma_{B/R}||');
 for i = 1:modeChangeTimes
     xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
 end
@@ -384,7 +425,7 @@ figure
 plot(t11,w11);
 title('Mission Scenario Simulation: Angular Velocity');
 xlabel('time (s)');
-ylabel('\omega_t (rad/s)');
+ylabel('\omega_{B/N} (rad/s)');
 legend('\omega_1', '\omega_2', '\omega_3')
 for i = 1:modeChangeTimes
     xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
@@ -392,9 +433,9 @@ end
 
 figure
 plot(t11,wBR11);
-title('Mission Scenario Simulation: Angular Velocity B/R');
+title('Mission Scenario Simulation: Angular Velocity_{B/R}');
 xlabel('time (s)');
-ylabel('\omega_B/R (rad/s)');
+ylabel('\omega_{B/R} (rad/s)');
 legend('\omega_1', '\omega_2', '\omega_3')
 for i = 1:modeChangeTimes
     xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
@@ -404,7 +445,7 @@ figure
 plot(t11,u11);
 title('Mission Scenario Simulation: Applied Control Torque');
 xlabel('time (s)');
-ylabel('u_t');
+ylabel('u_t (N.m)');
 legend('u_1', 'u_2', 'u_3')
 for i = 1:modeChangeTimes
     xline(str2num(modeChanges(i,1)),'--k',modeChanges(i,2), 'HandleVisibility','off');
