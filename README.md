@@ -2,6 +2,8 @@
 
 This repository contains a collection of MATLAB scripts for simulating spacecraft dynamics, attitude kinematics, and control systems. The project is structured as a series of modules covering fundamental concepts based on the [Coursera Specialization from the University of Colorado Boulder](https://www.coursera.org/specializations/spacecraft-dynamics-control), culminating in a comprehensive capstone project simulating a multi-mode Mars mission.
 
+![LMO Satellite with Body Frame and Reference Vectors](assets/lmo_vectors.jpg)
+
 ## Repository Structure
 
 The code is organized into four main topics, followed by the capstone project:
