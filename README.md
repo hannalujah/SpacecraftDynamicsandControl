@@ -62,11 +62,10 @@ To run the full capstone project simulation and generate all associated plots an
 % In MATLAB command window
 >> mars_mission
 ```
-The script will output results to the command window and generate figures illustrating the spacecraft's attitude (`sigma_B/N`), attitude error (`sigma_B/R`), angular velocity (`omega_B/N`), and control torque (`u`) over time. It also generates an attitude file (`LMO_attitude_new.a`) for visualization in STK.
+The script will output results to the command window and generate figures illustrating the spacecraft's attitude (`sigma_B/N`), attitude error (`sigma_B/R`), angular velocity (`omega_B/N`), and control torque (`u`) over time. It also generates an attitude file (`LMO_attitude.a`) for visualization in STK.
 
-<p align="center">
-  <img src="assets/mission_sigma_BR.png" width="45%" />
-  <img src="assets/mission_omega_BR.png" width="45%" />
-</p>
+###  Full Mission MRP History
+![LMO Satellite with Body Frame and Reference Vectors](assets/mission_sigma_BR.png)
 
-![STK Mission Simulation](assets/full_mission.mp4)
+###  Full Mission Angular Velocity History
+![LMO Satellite with Body Frame and Reference Vectors](assets/mission_omega_BR.png)
